@@ -7,4 +7,8 @@
         <RootNamespace>ch4rniauski.BankApp.Authentication.Application</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Authentication.Domain\Authentication.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
