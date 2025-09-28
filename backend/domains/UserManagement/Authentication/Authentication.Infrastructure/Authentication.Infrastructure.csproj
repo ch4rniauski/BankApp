@@ -9,10 +9,11 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Authentication.Domain\Authentication.Domain.csproj" />
+      <ProjectReference Include="..\Authentication.Application\Authentication.Application.csproj" />
     </ItemGroup>
 
 </Project>
