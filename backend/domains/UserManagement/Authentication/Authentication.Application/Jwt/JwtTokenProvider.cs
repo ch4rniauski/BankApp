@@ -20,7 +20,7 @@ internal sealed class JwtTokenProvider : ITokenProvider
     
     public string GenerateAccessToken(ClientEntity client)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecretKey));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecurityKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         
         var tokenDescriptor = new SecurityTokenDescriptor
