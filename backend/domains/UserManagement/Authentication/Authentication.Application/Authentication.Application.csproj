@@ -12,7 +12,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="MediatR" Version="13.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="UseCases\Queries\" />
+      <Folder Include="UseCases\QueryHandlers\" />
     </ItemGroup>
 
 </Project>
