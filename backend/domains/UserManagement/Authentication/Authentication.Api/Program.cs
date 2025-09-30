@@ -7,6 +7,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthenticationContextConfiguration(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
+builder.Services.AddValidationConfiguration();
 
 var app = builder.Build();
 
