@@ -35,5 +35,9 @@ public class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity>
         builder
             .Property(c => c.PasswordHash)
             .IsRequired(false);
+        
+        builder
+            .Property(c => c.RefreshToken)
+            .IsRequired(false);
     }
 }

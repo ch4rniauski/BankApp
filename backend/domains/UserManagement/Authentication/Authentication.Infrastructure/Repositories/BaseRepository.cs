@@ -17,7 +17,7 @@ public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TI
         _dbSet = _context.Set<TEntity>();
     }
     
-    public async Task<IList<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IList<TEntity>?> GetAllAsync(CancellationToken cancellationToken = default)
         => await _dbSet
             .AsNoTracking()
             .ToListAsync(cancellationToken);

@@ -5,3 +5,4 @@ public sealed record RegisterClientResponseDto(
     string LastName,
     string Email,
     string PhoneNumber);
+    

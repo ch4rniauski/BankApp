@@ -39,15 +39,15 @@ public sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCom
         var doesExist = await _clientRepository.GetByIdAsync(request.Id, cancellationToken)
                         ?? throw new Exception("Client not found");
         
-        doesExist = _mapper.Map<ClientEntity>(request);
+        var updatedClient = _mapper.Map<ClientEntity>(request);
         
-        var isUpdated = await _clientRepository.UpdateAsync(doesExist, cancellationToken);
+        var isUpdated = await _clientRepository.UpdateAsync(updatedClient, cancellationToken);
 
         if (!isUpdated)
         {
-            throw new Exception($"Client was not updated.");
+            throw new Exception("Client was not updated.");
         }
         
-        return _mapper.Map<UpdateClientResponseDto>(doesExist);
+        return _mapper.Map<UpdateClientResponseDto>(updatedClient);
     }
 }
