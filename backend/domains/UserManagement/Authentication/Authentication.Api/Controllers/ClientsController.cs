@@ -51,4 +51,16 @@ public sealed class ClientsController : ControllerBase
         
         return Ok(result);
     }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginClientResponseDto>> LoginClient(
+        [FromBody] LoginClientRequestDto request,
+        CancellationToken cancellationToken)
+    {
+        var command = new LoginClientCommand(request);
+        
+        var result = await _mediator.Send(command, cancellationToken);
+        
+        return Ok(result);
+    }
 }
