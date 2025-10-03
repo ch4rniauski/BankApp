@@ -18,22 +18,14 @@ public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TI
     }
     
     public async Task<IList<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
-    {
-        var list = await _dbSet
+        => await _dbSet
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return list;
-    }
-
     public async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
-    {
-        var entity = await _dbSet.FindAsync(
+        => await _dbSet.FindAsync(
             keyValues: [id],
             cancellationToken: cancellationToken);
-        
-        return entity;
-    }
 
     public async Task<bool> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
@@ -43,11 +35,9 @@ public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TI
     }
 
     public async Task<bool> DeleteWithCriteriaAsync(Expression<Func<TEntity, bool>> criteria, CancellationToken cancellationToken = default)
-    {
-        return await _dbSet
+        => await _dbSet
             .Where(criteria)
             .ExecuteDeleteAsync(cancellationToken) > 0;
-    }
 
     public async Task<bool> DeleteWithAttachmentAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
