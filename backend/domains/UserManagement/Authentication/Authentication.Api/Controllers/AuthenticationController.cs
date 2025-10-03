@@ -28,4 +28,14 @@ public sealed class AuthenticationController : ControllerBase
         
         return Ok(result);
     }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult<DeleteClientResponseDto>> DeleteClient(Guid id, CancellationToken cancellationToken)
+    {
+        var command = new DeleteClientCommand(id);
+        
+        var result = await _mediator.Send(command, cancellationToken);
+        
+        return Ok(result);
+    }
 }
