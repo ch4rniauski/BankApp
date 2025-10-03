@@ -8,6 +8,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthenticationContextConfiguration(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddValidationConfiguration();
+builder.Services.AddAutoMapperConfiguration();
 
 var app = builder.Build();
 
