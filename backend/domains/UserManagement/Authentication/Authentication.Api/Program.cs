@@ -4,6 +4,7 @@ using ch4rniauski.BankApp.Authentication.Infrastructure.Extensions.DependencyInj
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 builder.Services.AddAuthenticationContextConfiguration(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
@@ -20,5 +21,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
