@@ -13,6 +13,7 @@ public sealed class UpdateClientProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
             .ForMember(dest => dest.IsEmailVerified, opt => opt.Ignore())
+            .ForMember(dest => dest.RefreshToken, opt => opt.Ignore())
             .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
             .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.FirstName))
             .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
