@@ -8,11 +8,11 @@ namespace ch4rniauski.BankApp.Authentication.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public sealed class AuthenticationController : ControllerBase
+public sealed class ClientsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public AuthenticationController(IMediator mediator)
+    public ClientsController(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -33,6 +33,19 @@ public sealed class AuthenticationController : ControllerBase
     public async Task<ActionResult<DeleteClientResponseDto>> DeleteClient(Guid id, CancellationToken cancellationToken)
     {
         var command = new DeleteClientCommand(id);
+        
+        var result = await _mediator.Send(command, cancellationToken);
+        
+        return Ok(result);
+    }
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<UpdateClientResponseDto>> UpdateClient(
+        Guid id,
+        [FromBody]UpdateClientRequestDto request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateClientCommand(id, request);
         
         var result = await _mediator.Send(command, cancellationToken);
         
