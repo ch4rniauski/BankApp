@@ -11,4 +11,5 @@ public interface IBaseRepository<TEntity, in TId>
     Task<bool> AddAsync(TEntity entity, CancellationToken cancellationToken = default);
     Task<bool> DeleteWithCriteriaAsync(Expression<Func<TEntity, bool>> criteria, CancellationToken cancellationToken = default);
     Task<bool> DeleteWithAttachmentAsync(TEntity entity, CancellationToken cancellationToken = default);
+    Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 }

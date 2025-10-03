@@ -1,5 +1,6 @@
 using AutoMapper;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
+using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.Commands.Client;
 using ch4rniauski.BankApp.Authentication.Domain.Entities;
@@ -12,12 +13,12 @@ namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandler
 public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClientCommand, RegisterClientResponseDto>
 {
     private readonly IClientRepository _clientRepository;
-    private readonly IValidator<RegisterClientCommand> _validator;
+    private readonly IValidator<RegisterClientRequestDto> _validator;
     private readonly IMapper _mapper;
 
     public RegisterClientCommandHandler(
         IClientRepository clientRepository,
-        IValidator<RegisterClientCommand> validator,
+        IValidator<RegisterClientRequestDto> validator,
         IMapper mapper)
     {
         _clientRepository = clientRepository;
@@ -27,7 +28,7 @@ public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClien
 
     public async Task<RegisterClientResponseDto> Handle(RegisterClientCommand request, CancellationToken cancellationToken)
     {
-        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+        var validationResult = await _validator.ValidateAsync(request.Request, cancellationToken);
 
         if (!validationResult.IsValid)
         {

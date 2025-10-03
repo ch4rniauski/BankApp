@@ -45,4 +45,11 @@ public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TI
         
         return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
+
+    public async Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        _dbSet.Update(entity);
+        
+        return await _context.SaveChangesAsync(cancellationToken) > 0;
+    }
 }
