@@ -20,7 +20,9 @@ public sealed class DeleteClientUnitTests
 
     public DeleteClientUnitTests()
     {
-        _commandHandler = new DeleteClientCommandHandler(_clientRepositoryMock.Object, _mapperMock.Object);
+        _commandHandler = new DeleteClientCommandHandler(
+            _clientRepositoryMock.Object,
+            _mapperMock.Object);
     }
 
     [Fact]
@@ -51,9 +53,10 @@ public sealed class DeleteClientUnitTests
 
         // Assert
         Assert.IsType<Result<DeleteClientResponseDto>>(response);
+        Assert.NotNull(response.Value);
+        Assert.IsType<DeleteClientResponseDto>(response.Value);
         Assert.Equal(isSuccess, response.IsSuccess);
         Assert.Equal(responseDto, response.Value);
-        Assert.NotNull(response.Value);
         Assert.Null(response.Error);
     }
     

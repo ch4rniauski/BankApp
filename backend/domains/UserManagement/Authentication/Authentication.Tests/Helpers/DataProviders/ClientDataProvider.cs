@@ -24,4 +24,25 @@ public static class ClientDataProvider
                 faker.Internet.Email(),
                 faker.Internet.Password()));
     }
+        
+    public static RegisterClientRequestDto GenerateRegisterClientRequestDto()
+    {
+        return new Faker<RegisterClientRequestDto>()
+            .CustomInstantiator(faker => new RegisterClientRequestDto(
+                faker.Person.FirstName,
+                faker.Person.LastName,
+                faker.Internet.Email(),
+                faker.Person.Phone,
+                faker.Internet.Password()));
+    }
+        
+    public static RegisterClientResponseDto GenerateRegisterClientResponseDto()
+    {
+        return new Faker<RegisterClientResponseDto>()
+            .CustomInstantiator(faker => new RegisterClientResponseDto(
+                faker.Person.FirstName,
+                faker.Person.LastName,
+                faker.Internet.Email(),
+                faker.Person.Phone));
+    }
 }
