@@ -42,8 +42,12 @@ public sealed class ClientsController : ControllerBase
         var command = new DeleteClientCommand(id);
         
         var result = await _mediator.Send(command, cancellationToken);
-        
-        return Ok(result);
+
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
     }
 
     [HttpPut("{id:guid}")]
@@ -57,7 +61,11 @@ public sealed class ClientsController : ControllerBase
         
         var result = await _mediator.Send(command, cancellationToken);
         
-        return Ok(result);
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
     }
 
     [HttpPost("login")]
@@ -69,6 +77,10 @@ public sealed class ClientsController : ControllerBase
         
         var result = await _mediator.Send(command, cancellationToken);
         
-        return Ok(result);
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
     }
 }
