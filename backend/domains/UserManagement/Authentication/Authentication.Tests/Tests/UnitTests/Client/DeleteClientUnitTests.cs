@@ -1,4 +1,5 @@
 using AutoMapper;
+using ch4rniauski.BankApp.Authentication.Application.Common.Errors;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
@@ -22,7 +23,7 @@ public sealed class DeleteClientUnitTests
     }
 
     [Fact]
-    public async Task DeleteClient_ReturnsSuccess()
+    private async Task DeleteClient_ReturnsSuccessfulResult()
     {
         // Arrange
         var command = new DeleteClientCommand(Guid.NewGuid());
@@ -31,10 +32,14 @@ public sealed class DeleteClientUnitTests
         
         const bool isSuccess = true;
 
-        _clientRepositoryMock.Setup(r => r.GetByIdAsync(command.Id, It.IsAny<CancellationToken>()))
+        _clientRepositoryMock.Setup(r => r.GetByIdAsync(
+                command.Id,
+                It.IsAny<CancellationToken>()))
             .ReturnsAsync(returnedClient);
 
-        _clientRepositoryMock.Setup(r => r.DeleteWithAttachmentAsync(returnedClient, It.IsAny<CancellationToken>()))
+        _clientRepositoryMock.Setup(r => r.DeleteWithAttachmentAsync(
+                returnedClient,
+                It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
 
         _mapperMock.Setup(m => m.Map<DeleteClientResponseDto>(returnedClient))
@@ -48,5 +53,58 @@ public sealed class DeleteClientUnitTests
         Assert.Equal(responseDto, response.Value);
         Assert.NotNull(response.Value);
         Assert.Null(response.Error);
+    }
+    
+    [Fact]
+    private async Task DeleteClient_ReturnsFailedResult_WithNotFoundError()
+    {
+        // Arrange
+        var command = new DeleteClientCommand(Guid.NewGuid());
+        ClientEntity? returnedClient = null;
+        
+        const bool isSuccess = false;
+
+        _clientRepositoryMock.Setup(r => r.GetByIdAsync(
+                command.Id,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(returnedClient);
+        
+        // Act
+        var response = await _commandHandler.Handle(command, CancellationToken.None);
+
+        // Assert
+        Assert.Equal(isSuccess, response.IsSuccess);
+        Assert.Null(response.Value);
+        Assert.NotNull(response.Error);
+        Assert.IsType<NotFoundError>(response.Error);
+    }
+    
+    [Fact]
+    private async Task DeleteClient_ReturnsFailedResult_WithInternalError()
+    {
+        // Arrange
+        var command = new DeleteClientCommand(Guid.NewGuid());
+        var returnedClient = new ClientEntity();
+        
+        const bool isSuccess = false;
+
+        _clientRepositoryMock.Setup(r => r.GetByIdAsync(
+                command.Id,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(returnedClient);
+        
+        _clientRepositoryMock.Setup(r => r.DeleteWithAttachmentAsync(
+                returnedClient,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(false);
+        
+        // Act
+        var response = await _commandHandler.Handle(command, CancellationToken.None);
+
+        // Assert
+        Assert.Equal(isSuccess, response.IsSuccess);
+        Assert.Null(response.Value);
+        Assert.NotNull(response.Error);
+        Assert.IsType<InternalServerError>(response.Error);
     }
 }
