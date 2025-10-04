@@ -1,5 +1,6 @@
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
+using ch4rniauski.BankApp.Authentication.Application.Extensions;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.Commands.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -26,8 +27,12 @@ public sealed class ClientsController : ControllerBase
         var command = new RegisterClientCommand(request);
         
         var result = await _mediator.Send(command, cancellationToken);
-        
-        return Ok(result);
+
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
     }
 
     [HttpDelete("{id:guid}")]
