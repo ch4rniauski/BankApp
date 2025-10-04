@@ -1,6 +1,6 @@
 namespace ch4rniauski.BankApp.Authentication.Application.Common.Errors;
 
-internal class NotFoundError : Error
+public class NotFoundError : Error
 {
     private const int NotFoundStatusCode = 404;
     

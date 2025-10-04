@@ -1,4 +1,6 @@
 using AutoMapper;
+using ch4rniauski.BankApp.Authentication.Application.Common.Errors;
+using ch4rniauski.BankApp.Authentication.Application.Common.Results;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
@@ -10,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
 
-public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClientCommand, RegisterClientResponseDto>
+public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClientCommand, Result<RegisterClientResponseDto>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly IValidator<RegisterClientRequestDto> _validator;
@@ -26,7 +28,7 @@ public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClien
         _mapper = mapper;
     }
 
-    public async Task<RegisterClientResponseDto> Handle(RegisterClientCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RegisterClientResponseDto>> Handle(RegisterClientCommand request, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(request.Request, cancellationToken);
 
@@ -34,14 +36,18 @@ public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClien
         {
             var message = string.Join("", validationResult.Errors);
             
-            throw new ValidationException(message);
+            return Result<RegisterClientResponseDto>
+                .Failure(Error.FailedValidation(message));
         }
         
         var doesExist = await _clientRepository.GetByEmailAsync(request.Request.Email, cancellationToken);
 
         if (doesExist is not null)
         {
-            throw new Exception("The client is already registered.");
+            return Result<RegisterClientResponseDto>
+                .Failure(Error.AlreadyExists(
+                    $"Client with email {request.Request.Email} already exists"
+                    ));
         }
         
         var client = _mapper.Map<ClientEntity>(request.Request);
@@ -52,9 +58,14 @@ public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClien
 
         if (!isRegistered)
         {
-            throw new Exception("The client wasn't registered.");
+            return Result<RegisterClientResponseDto>
+                .Failure(Error.InternalError(
+                    $"Client with email {request.Request.Email} was not registered"
+                    ));
         }
         
-        return _mapper.Map<RegisterClientResponseDto>(client);
+        var response = _mapper.Map<RegisterClientResponseDto>(client);
+        
+        return Result<RegisterClientResponseDto>.Success(response);
     }
 }

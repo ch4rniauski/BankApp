@@ -1,6 +1,6 @@
 namespace ch4rniauski.BankApp.Authentication.Application.Common.Errors;
 
-internal abstract class Error
+public abstract class Error
 {
     public int StatusCode { get; }
     
@@ -13,8 +13,14 @@ internal abstract class Error
     }
     
     public static ValidationError FailedValidation(string message)
-        => new ValidationError(message);
+        => new(message);
     
     public static NotFoundError NotFound(string message)
-        => new NotFoundError(message);
+        => new(message);
+    
+    public static AlreadyExistsError AlreadyExists(string message)
+        => new(message);
+    
+    public static InternalServerError InternalError(string message)
+        => new(message);
 }
