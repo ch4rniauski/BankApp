@@ -2,6 +2,7 @@ using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.Commands.Client;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ch4rniauski.BankApp.Authentication.Api.Controllers;
@@ -30,6 +31,7 @@ public sealed class ClientsController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize]
     public async Task<ActionResult<DeleteClientResponseDto>> DeleteClient(Guid id, CancellationToken cancellationToken)
     {
         var command = new DeleteClientCommand(id);
@@ -40,6 +42,7 @@ public sealed class ClientsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize]
     public async Task<ActionResult<UpdateClientResponseDto>> UpdateClient(
         Guid id,
         [FromBody]UpdateClientRequestDto request,
