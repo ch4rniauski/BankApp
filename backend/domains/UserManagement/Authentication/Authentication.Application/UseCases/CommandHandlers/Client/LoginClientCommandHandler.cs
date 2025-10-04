@@ -1,3 +1,5 @@
+using ch4rniauski.BankApp.Authentication.Application.Common.Errors;
+using ch4rniauski.BankApp.Authentication.Application.Common.Results;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Jwt;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
@@ -10,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
 
-public sealed class LoginClientCommandHandler : IRequestHandler<LoginClientCommand, LoginClientResponseDto>
+public sealed class LoginClientCommandHandler : IRequestHandler<LoginClientCommand, Result<LoginClientResponseDto>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly ITokenProvider _tokenProvider;
@@ -26,7 +28,7 @@ public sealed class LoginClientCommandHandler : IRequestHandler<LoginClientComma
         _validator = validator;
     }
 
-    public async Task<LoginClientResponseDto> Handle(LoginClientCommand request, CancellationToken cancellationToken)
+    public async Task<Result<LoginClientResponseDto>> Handle(LoginClientCommand request, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(request.Request, cancellationToken);
         
@@ -34,17 +36,27 @@ public sealed class LoginClientCommandHandler : IRequestHandler<LoginClientComma
         {
             var message = string.Join("", validationResult.Errors);
             
-            throw new ValidationException(message);
+            return Result<LoginClientResponseDto>
+                .Failure(Error.FailedValidation(message));
         }
         
-        var client = await _clientRepository.GetByEmailAsync(request.Request.Email, cancellationToken) 
-                     ?? throw new Exception("Client not found");
+        var client = await _clientRepository.GetByEmailAsync(request.Request.Email, cancellationToken);
         
-        var isValidPassword = new PasswordHasher<ClientEntity>().VerifyHashedPassword(client, client.PasswordHash, request.Request.Password);
+        if (client is null)
+        {
+            return Result<LoginClientResponseDto>
+                .Failure(Error.NotFound(
+                    $"Client with Email {request.Request.Email} does not exist"
+                ));
+        }
+        
+        var isValidPassword = new PasswordHasher<ClientEntity>()
+            .VerifyHashedPassword(client, client.PasswordHash, request.Request.Password);
 
         if (isValidPassword != PasswordVerificationResult.Success)
         {
-            throw new Exception("Invalid password");
+            return Result<LoginClientResponseDto>
+                .Failure(Error.Unauthorized("Invalid password"));
         }
         
         var accessToken = _tokenProvider.GenerateAccessToken(client);
@@ -56,9 +68,14 @@ public sealed class LoginClientCommandHandler : IRequestHandler<LoginClientComma
 
         if (!isUpdated)
         {
-            throw new Exception("An Exception was thrown while updating client refresh token");
+            return Result<LoginClientResponseDto>
+                .Failure(Error.InternalError(
+                    "Exception was thrown while updating client refresh token"
+                    ));
         }
         
-        return new LoginClientResponseDto(accessToken, refreshToken);
+        var response = new LoginClientResponseDto(accessToken, refreshToken);
+        
+        return Result<LoginClientResponseDto>.Success(response); 
     }
 }
