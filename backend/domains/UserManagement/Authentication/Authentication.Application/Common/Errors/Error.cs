@@ -23,4 +23,7 @@ public abstract class Error
     
     public static InternalServerError InternalError(string message)
         => new(message);
+    
+    public static UnauthorizedError Unauthorized(string message)
+        => new(message);
 }

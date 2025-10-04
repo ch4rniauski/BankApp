@@ -46,7 +46,7 @@ public sealed class RegisterClientCommandHandler : IRequestHandler<RegisterClien
         {
             return Result<RegisterClientResponseDto>
                 .Failure(Error.AlreadyExists(
-                    $"Client with email {request.Request.Email} already exists"
+                    $"Client with Email {request.Request.Email} already exists"
                     ));
         }
         
