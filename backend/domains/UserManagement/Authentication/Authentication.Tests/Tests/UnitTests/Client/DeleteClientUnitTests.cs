@@ -1,5 +1,6 @@
 using AutoMapper;
 using ch4rniauski.BankApp.Authentication.Application.Common.Errors;
+using ch4rniauski.BankApp.Authentication.Application.Common.Results;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
@@ -26,11 +27,11 @@ public sealed class DeleteClientUnitTests
     private async Task DeleteClient_ReturnsSuccessfulResult()
     {
         // Arrange
+        const bool isSuccess = true;
+        
         var command = new DeleteClientCommand(Guid.NewGuid());
         var returnedClient = new ClientEntity();
         var responseDto = ClientDataProvider.GenerateDeleteClientResponseDto();
-        
-        const bool isSuccess = true;
 
         _clientRepositoryMock.Setup(r => r.GetByIdAsync(
                 command.Id,
@@ -49,6 +50,7 @@ public sealed class DeleteClientUnitTests
         var response = await _commandHandler.Handle(command, CancellationToken.None);
 
         // Assert
+        Assert.IsType<Result<DeleteClientResponseDto>>(response);
         Assert.Equal(isSuccess, response.IsSuccess);
         Assert.Equal(responseDto, response.Value);
         Assert.NotNull(response.Value);
@@ -59,10 +61,10 @@ public sealed class DeleteClientUnitTests
     private async Task DeleteClient_ReturnsFailedResult_WithNotFoundError()
     {
         // Arrange
+        const bool isSuccess = false;
+        
         var command = new DeleteClientCommand(Guid.NewGuid());
         ClientEntity? returnedClient = null;
-        
-        const bool isSuccess = false;
 
         _clientRepositoryMock.Setup(r => r.GetByIdAsync(
                 command.Id,
@@ -73,6 +75,7 @@ public sealed class DeleteClientUnitTests
         var response = await _commandHandler.Handle(command, CancellationToken.None);
 
         // Assert
+        Assert.IsType<Result<DeleteClientResponseDto>>(response);
         Assert.Equal(isSuccess, response.IsSuccess);
         Assert.Null(response.Value);
         Assert.NotNull(response.Error);
@@ -80,13 +83,13 @@ public sealed class DeleteClientUnitTests
     }
     
     [Fact]
-    private async Task DeleteClient_ReturnsFailedResult_WithInternalError()
+    private async Task DeleteClient_ReturnsFailedResult_WithInternalServerError()
     {
         // Arrange
+        const bool isSuccess = false;
+        
         var command = new DeleteClientCommand(Guid.NewGuid());
         var returnedClient = new ClientEntity();
-        
-        const bool isSuccess = false;
 
         _clientRepositoryMock.Setup(r => r.GetByIdAsync(
                 command.Id,
@@ -102,6 +105,7 @@ public sealed class DeleteClientUnitTests
         var response = await _commandHandler.Handle(command, CancellationToken.None);
 
         // Assert
+        Assert.IsType<Result<DeleteClientResponseDto>>(response);
         Assert.Equal(isSuccess, response.IsSuccess);
         Assert.Null(response.Value);
         Assert.NotNull(response.Error);
