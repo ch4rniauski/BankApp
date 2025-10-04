@@ -45,4 +45,24 @@ public static class ClientDataProvider
                 faker.Internet.Email(),
                 faker.Person.Phone));
     }
+    
+    public static UpdateClientRequestDto GenerateUpdateClientRequestDto()
+    {
+        return new Faker<UpdateClientRequestDto>()
+            .CustomInstantiator(faker => new UpdateClientRequestDto(
+                faker.Person.FirstName,
+                faker.Person.LastName,
+                faker.Internet.Email(),
+                faker.Person.Phone));
+    }
+    
+    public static UpdateClientResponseDto GenerateUpdateClientResponseDto()
+    {
+        return new Faker<UpdateClientResponseDto>()
+            .CustomInstantiator(faker => new UpdateClientResponseDto(
+                faker.Person.FirstName,
+                faker.Person.LastName,
+                faker.Internet.Email(),
+                faker.Person.Phone));
+    }
 }
