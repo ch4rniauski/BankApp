@@ -1,6 +1,7 @@
 using System.Text;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Jwt;
 using ch4rniauski.BankApp.Authentication.Application.Jwt;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,5 +32,23 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ITokenProvider, JwtTokenProvider>();
         
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+    }
+
+    public static void AddValidationConfiguration(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
+    }
+
+    public static void AddAutoMapperConfiguration(this IServiceCollection services)
+    {
+        services.AddAutoMapper(cfg => {}, typeof(ServiceCollectionExtensions).Assembly);
+    }
+
+    public static void AddMediatrConfiguration(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
+        });
     }
 }
