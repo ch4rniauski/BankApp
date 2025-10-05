@@ -1,4 +1,6 @@
 using AutoMapper;
+using ch4rniauski.BankApp.Authentication.Application.Common.Errors;
+using ch4rniauski.BankApp.Authentication.Application.Common.Results;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.Commands.Client;
@@ -6,7 +8,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
 
-public sealed class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand, DeleteClientResponseDto>
+public sealed class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand, Result<DeleteClientResponseDto>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly IMapper _mapper;
@@ -17,18 +19,30 @@ public sealed class DeleteClientCommandHandler : IRequestHandler<DeleteClientCom
         _mapper = mapper;
     }
 
-    public async Task<DeleteClientResponseDto> Handle(DeleteClientCommand request, CancellationToken cancellationToken)
+    public async Task<Result<DeleteClientResponseDto>> Handle(DeleteClientCommand request, CancellationToken cancellationToken)
     {
-        var doesExist = await _clientRepository.GetByIdAsync(request.Id, cancellationToken)
-                        ?? throw new Exception("User with given id does not exist.");
+        var doesExist = await _clientRepository.GetByIdAsync(request.Id, cancellationToken);
+
+        if (doesExist is null)
+        {
+            return Result<DeleteClientResponseDto>
+                .Failure(Error.NotFound(
+                    $"Client with ID {request.Id} does not exist"
+                    ));
+        }
         
         var isDeleted = await _clientRepository.DeleteWithAttachmentAsync(doesExist, cancellationToken);
 
         if (!isDeleted)
         {
-            throw new Exception("User wasn't deleted.");
+            return Result<DeleteClientResponseDto>
+                .Failure(Error.InternalError(
+                    $"Client with ID {request.Id} was not deleted"
+                ));
         }
         
-        return _mapper.Map<DeleteClientResponseDto>(doesExist);
+        var response = _mapper.Map<DeleteClientResponseDto>(doesExist);
+        
+        return Result<DeleteClientResponseDto>.Success(response);
     }
 }

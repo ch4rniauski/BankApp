@@ -10,6 +10,7 @@ builder.Services.AddAuthenticationContextConfiguration(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddValidationConfiguration();
 builder.Services.AddAutoMapperConfiguration();
+builder.Services.AddMediatrConfiguration();
 
 var app = builder.Build();
 
