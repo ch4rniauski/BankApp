@@ -1,4 +1,6 @@
 using AutoMapper;
+using ch4rniauski.BankApp.Authentication.Application.Common.Errors;
+using ch4rniauski.BankApp.Authentication.Application.Common.Results;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
@@ -9,7 +11,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
 
-public sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, UpdateClientResponseDto>
+public sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, Result<UpdateClientResponseDto>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly IMapper _mapper;
@@ -25,7 +27,7 @@ public sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCom
         _validator = validator;
     }
     
-    public async Task<UpdateClientResponseDto> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
+    public async Task<Result<UpdateClientResponseDto>> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(request.Request, cancellationToken);
         
@@ -33,21 +35,34 @@ public sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCom
         {
             var message = string.Join("", validationResult.Errors);
             
-            throw new ValidationException(message);
+            return Result<UpdateClientResponseDto>
+                .Failure(Error.FailedValidation(message));
+        }
+
+        var doesExist = await _clientRepository.GetByIdAsync(request.Id, cancellationToken);
+        
+        if (doesExist is null)
+        {
+            return Result<UpdateClientResponseDto>
+                .Failure(Error.NotFound(
+                    $"Client with ID {request.Id} does not exist"
+                ));
         }
         
-        var doesExist = await _clientRepository.GetByIdAsync(request.Id, cancellationToken)
-                        ?? throw new Exception("Client not found");
-        
-        var updatedClient = _mapper.Map<ClientEntity>(request);
+        var updatedClient = _mapper.Map<ClientEntity>(request.Request);
         
         var isUpdated = await _clientRepository.UpdateAsync(updatedClient, cancellationToken);
 
         if (!isUpdated)
         {
-            throw new Exception("Client was not updated.");
+            return Result<UpdateClientResponseDto>
+                .Failure(Error.InternalError(
+                    "Client's data was not updated"
+                ));
         }
         
-        return _mapper.Map<UpdateClientResponseDto>(updatedClient);
+        var response = _mapper.Map<UpdateClientResponseDto>(updatedClient);
+        
+        return Result<UpdateClientResponseDto>.Success(response);
     }
 }
