@@ -4,4 +4,5 @@ namespace ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
 
 public interface IClientRepository : IBaseRepository<ClientEntity, Guid>
 {
+    Task<ClientEntity?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 }
