@@ -49,7 +49,7 @@ public sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCom
                 ));
         }
         
-        var updatedClient = _mapper.Map<ClientEntity>(request);
+        var updatedClient = _mapper.Map<ClientEntity>(request.Request);
         
         var isUpdated = await _clientRepository.UpdateAsync(updatedClient, cancellationToken);
 
