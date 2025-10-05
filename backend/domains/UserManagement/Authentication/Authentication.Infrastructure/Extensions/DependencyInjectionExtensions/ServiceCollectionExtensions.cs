@@ -1,3 +1,5 @@
+using ch4rniauski.BankApp.Authentication.Application.Contracts.Repositories;
+using ch4rniauski.BankApp.Authentication.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,5 +14,7 @@ public static class ServiceCollectionExtensions
         {
             opt.UseNpgsql(configuration.GetConnectionString("PostgresAuthentication"));
         });
+
+        services.AddScoped<IClientRepository, ClientRepository>();
     }
 }
