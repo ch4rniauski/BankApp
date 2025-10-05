@@ -15,4 +15,6 @@ public class ClientEntity
     public string PhoneNumber { get; set; } = null!;
     
     public string PasswordHash { get; set; } = null!;
+    
+    public string RefreshToken { get; set; } = null!;
 }
