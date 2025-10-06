@@ -7,4 +7,12 @@
         <RootNamespace>ch4rniauski.BankApp.CreditCards.Infrastructure</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CreditCards.Application\CreditCards.Application.csproj" />
+    </ItemGroup>
+
 </Project>

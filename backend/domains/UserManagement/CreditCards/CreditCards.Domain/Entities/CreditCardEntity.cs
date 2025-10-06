@@ -12,7 +12,7 @@ public class CreditCardEntity
     
     public byte ExpirationMonth { get; set; }
     
-    public ushort ExpirationYear { get; set; }
+    public short ExpirationYear { get; set; }
     
     public bool IsBlocked { get; set; }
     
