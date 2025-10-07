@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "ch4rniauski.BankApp.Authentication.Grpc";
+
+package clients;
+
+service ClientsService{
+  rpc CheckIfClientExists(CheckIfClientExistsRequest) returns(CheckIfClientExistsResponse);
+}
+
+message CheckIfClientExistsRequest{
+  string client_id = 1;
+}
+
+message CheckIfClientExistsResponse{
+  bool does_exist = 1;
+}
