@@ -26,4 +26,7 @@ public abstract class Error
     
     public static UnauthorizedError Unauthorized(string message)
         => new(message);
+    
+    public static IncorrectDataTypeError IncorrectDataType(string message)
+        => new(message);
 }
