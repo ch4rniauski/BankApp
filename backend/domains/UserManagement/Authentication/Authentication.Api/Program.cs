@@ -1,10 +1,12 @@
 using ch4rniauski.BankApp.Authentication.Application.Extensions.DependencyInjectionExtensions;
 using ch4rniauski.BankApp.Authentication.Infrastructure.Extensions.DependencyInjectionExtensions;
+using ch4rniauski.BankApp.Authentication.Infrastructure.Services.gRPC;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddGrpc();
 
 builder.Services.AddAuthenticationContextConfiguration(builder.Configuration);
 builder.Services.AddJwtConfiguration(builder.Configuration);
@@ -24,5 +26,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<ClientsGrpcService>();
 
 app.Run();
