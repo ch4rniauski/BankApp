@@ -18,6 +18,10 @@ public class CreditCardConfiguration : IEntityTypeConfiguration<CreditCardEntity
         builder
             .Property(c => c.CvvHash)
             .IsRequired();
+        
+        builder
+            .Property(c => c.PinCodeHash)
+            .IsRequired();
 
         builder
             .Property(c => c.CardType)
