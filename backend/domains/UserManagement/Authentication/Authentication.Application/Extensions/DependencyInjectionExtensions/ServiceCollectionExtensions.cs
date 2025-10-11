@@ -41,7 +41,7 @@ public static class ServiceCollectionExtensions
 
     public static void AddAutoMapperConfiguration(this IServiceCollection services)
     {
-        services.AddAutoMapper(cfg => {}, typeof(ServiceCollectionExtensions).Assembly);
+        services.AddAutoMapper(_ => {}, typeof(ServiceCollectionExtensions).Assembly);
     }
 
     public static void AddMediatrConfiguration(this IServiceCollection services)

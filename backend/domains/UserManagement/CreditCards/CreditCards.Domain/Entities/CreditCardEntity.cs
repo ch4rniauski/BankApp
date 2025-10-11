@@ -8,6 +8,8 @@ public class CreditCardEntity
     
     public string CvvHash { get; set; } = null!;
     
+    public string PinCodeHash { get; set; } = null!;
+    
     public string CardType { get; set; } = null!;
     
     public byte ExpirationMonth { get; set; }
