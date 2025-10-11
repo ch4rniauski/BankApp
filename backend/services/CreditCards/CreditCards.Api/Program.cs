@@ -4,6 +4,7 @@ using ch4rniauski.BankApp.CreditCards.Infrastructure.Extensions.DependencyInject
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 builder.Services.AddCreditCardContext(builder.Configuration);
 builder.Services.AddAutoMapperConfiguration();
@@ -16,5 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapControllers();
 
 app.Run();
