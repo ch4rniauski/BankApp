@@ -1,0 +1,24 @@
+services:
+  authetnication-api:
+    image: authetnication-api
+    container_name: authentication-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - authentication-postgres
+  authentication-postgres:
+    image: postgres:15.14-alpine3.21
+    container_name: authentication-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=Authentication
+    volumes:
+      - postgres-authentication-data:/var/lib/postgresql/data
+volumes:
+  postgres-authentication-data:
