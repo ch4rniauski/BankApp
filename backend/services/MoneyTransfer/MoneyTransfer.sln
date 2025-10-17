@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTransfer.Api", "MoneyTransfer.Api\MoneyTransfer.Api.csproj", "{7FA36EDF-D5B8-424D-92AB-A5D0B8AE9873}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTransfer.Domain", "MoneyTransfer.Domain\MoneyTransfer.Domain.csproj", "{558C31A8-8EE7-4DD3-9F97-9BF605CE27D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTransfer.Application", "MoneyTransfer.Application\MoneyTransfer.Application.csproj", "{7C14D6C7-CD1A-4B77-930D-06799D6D2AFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyTransfer.Infrastructure", "MoneyTransfer.Infrastructure\MoneyTransfer.Infrastructure.csproj", "{910C5194-8BD5-4DAD-9451-A2D35E50D747}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FA36EDF-D5B8-424D-92AB-A5D0B8AE9873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA36EDF-D5B8-424D-92AB-A5D0B8AE9873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA36EDF-D5B8-424D-92AB-A5D0B8AE9873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA36EDF-D5B8-424D-92AB-A5D0B8AE9873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{558C31A8-8EE7-4DD3-9F97-9BF605CE27D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{558C31A8-8EE7-4DD3-9F97-9BF605CE27D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{558C31A8-8EE7-4DD3-9F97-9BF605CE27D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{558C31A8-8EE7-4DD3-9F97-9BF605CE27D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C14D6C7-CD1A-4B77-930D-06799D6D2AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C14D6C7-CD1A-4B77-930D-06799D6D2AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C14D6C7-CD1A-4B77-930D-06799D6D2AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C14D6C7-CD1A-4B77-930D-06799D6D2AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{910C5194-8BD5-4DAD-9451-A2D35E50D747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{910C5194-8BD5-4DAD-9451-A2D35E50D747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{910C5194-8BD5-4DAD-9451-A2D35E50D747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{910C5194-8BD5-4DAD-9451-A2D35E50D747}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
