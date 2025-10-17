@@ -1,3 +1,5 @@
+using ch4rniauski.BankApp.MoneyTransfer.Application.Contracts.Repositories;
+using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,5 +14,7 @@ public static class ServiceCollectionExtensions
         {
             opt.UseNpgsql(configuration.GetConnectionString("PostgresMoneyTransfer"));
         });
+
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
     }
 }

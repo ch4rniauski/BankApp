@@ -1,4 +1,4 @@
-namespace ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
+namespace ch4rniauski.BankApp.MoneyTransfer.Application.Contracts.Repositories;
 
 public interface IBaseRepository<TEntity, in TId>
     where TEntity : class
