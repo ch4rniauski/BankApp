@@ -1,4 +1,4 @@
-namespace MoneyTransfer.Domain.Enums;
+namespace ch4rniauski.BankApp.MoneyTransfer.Domain.Enums;
 
 public enum PaymentStatusEnum
 {

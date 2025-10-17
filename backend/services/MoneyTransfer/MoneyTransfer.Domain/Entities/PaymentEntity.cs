@@ -1,6 +1,6 @@
-using MoneyTransfer.Domain.Enums;
+using ch4rniauski.BankApp.MoneyTransfer.Domain.Enums;
 
-namespace MoneyTransfer.Domain.Entities;
+namespace ch4rniauski.BankApp.MoneyTransfer.Domain.Entities;
 
 public class PaymentEntity
 {
