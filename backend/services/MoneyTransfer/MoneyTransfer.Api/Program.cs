@@ -1,3 +1,4 @@
+using ch4rniauski.BankApp.MoneyTransfer.Application.Extensions;
 using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Host.UseDefaultServiceProvider(opt =>
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMoneyTransferConfiguration(builder.Configuration);
+builder.Services.AddMediatrConfiguration();
+builder.Services.AddFluentValidationConfiguration();
 
 var app = builder.Build();
 

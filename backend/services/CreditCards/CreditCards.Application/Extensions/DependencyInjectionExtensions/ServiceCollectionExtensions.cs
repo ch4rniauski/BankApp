@@ -27,4 +27,12 @@ public static class ServiceCollectionExtensions
         
         services.AddScoped<IHashProvider, HmacHashProvider>();
     }
+    
+    public static void AddMediatrConfiguration(this IServiceCollection services)
+    {
+        services.AddMediatR(conf =>
+        {
+            conf.RegisterServicesFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
+        });
+    }
 }

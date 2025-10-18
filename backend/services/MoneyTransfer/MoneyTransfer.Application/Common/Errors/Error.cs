@@ -12,8 +12,11 @@ public abstract class Error
     }
 
     public static NotFoundError NotFound(string message)
-        => new NotFoundError(message);
+        => new(message);
     
     public static InternalServerError InternalError(string message)
+        => new(message);
+    
+    public static ValidationError FailedValidation(string message)
         => new(message);
 }

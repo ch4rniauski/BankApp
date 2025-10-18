@@ -13,8 +13,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddCreditCardContext(builder.Configuration);
+builder.Services.AddHashConfiguration(builder.Configuration);
 builder.Services.AddAutoMapperConfiguration();
 builder.Services.AddSensitiveDataConfiguration();
+builder.Services.AddMediatrConfiguration();
 
 var app = builder.Build();
 
