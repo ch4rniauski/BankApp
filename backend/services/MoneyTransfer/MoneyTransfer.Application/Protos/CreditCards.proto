@@ -17,5 +17,5 @@ message TransferMoneyToCardRequest{
 }
 
 message TransferMoneyToCardResponse{
-  bool is_completed = 1;
+  bool is_successful = 1;
 }

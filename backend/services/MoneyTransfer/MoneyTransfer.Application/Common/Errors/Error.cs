@@ -10,4 +10,10 @@ public abstract class Error
         StatusCode = statusCode;
         Message = message;
     }
+
+    public static NotFoundError NotFound(string message)
+        => new NotFoundError(message);
+    
+    public static InternalServerError InternalError(string message)
+        => new(message);
 }

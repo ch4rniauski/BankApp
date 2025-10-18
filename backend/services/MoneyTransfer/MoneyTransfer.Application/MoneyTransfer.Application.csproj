@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="DTO\Requests\" />
       <Folder Include="Extensions\" />
       <Folder Include="UseCases\Queries\" />
       <Folder Include="UseCases\QueryHandlers\" />
@@ -29,6 +30,7 @@
 
     <ItemGroup>
         <Protobuf Include="Protos\CreditCards.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Clients.proto" GrpcServices="Client" />
     </ItemGroup>
 
 </Project>
