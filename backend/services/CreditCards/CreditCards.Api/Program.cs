@@ -3,6 +3,12 @@ using ch4rniauski.BankApp.CreditCards.Infrastructure.Extensions.DependencyInject
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseDefaultServiceProvider(opt =>
+{
+    opt.ValidateOnBuild = true;
+    opt.ValidateScopes = true;
+});
+
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 

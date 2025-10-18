@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "ch4rniauski.BankApp.MoneyTransfer.Grpc";
+
+package credit_cards;
+
+service CreditCardsGrpc{
+  rpc TransferMoneyToCard(TransferMoneyToCardRequest) returns(TransferMoneyToCardResponse); 
+}
+
+message TransferMoneyToCardRequest{
+  string sender_card_number = 1;
+  string receiver_card_number = 2;
+  string sender_id = 3;
+  string receiver_id = 4;
+  string amount = 5;
+}
+
+message TransferMoneyToCardResponse{
+  bool is_completed = 1;
+}

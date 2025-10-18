@@ -2,6 +2,12 @@ using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Extensions.DependencyInje
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseDefaultServiceProvider(opt =>
+{
+    opt.ValidateOnBuild = true;
+    opt.ValidateScopes = true;
+});
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMoneyTransferConfiguration(builder.Configuration);
