@@ -9,6 +9,10 @@ public class TransferMoneyRequestDtoValidator : AbstractValidator<TransferMoneyR
     {
         RuleFor(t => t.Amount)
             .GreaterThan(0);
+        
+        RuleFor(t => t.Currency)
+            .NotEmpty()
+            .Length(3);
 
         RuleFor(t => t.ReceiverId)
             .NotEqual(Guid.Empty);

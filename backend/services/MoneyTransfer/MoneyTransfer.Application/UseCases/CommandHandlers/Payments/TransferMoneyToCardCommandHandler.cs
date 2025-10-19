@@ -3,6 +3,7 @@ using ch4rniauski.BankApp.MoneyTransfer.Application.Common.Errors;
 using ch4rniauski.BankApp.MoneyTransfer.Application.Common.Results;
 using ch4rniauski.BankApp.MoneyTransfer.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.MoneyTransfer.Application.DTO.Requests.Payments;
+using ch4rniauski.BankApp.MoneyTransfer.Application.DTO.Responses.Payments;
 using ch4rniauski.BankApp.MoneyTransfer.Application.UseCases.Commands.Payments;
 using ch4rniauski.BankApp.MoneyTransfer.Grpc;
 using FluentValidation;
@@ -11,7 +12,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.MoneyTransfer.Application.UseCases.CommandHandlers.Payments;
 
-internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<TransferMoneyToCardCommand, Result<bool>>
+internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<TransferMoneyToCardCommand, Result<TransferMoneyResponseDto>>
 {
     private readonly IPaymentRepository _paymentRepository;
     private readonly IValidator<TransferMoneyRequestDto> _validator;
@@ -27,7 +28,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
         _validator = validator;
     }
 
-    public async Task<Result<bool>> Handle(TransferMoneyToCardCommand request, CancellationToken cancellationToken)
+    public async Task<Result<TransferMoneyResponseDto>> Handle(TransferMoneyToCardCommand request, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(request.Request, cancellationToken);
         
@@ -35,7 +36,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
         {
             var message = string.Join("", validationResult.Errors);
             
-            return Result<bool>
+            return Result<TransferMoneyResponseDto>
                 .Failure(Error.FailedValidation(message));
         }
         
@@ -57,7 +58,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
 
             if (grpcResponse.DoExist.Any(b => b == false))
             {
-                return Result<bool>
+                return Result<TransferMoneyResponseDto>
                     .Failure(Error.NotFound(
                         "At least one client was not found by the provided IDs"
                         ));
@@ -83,13 +84,14 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
 
             if (!creditCardGrpcResponse.IsSuccessful)
             {
-                return Result<bool>
+                return Result<TransferMoneyResponseDto>
                     .Failure(Error.InternalError(
                         "Error occured while transfering money to card"
                         ));
             }
         }
         
-        return Result<bool>.Success(true);
+        return Result<TransferMoneyResponseDto>
+            .Success(true);
     }
 }

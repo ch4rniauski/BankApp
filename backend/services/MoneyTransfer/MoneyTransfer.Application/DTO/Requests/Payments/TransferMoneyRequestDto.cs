@@ -5,4 +5,5 @@ public sealed record TransferMoneyRequestDto(
     string ReceiverCardNumber,
     Guid SenderId,
     Guid ReceiverId,
-    decimal Amount);
+    decimal Amount,
+    string Currency);
