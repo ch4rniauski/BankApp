@@ -19,27 +19,19 @@ message TransferMoneyToCardRequest{
 }
 
 message TransferMoneyToCardResponse{
-  PaymentStatusEnum payment_status = 1;
+  PaymentStatusGrpcEnum payment_status = 1;
   google.protobuf.Timestamp processed_at = 2;
   string sender_card_last4 = 3;
   string receiver_card_last4 = 4;
   string amount = 5;
-  optional ErrorEnum error = 6;
+  optional int32 error_status_code = 6;
   optional string error_message = 7;
 }
 
-enum PaymentStatusEnum{
+enum PaymentStatusGrpcEnum{
   PAYMENT_STATUS_UNDEFINED = 0;
   PAYMENT_STATUS_PENDING = 1;
   PAYMENT_STATUS_SUCCESS = 2;
   PAYMENT_STATUS_FAILED = 3;
   PAYMENT_STATUS_CANCELED = 4;
-}
-
-enum ErrorEnum{
-  ERROR_UNDEFINED = 0;
-  ERROR_FUNDS_LACK = 1;
-  ERROR_INTERNAL = 2;
-  ERROR_INVALID_OWNER_ID = 3;
-  ERROR_NOT_FOUND = 4;
 }

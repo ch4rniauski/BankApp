@@ -1,5 +1,6 @@
 using ch4rniauski.BankApp.CreditCards.Application.Extensions.DependencyInjectionExtensions;
 using ch4rniauski.BankApp.CreditCards.Infrastructure.Extensions.DependencyInjectionExtensions;
+using ch4rniauski.BankApp.CreditCards.Infrastructure.Services.gRPC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Host.UseDefaultServiceProvider(opt =>
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddGrpc();
 
 builder.Services.AddCreditCardContext(builder.Configuration);
 builder.Services.AddHashConfiguration(builder.Configuration);
@@ -27,5 +29,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+app.MapGrpcService<CreditCardsGrpcService>();
 
 app.Run();
