@@ -1,11 +1,13 @@
 syntax = "proto3";
 
-option csharp_namespace = "ch4rniauski.BankApp.MoneyTransfer.Grpc";
+option csharp_namespace = "ch4rniauski.BankApp.CreditCards.Grpc";
+
+import "google/protobuf/timestamp.proto";
 
 package credit_cards;
 
 service CreditCardsGrpc{
-  rpc TransferMoneyToCard(TransferMoneyToCardRequest) returns(TransferMoneyToCardResponse); 
+  rpc TransferMoneyToCard(TransferMoneyToCardRequest) returns(TransferMoneyToCardResponse);
 }
 
 message TransferMoneyToCardRequest{
@@ -17,5 +19,17 @@ message TransferMoneyToCardRequest{
 }
 
 message TransferMoneyToCardResponse{
-  bool is_successful = 1;
+  PaymentStatusEnum payment_status = 1;
+  google.protobuf.Timestamp processed_at = 2;
+  string sender_card_last4 = 3;
+  string receiver_card_last4 = 4;
+  string amount = 5;
+}
+
+enum PaymentStatusEnum{
+  PAYMENT_STATUS_UNDEFINED = 0;
+  PAYMENT_STATUS_PENDING = 1;
+  PAYMENT_STATUS_SUCCESS = 2;
+  PAYMENT_STATUS_FAILED = 3;
+  PAYMENT_STATUS_CANCELED = 4;
 }

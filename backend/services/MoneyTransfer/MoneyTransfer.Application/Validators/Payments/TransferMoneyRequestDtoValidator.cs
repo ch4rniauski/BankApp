@@ -22,10 +22,12 @@ public class TransferMoneyRequestDtoValidator : AbstractValidator<TransferMoneyR
         
         RuleFor(t => t.ReceiverCardNumber)
             .NotEmpty()
-            .Length(13, 19);
+            .Length(13, 19)
+            .NotEqual(t => t.SenderCardNumber);
         
         RuleFor(t => t.SenderCardNumber)
             .NotEmpty()
-            .Length(13, 19);
+            .Length(13, 19)
+            .NotEqual(t => t.ReceiverCardNumber);
     }
 }

@@ -16,4 +16,10 @@ public abstract class Error
     
     public static InternalServerError InternalError(string message)
         => new(message);
+    
+    public static InvalidOwnerIdError InvalidOwnerId(string message)
+        => new(message);
+    
+    public static FundsLackError FundsLack(string message)
+        => new(message);
 }

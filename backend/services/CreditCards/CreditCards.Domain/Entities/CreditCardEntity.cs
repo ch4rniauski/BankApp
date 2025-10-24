@@ -12,6 +12,8 @@ public class CreditCardEntity
     
     public string CardType { get; set; } = null!;
     
+    public decimal Balance { get; set; }
+    
     public byte ExpirationMonth { get; set; }
     
     public short ExpirationYear { get; set; }
