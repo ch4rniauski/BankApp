@@ -1,3 +1,4 @@
+using AutoMapper;
 using ch4rniauski.BankApp.CreditCards.Application.Checkers;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Results;
@@ -11,10 +12,14 @@ namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.C
 internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<TransferMoneyToCardCommand, Result<TransferMoneyResponseDto>>
 {
     private readonly ICreditCardRepository _creditCardRepository;
+    private readonly IMapper _mapper;
 
-    public TransferMoneyToCardCommandHandler(ICreditCardRepository creditCardRepository)
+    public TransferMoneyToCardCommandHandler(
+        ICreditCardRepository creditCardRepository,
+        IMapper mapper)
     {
         _creditCardRepository = creditCardRepository;
+        _mapper = mapper;
     }
 
     public async Task<Result<TransferMoneyResponseDto>> Handle(TransferMoneyToCardCommand request, CancellationToken cancellationToken)
@@ -56,14 +61,21 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
         }
         
         var isSuccess = await _creditCardRepository.TransferMoneyAsync(
-            senderCardNumber: request.Request.SenderCardNumber,
-            receiverCardNumber: request.Request.ReceiverCardNumber,
-            amount: request.Request.Amount,
-            cancellationToken: cancellationToken);
+            request.Request.SenderCardNumber,
+            request.Request.ReceiverCardNumber,
+            request.Request.Amount,
+            cancellationToken);
 
         if (!isSuccess)
         {
-            
+            return Result<TransferMoneyResponseDto>
+                .Failure(Error.InternalError(
+                    "Error occurred while transfering money"
+                    ));
         }
+        
+        var response = _mapper.Map<TransferMoneyResponseDto>(request.Request);
+
+        return Result<TransferMoneyResponseDto>.Success(response);
     }
 }
