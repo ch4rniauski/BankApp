@@ -6,7 +6,7 @@ using ch4rniauski.BankApp.CreditCards.Domain.Enums;
 using ch4rniauski.BankApp.CreditCards.Grpc;
 using Google.Protobuf.WellKnownTypes;
 
-namespace ch4rniauski.BankApp.CreditCards.Application.MapperProfiles.CreditCard;
+namespace ch4rniauski.BankApp.CreditCards.Application.MapperProfiles.MoneyTransfers;
 
 internal sealed class TransferMoneyProfile : Profile
 {
@@ -44,12 +44,7 @@ internal sealed class TransferMoneyProfile : Profile
             .ForMember(
                 dest => dest.ReceiverCardLast4,
                 opt => opt.MapFrom(src => src.ReceiverCardLast4))
-            .ForMember(
-                dest => dest.ErrorMessage,
-                opt => opt.Ignore())
-            .ForMember(
-                dest => dest.ErrorStatusCode,
-                opt => opt.Ignore());
+            .ForAllMembers(opt => opt.Ignore());
 
         CreateMap<Error, TransferMoneyToCardResponse>()
             .ForMember(

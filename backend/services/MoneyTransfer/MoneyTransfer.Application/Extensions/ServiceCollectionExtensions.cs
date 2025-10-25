@@ -17,4 +17,9 @@ public static class ServiceCollectionExtensions
     {
         services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
     }
+    
+    public static void AddAutoMapperConfiguration(this IServiceCollection services)
+    {
+        services.AddAutoMapper(_ => {}, typeof(ServiceCollectionExtensions).Assembly);
+    }
 }

@@ -19,4 +19,7 @@ public abstract class Error
     
     public static ValidationError FailedValidation(string message)
         => new(message);
+    
+    public static GrpcError FailedGrpcOperation(int statusCode, string message)
+        => new(statusCode, message);
 }

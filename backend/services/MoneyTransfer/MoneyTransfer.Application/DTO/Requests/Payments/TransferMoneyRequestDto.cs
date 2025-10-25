@@ -6,4 +6,5 @@ public sealed record TransferMoneyRequestDto(
     Guid SenderId,
     Guid ReceiverId,
     decimal Amount,
-    string Currency);
+    string Currency,
+    string? Description);

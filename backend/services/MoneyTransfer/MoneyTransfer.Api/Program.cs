@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMoneyTransferConfiguration(builder.Configuration);
 builder.Services.AddMediatrConfiguration();
 builder.Services.AddFluentValidationConfiguration();
+builder.Services.AddAutoMapperConfiguration();
 
 var app = builder.Build();
 
