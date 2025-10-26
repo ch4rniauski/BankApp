@@ -3,7 +3,7 @@ services:
     image: credit-cards-api
     container_name: credit-cards-api
     build:
-      context: .
+      context: ../
       dockerfile: Dockerfile
     ports:
       - 8081:8080
