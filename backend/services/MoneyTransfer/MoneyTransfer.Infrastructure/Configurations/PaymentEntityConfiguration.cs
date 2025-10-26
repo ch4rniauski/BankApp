@@ -58,6 +58,6 @@ public sealed class PaymentEntityConfiguration : IEntityTypeConfiguration<Paymen
         builder
             .ToTable(t => t.HasCheckConstraint(
                 "CK_Payments_Amount_Positive",
-                $"[{nameof(PaymentEntity.Amount)}] > 0"));
+                "\"Amount\" >= 0"));
     }
 }

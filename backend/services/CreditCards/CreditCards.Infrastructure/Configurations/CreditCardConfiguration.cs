@@ -29,6 +29,10 @@ public class CreditCardConfiguration : IEntityTypeConfiguration<CreditCardEntity
             .IsRequired();
         
         builder
+            .Property(c => c.Balance)
+            .IsRequired();
+        
+        builder
             .Property(c => c.ExpirationMonth)
             .IsRequired();
         
@@ -52,5 +56,10 @@ public class CreditCardConfiguration : IEntityTypeConfiguration<CreditCardEntity
         builder
             .Property(c => c.CardHolderId)
             .IsRequired();
+        
+        builder.
+            ToTable(t => t.HasCheckConstraint(
+                name: "CK_CreditCards_Balance_Positive",
+                sql: "\"Balance\" >= 0"));
     }
 }

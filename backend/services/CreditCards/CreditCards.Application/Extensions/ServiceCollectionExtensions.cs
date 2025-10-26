@@ -6,7 +6,7 @@ using ch4rniauski.BankApp.CreditCards.Application.SensitiveDataProviders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ch4rniauski.BankApp.CreditCards.Application.Extensions.DependencyInjectionExtensions;
+namespace ch4rniauski.BankApp.CreditCards.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -26,5 +26,13 @@ public static class ServiceCollectionExtensions
         services.Configure<HmacSettings>(configuration.GetSection("HmacSettings"));
         
         services.AddScoped<IHashProvider, HmacHashProvider>();
+    }
+    
+    public static void AddMediatrConfiguration(this IServiceCollection services)
+    {
+        services.AddMediatR(conf =>
+        {
+            conf.RegisterServicesFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
+        });
     }
 }
