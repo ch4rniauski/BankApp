@@ -5,7 +5,7 @@ using ch4rniauski.BankApp.CreditCards.Domain.Entities;
 
 namespace ch4rniauski.BankApp.CreditCards.Application.MapperProfiles.CreditCard;
 
-public sealed class CreateCreditCardProfile : Profile
+internal sealed class CreateCreditCardProfile : Profile
 {
     public CreateCreditCardProfile()
     {

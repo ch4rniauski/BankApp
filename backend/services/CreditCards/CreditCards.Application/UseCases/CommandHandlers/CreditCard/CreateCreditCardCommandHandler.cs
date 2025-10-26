@@ -11,7 +11,7 @@ using ch4rniauski.BankApp.CreditCards.Grpc;
 using Grpc.Net.Client;
 using MediatR;
 
-namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers;
+namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.CreditCard;
 
 public sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCreditCardCommand, Result<CreateCreditCardResponseDto>>
 {

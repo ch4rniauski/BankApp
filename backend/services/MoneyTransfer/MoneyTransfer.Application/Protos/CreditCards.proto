@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option csharp_namespace = "ch4rniauski.BankApp.CreditCards.Grpc";
+
+import "google/protobuf/timestamp.proto";
+
+package credit_cards;
+
+service CreditCardsGrpc{
+  rpc TransferMoneyToCard(TransferMoneyToCardRequest) returns(TransferMoneyToCardResponse);
+}
+
+message TransferMoneyToCardRequest{
+  string sender_card_number = 1;
+  string receiver_card_number = 2;
+  string sender_id = 3;
+  string receiver_id = 4;
+  string amount = 5;
+}
+
+message TransferMoneyToCardResponse{
+  PaymentStatusGrpcEnum payment_status = 1;
+  google.protobuf.Timestamp processed_at = 2;
+  string sender_card_last4 = 3;
+  string receiver_card_last4 = 4;
+  string amount = 5;
+  optional int32 error_status_code = 6;
+  optional string error_message = 7;
+}
+
+enum PaymentStatusGrpcEnum{
+  PAYMENT_STATUS_UNDEFINED = 0;
+  PAYMENT_STATUS_PENDING = 1;
+  PAYMENT_STATUS_SUCCESS = 2;
+  PAYMENT_STATUS_FAILED = 3;
+  PAYMENT_STATUS_CANCELED = 4;
+}

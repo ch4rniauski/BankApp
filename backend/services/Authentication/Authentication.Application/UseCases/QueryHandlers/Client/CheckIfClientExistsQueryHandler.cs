@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.QueryHandlers.Client;
 
-public sealed class CheckIfClientExistsQueryHandler : IRequestHandler<CheckIfClientExistsQuery, Result<bool>>
+internal sealed class CheckIfClientExistsQueryHandler : IRequestHandler<CheckIfClientExistsQuery, Result<bool>>
 {
     private readonly IClientRepository _clientRepository;
 
@@ -19,13 +19,20 @@ public sealed class CheckIfClientExistsQueryHandler : IRequestHandler<CheckIfCli
     {
         if (Guid.TryParse(request.Id, out var clientId))
         {
-            return Result<bool>.Failure(Error.IncorrectDataType($"{request.Id} does not match a GUID format"));
+            return Result<bool>
+                .Failure(Error.IncorrectDataType(
+                    $"{request.Id} does not match a GUID format"
+                    ));
         }
         
         var client = await _clientRepository.GetByIdAsync(clientId, cancellationToken);
 
         return client is null
-            ? Result<bool>.Failure(Error.NotFound($"Client with id {clientId} was not found"))
-            : Result<bool>.Success(true);
+            ? Result<bool>
+                .Failure(Error.NotFound(
+                    $"Client with id {clientId} was not found"
+                    ))
+            : Result<bool>
+                .Success(true);
     }
 }

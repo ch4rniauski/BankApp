@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Extensions.DependencyInjectionExtensions;
+namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {

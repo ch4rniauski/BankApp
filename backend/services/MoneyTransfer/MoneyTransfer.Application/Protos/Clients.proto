@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "ch4rniauski.BankApp.MoneyTransfer.Grpc";
+
+package clients;
+
+service ClientsService{
+  rpc CheckIfClientsExist(CheckIfClientsExistRequest) returns(CheckIfClientsExistResponse);
+}
+
+message CheckIfClientsExistRequest{
+  repeated string client_ids = 1;
+}
+
+message CheckIfClientsExistResponse{
+  repeated bool do_exist = 1;
+}

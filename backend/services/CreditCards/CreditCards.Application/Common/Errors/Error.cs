@@ -12,8 +12,14 @@ public abstract class Error
     }
 
     public static NotFoundError NotFound(string message)
-        => new NotFoundError(message);
+        => new(message);
     
     public static InternalServerError InternalError(string message)
+        => new(message);
+    
+    public static InvalidOwnerIdError InvalidOwnerId(string message)
+        => new(message);
+    
+    public static FundsLackError FundsLack(string message)
         => new(message);
 }
