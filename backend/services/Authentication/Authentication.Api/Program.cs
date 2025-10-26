@@ -1,5 +1,5 @@
-using ch4rniauski.BankApp.Authentication.Application.Extensions.DependencyInjectionExtensions;
-using ch4rniauski.BankApp.Authentication.Infrastructure.Extensions.DependencyInjectionExtensions;
+using ch4rniauski.BankApp.Authentication.Application.Extensions;
+using ch4rniauski.BankApp.Authentication.Infrastructure.Extensions;
 using ch4rniauski.BankApp.Authentication.Infrastructure.Services.gRPC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,4 +34,6 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGrpcService<ClientsGrpcService>();
 
-app.Run();
+await app.ApplyMigrations();
+
+await app.RunAsync();

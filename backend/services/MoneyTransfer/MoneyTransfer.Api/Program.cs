@@ -1,5 +1,5 @@
 using ch4rniauski.BankApp.MoneyTransfer.Application.Extensions;
-using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Extensions.DependencyInjection;
+using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,4 +24,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.Run();
+await app.ApplyMigrations();
+
+await app.RunAsync();

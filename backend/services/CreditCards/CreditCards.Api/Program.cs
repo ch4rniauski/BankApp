@@ -1,5 +1,5 @@
-using ch4rniauski.BankApp.CreditCards.Application.Extensions.DependencyInjectionExtensions;
-using ch4rniauski.BankApp.CreditCards.Infrastructure.Extensions.DependencyInjectionExtensions;
+using ch4rniauski.BankApp.CreditCards.Application.Extensions;
+using ch4rniauski.BankApp.CreditCards.Infrastructure.Extensions;
 using ch4rniauski.BankApp.CreditCards.Infrastructure.Services.gRPC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,4 +31,6 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 app.MapGrpcService<CreditCardsGrpcService>();
 
-app.Run();
+await app.ApplyMigrations();
+
+await app.RunAsync();
