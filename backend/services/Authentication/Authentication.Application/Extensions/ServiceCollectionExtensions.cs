@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ch4rniauski.BankApp.Authentication.Application.Extensions.DependencyInjectionExtensions;
+namespace ch4rniauski.BankApp.Authentication.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {

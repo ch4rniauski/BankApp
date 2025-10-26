@@ -1,6 +1,6 @@
 namespace ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
 
-public class NotFoundError : Error
+public sealed class NotFoundError : Error
 {
     private const int NotFoundStatusCode = 404;
     

@@ -7,24 +7,24 @@ public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TI
     where TEntity : class
     where TId : struct
 {
-    protected readonly CreditCardsContext _context;
-    protected readonly DbSet<TEntity> _dbSet;
+    protected readonly CreditCardsContext Context;
+    protected readonly DbSet<TEntity> DbSet;
 
     protected BaseRepository(CreditCardsContext context)
     {
-        _context = context;
-        _dbSet = context.Set<TEntity>();
+        Context = context;
+        DbSet = context.Set<TEntity>();
     }
     
     public async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
-        => await _dbSet.FindAsync(
+        => await DbSet.FindAsync(
             keyValues: [id],
             cancellationToken: cancellationToken);
 
     public async Task<bool> CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddAsync(entity, cancellationToken);
+        await DbSet.AddAsync(entity, cancellationToken);
         
-        return await _context.SaveChangesAsync(cancellationToken) > 0;
+        return await Context.SaveChangesAsync(cancellationToken) > 0;
     }
 }

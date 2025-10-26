@@ -6,6 +6,7 @@ package clients;
 
 service ClientsService{
   rpc CheckIfClientExists(CheckIfClientExistsRequest) returns(CheckIfClientExistsResponse);
+  rpc CheckIfClientsExist(CheckIfClientsExistRequest) returns(CheckIfClientsExistResponse);
 }
 
 message CheckIfClientExistsRequest{
@@ -14,4 +15,12 @@ message CheckIfClientExistsRequest{
 
 message CheckIfClientExistsResponse{
   bool does_exist = 1;
+}
+
+message CheckIfClientsExistRequest{
+  repeated string client_ids = 1;
+}
+
+message CheckIfClientsExistResponse{
+  repeated bool do_exist = 1;
 }
