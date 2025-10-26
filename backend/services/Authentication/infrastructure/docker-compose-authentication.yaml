@@ -1,6 +1,6 @@
 services:
-  authetnication-api:
-    image: authetnication-api
+  authentication-api:
+    image: authentication-api
     container_name: authentication-api
     build:
       context: .

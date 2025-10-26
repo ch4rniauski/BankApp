@@ -21,7 +21,7 @@ public sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCredi
     private readonly IPinCodeProvider _pinCodeProvider;
     private readonly IHashProvider _hashProvider;
     
-    private const string AuthenticationServiceAddress = "";
+    private const string AuthenticationServiceAddress = "http://authentication-api:8080";
 
     public CreateCreditCardCommandHandler(
         ICreditCardRepository creditCardRepository,
