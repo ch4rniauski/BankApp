@@ -10,6 +10,7 @@ builder.Host.UseDefaultServiceProvider(opt =>
 });
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 builder.Services.AddMoneyTransferConfiguration(builder.Configuration);
 builder.Services.AddMediatrConfiguration();
@@ -23,6 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapControllers();
 
 await app.ApplyMigrations();
 
