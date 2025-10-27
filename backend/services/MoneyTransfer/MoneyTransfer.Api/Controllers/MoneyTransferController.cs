@@ -1,5 +1,6 @@
 using ch4rniauski.BankApp.MoneyTransfer.Application.DTO.Requests.Payments;
 using ch4rniauski.BankApp.MoneyTransfer.Application.DTO.Responses.Payments;
+using ch4rniauski.BankApp.MoneyTransfer.Application.Extensions;
 using ch4rniauski.BankApp.MoneyTransfer.Application.UseCases.Commands.Payments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,10 @@ public class MoneyTransferController : ControllerBase
         
         var result = await _mediator.Send(command, cancellationToken);
         
-        return result.;
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
     }
 }
