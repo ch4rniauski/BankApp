@@ -10,7 +10,7 @@ namespace ch4rniauski.BankApp.Authentication.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public sealed class ClientsController : ControllerBase
+public class ClientsController : ControllerBase
 {
     private readonly IMediator _mediator;
 

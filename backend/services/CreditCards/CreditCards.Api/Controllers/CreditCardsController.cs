@@ -9,7 +9,7 @@ namespace ch4rniauski.BankApp.CreditCards.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public sealed class CreditCardsController : ControllerBase
+public class CreditCardsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
