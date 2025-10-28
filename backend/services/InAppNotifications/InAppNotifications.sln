@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Domain",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Application", "InAppNotifications.Application\InAppNotifications.Application.csproj", "{69E37F13-3DE0-4F3B-A957-12B55B3B8DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Infrastructure", "InAppNotifications.Infrastructure\InAppNotifications.Infrastructure.csproj", "{B4DF1759-B76D-431E-83B1-D3CD58C77595}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Infrastructure.MongoDb", "InAppNotifications.Infrastructure.MongoDb\InAppNotifications.Infrastructure.MongoDb.csproj", "{B4DF1759-B76D-431E-83B1-D3CD58C77595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

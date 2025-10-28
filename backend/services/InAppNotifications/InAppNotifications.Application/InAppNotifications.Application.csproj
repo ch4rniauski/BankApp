@@ -7,4 +7,8 @@
         <RootNamespace>ch4rniauski.BankApp.InAppNotifications.Application</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\InAppNotifications.Domain\InAppNotifications.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
