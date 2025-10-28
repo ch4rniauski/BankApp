@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Api", "InAppNotifications.Api\InAppNotifications.Api.csproj", "{12231883-3591-4631-B26A-84888975CF13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Domain", "InAppNotifications.Domain\InAppNotifications.Domain.csproj", "{96DA7E5A-CE23-4547-B0AD-5B3CA04E30BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Application", "InAppNotifications.Application\InAppNotifications.Application.csproj", "{69E37F13-3DE0-4F3B-A957-12B55B3B8DF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InAppNotifications.Infrastructure.MongoDb", "InAppNotifications.Infrastructure.MongoDb\InAppNotifications.Infrastructure.MongoDb.csproj", "{B4DF1759-B76D-431E-83B1-D3CD58C77595}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12231883-3591-4631-B26A-84888975CF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12231883-3591-4631-B26A-84888975CF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12231883-3591-4631-B26A-84888975CF13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12231883-3591-4631-B26A-84888975CF13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96DA7E5A-CE23-4547-B0AD-5B3CA04E30BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96DA7E5A-CE23-4547-B0AD-5B3CA04E30BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96DA7E5A-CE23-4547-B0AD-5B3CA04E30BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96DA7E5A-CE23-4547-B0AD-5B3CA04E30BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E37F13-3DE0-4F3B-A957-12B55B3B8DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E37F13-3DE0-4F3B-A957-12B55B3B8DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E37F13-3DE0-4F3B-A957-12B55B3B8DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E37F13-3DE0-4F3B-A957-12B55B3B8DF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4DF1759-B76D-431E-83B1-D3CD58C77595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4DF1759-B76D-431E-83B1-D3CD58C77595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4DF1759-B76D-431E-83B1-D3CD58C77595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4DF1759-B76D-431E-83B1-D3CD58C77595}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
