@@ -50,7 +50,7 @@ public class CreditCardRepository : BaseRepository<CreditCardEntity, Guid>, ICre
             
             return changesCount > 0;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             await transaction.RollbackAsync(cancellationToken);
             
