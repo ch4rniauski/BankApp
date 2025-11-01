@@ -11,4 +11,14 @@
       <ProjectReference Include="..\InAppNotifications.Domain\InAppNotifications.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="15.1.0" />
+      <PackageReference Include="MediatR" Version="13.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="UseCases\CommandHandlers\" />
+      <Folder Include="UseCases\Commands\" />
+    </ItemGroup>
+
 </Project>

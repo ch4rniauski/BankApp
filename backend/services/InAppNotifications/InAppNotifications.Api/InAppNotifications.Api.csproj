@@ -8,11 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.11" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\InAppNotifications.Infrastructure.MongoDb\InAppNotifications.Infrastructure.MongoDb.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="MapperProfiles\" />
     </ItemGroup>
 
 </Project>
