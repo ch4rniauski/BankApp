@@ -10,12 +10,10 @@ public abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntit
 {
     protected readonly IMongoCollection<TEntity> Collection;
     
-    protected MongoBaseRepository(IOptions<MongoDbSettings> opt)
+    protected MongoBaseRepository(MongoDbSettings settings)
     {
-        var mongoDbSettings = opt.Value;
-        
-        var client = new MongoClient(mongoDbSettings.ConnectionString);
-        var db = client.GetDatabase(mongoDbSettings.DataBaseName);
+        var client = new MongoClient(settings.ConnectionString);
+        var db = client.GetDatabase(settings.DataBaseName);
         
         Collection = db.GetCollection<TEntity>(typeof(TEntity).Name);
     }
