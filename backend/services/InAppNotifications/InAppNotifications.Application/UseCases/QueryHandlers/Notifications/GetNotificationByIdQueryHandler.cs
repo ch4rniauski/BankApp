@@ -3,10 +3,10 @@ using ch4rniauski.BankApp.InAppNotifications.Application.Common.Errors;
 using ch4rniauski.BankApp.InAppNotifications.Application.Common.Results;
 using ch4rniauski.BankApp.InAppNotifications.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.InAppNotifications.Application.DTO.Responses.Notifications;
-using ch4rniauski.BankApp.InAppNotifications.Application.UseCases.Queries;
+using ch4rniauski.BankApp.InAppNotifications.Application.UseCases.Queries.Notifications;
 using MediatR;
 
-namespace ch4rniauski.BankApp.InAppNotifications.Application.UseCases.QueryHandlers;
+namespace ch4rniauski.BankApp.InAppNotifications.Application.UseCases.QueryHandlers.Notifications;
 
 internal class GetNotificationByIdQueryHandler : IRequestHandler<GetNotificationByIdQuery, Result<GetNotificationByIdResponseDto>>
 {
