@@ -16,4 +16,8 @@
       <ProjectReference Include="..\InAppNotifications.Infrastructure.MongoDb\InAppNotifications.Infrastructure.MongoDb.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="MapperProfiles\" />
+    </ItemGroup>
+
 </Project>
