@@ -1,4 +1,5 @@
 using ch4rniauski.BankApp.InAppNotifications.Api.GraphQL.Queries;
+using ch4rniauski.BankApp.InAppNotifications.Application.Extensions;
 using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.BsonClassMaps;
 using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Extensions;
 
@@ -19,6 +20,8 @@ builder.Services
 BsonClassMapRegistry.RegisterBsonClassMaps();
 
 builder.Services.AddMongoDataContextConfiguration(builder.Configuration);
+builder.Services.AddMediatrConfiguration();
+builder.Services.AddAutoMapperConfiguration();
 
 var app = builder.Build();
 
