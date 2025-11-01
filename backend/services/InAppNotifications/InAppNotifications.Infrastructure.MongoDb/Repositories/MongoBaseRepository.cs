@@ -50,4 +50,27 @@ public abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntit
         
         return await cursor.FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<IList<TEntity>?> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        var filter = FilterDefinition<TEntity>.Empty;
+        
+        var cursor = await Collection.FindAsync(filter, cancellationToken: cancellationToken);
+        
+        return await cursor.ToListAsync(cancellationToken);
+    }
+
+    public async Task<IList<TProjection>?> GetAllAsync<TProjection>(TProjection projectionType, Expression<Func<TEntity, TProjection>> projectionExpression,
+        CancellationToken cancellationToken = default)
+    {
+        var filter = FilterDefinition<TEntity>.Empty;
+        var findOptions = new FindOptions<TEntity, TProjection>
+        {
+            Projection = Builders<TEntity>.Projection.Expression(projectionExpression)
+        };
+        
+        var cursor = await Collection.FindAsync(filter, findOptions,  cancellationToken);
+        
+        return await cursor.ToListAsync(cancellationToken);
+    }
 }

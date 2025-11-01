@@ -11,4 +11,11 @@ public interface IMongoBaseRepository<TEntity> where TEntity : class
         TProjection projectionType,
         Expression<Func<TEntity, TProjection>> projectionExpression,
         CancellationToken cancellationToken = default);
+    
+    Task<IList<TEntity>?> GetAllAsync(CancellationToken cancellationToken = default);
+    
+    Task<IList<TProjection>?> GetAllAsync<TProjection>(
+        TProjection projectionType,
+        Expression<Func<TEntity, TProjection>> projectionExpression,
+        CancellationToken cancellationToken = default);
 }
