@@ -73,4 +73,20 @@ public abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntit
         
         return await cursor.ToListAsync(cancellationToken);
     }
+
+    public async Task<bool> CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var insertParams = new InsertOneOptions();
+
+            await Collection.InsertOneAsync(entity, insertParams, cancellationToken);
+            
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
 }
