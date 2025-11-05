@@ -83,4 +83,10 @@ public class ClientsController : ControllerBase
                 detail: err.Message,
                 statusCode: err.StatusCode));
     }
+
+    [HttpPost("is-authorized")]
+    public ActionResult IsAuthorized()
+    {
+        return Ok();
+    }
 }
