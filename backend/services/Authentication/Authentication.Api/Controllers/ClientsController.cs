@@ -21,7 +21,7 @@ public class ClientsController : ControllerBase
 
     [HttpPost("register")]
     public async Task<ActionResult<RegisterClientResponseDto>> RegisterClient(
-        [FromBody]RegisterClientRequestDto request,
+        [FromBody] RegisterClientRequestDto request,
         CancellationToken cancellationToken)
     {
         var command = new RegisterClientCommand(request);
@@ -54,7 +54,7 @@ public class ClientsController : ControllerBase
     [Authorize]
     public async Task<ActionResult<UpdateClientResponseDto>> UpdateClient(
         Guid id,
-        [FromBody]UpdateClientRequestDto request,
+        [FromBody] UpdateClientRequestDto request,
         CancellationToken cancellationToken)
     {
         var command = new UpdateClientCommand(id, request);
@@ -84,7 +84,8 @@ public class ClientsController : ControllerBase
                 statusCode: err.StatusCode));
     }
 
-    [HttpPost("is-auth")]
+    [HttpGet("is-auth")]
+    [Authorize]
     public ActionResult IsAuth()
     {
         return Ok();

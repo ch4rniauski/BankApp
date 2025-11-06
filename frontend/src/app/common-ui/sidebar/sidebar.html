@@ -11,9 +11,15 @@
     <nav class="sidebar-nav">
 
       <ul>
-        <li> <a href="">Account</a> </li>
-        <li> <a href="">Transactions</a> </li>
-        <li> <a href="">Cards</a> </li>
+
+        <li>
+          <a [routerLink]="isAuth ? '/account' : '/login'">
+            {{ isAuth ? 'Account' : 'LogIn' }}
+          </a>
+        </li>
+
+        <li> <a routerLink="">Transactions</a> </li>
+        <li> <a routerLink="">Cards</a> </li>
       </ul>
 
     </nav>

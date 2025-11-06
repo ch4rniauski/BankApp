@@ -1,4 +1,4 @@
 <div class="main-page">
-  <app-sidebar></app-sidebar>
+  <app-sidebar [isAuth]="(isAuth$ | async) ?? false"></app-sidebar>
   main page
 </div>
