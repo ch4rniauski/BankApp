@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {Sidebar} from '../../common-ui/sidebar/sidebar';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../data/services/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -18,6 +18,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class LoginPage {
   private authService = inject(AuthService)
   private fb = inject(FormBuilder)
+  private router = inject(Router)
 
   form = this.fb.nonNullable.group({
     email: this.fb.nonNullable.control('', [
@@ -37,6 +38,8 @@ export class LoginPage {
           next: result => {
             localStorage.setItem('access_token', result.accessToken);
             localStorage.setItem('refresh_token', result.refreshToken);
+
+            this.router.navigate(['/']);
           },
           error: (error : HttpErrorResponse) => {
             console.error(error);
