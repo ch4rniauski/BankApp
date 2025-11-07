@@ -2,9 +2,11 @@ using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
 using ch4rniauski.BankApp.Authentication.Application.Extensions;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.Commands.Client;
+using ch4rniauski.BankApp.Authentication.Application.UseCases.Queries.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace ch4rniauski.BankApp.Authentication.Api.Controllers;
 
@@ -89,5 +91,23 @@ public class ClientsController : ControllerBase
     public ActionResult IsAuth()
     {
         return Ok();
+    }
+
+    [HttpPost("access-token")]
+    public async Task<ActionResult<UpdateAccessTokenResponseDto>> UpdateAccessToken(
+        [FromBody] UpdateAccessTokenRequestDto request,
+        CancellationToken cancellationToken)
+    {
+        var clientId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+        
+        var query = new UpdateAccessTokenQuery(clientId, request.RefreshToken);
+        
+        var result = await _mediator.Send(query, cancellationToken);
+
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
     }
 }

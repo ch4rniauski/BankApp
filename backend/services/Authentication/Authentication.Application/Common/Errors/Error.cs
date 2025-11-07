@@ -29,4 +29,7 @@ public abstract class Error
     
     public static IncorrectDataTypeError IncorrectDataType(string message)
         => new(message);
+    
+    public static IncorrectTokenError IncorrectToken(string message)
+        => new(message);
 }
