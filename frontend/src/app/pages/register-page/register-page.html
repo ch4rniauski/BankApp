@@ -9,6 +9,8 @@
       (ngSubmit)="onsubmit()"
     >
 
+      <span class="response-error">{{ errorMessage }}</span>
+
       <label class="input-label">
         First Name
         <input
@@ -17,10 +19,10 @@
       </label>
 
       <label class="input-label">
-        Second Name
+        Last Name
         <input
-          formControlName="secondName"
-          class="form-input" type="text" placeholder="Enter Second Name">
+          formControlName="lastName"
+          class="form-input" type="text" placeholder="Enter Last Name">
       </label>
 
       <label class="input-label">

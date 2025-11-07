@@ -66,3 +66,8 @@
 .register-link{
   text-decoration: none;
 }
+
+.form-input.ng-invalid.ng-touched {
+  border: 1px solid var(--red-color);
+  border-radius: 5px;
+}

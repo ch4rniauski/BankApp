@@ -2,15 +2,23 @@
   <app-sidebar></app-sidebar>
 
   <div class="login-column">
-    <form action="" class="login-form">
+    <form
+      class="login-form"
+      [formGroup]="form"
+      (ngSubmit)="onsubmit()"
+    >
       <label class="input-label">
         Email
-        <input class="form-input" type="email" placeholder="Enter Email">
+        <input
+          formControlName="email"
+          class="form-input" type="email" placeholder="Enter Email">
       </label>
 
       <label class="input-label">
         Password
-        <input class="form-input" type="password" placeholder="Enter Password">
+        <input
+          formControlName="password"
+          class="form-input" type="password" placeholder="Enter Password">
       </label>
 
       <button class="submit-btn" type="submit">Log In</button>
