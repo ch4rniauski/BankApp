@@ -1,0 +1,32 @@
+<div class="login-page">
+  <app-sidebar></app-sidebar>
+
+  <div class="login-column">
+    <form
+      class="login-form"
+      [formGroup]="form"
+      (ngSubmit)="onsubmit()"
+    >
+      <label class="input-label">
+        Email
+        <input
+          formControlName="email"
+          class="form-input" type="email" placeholder="Enter Email">
+      </label>
+
+      <label class="input-label">
+        Password
+        <input
+          formControlName="password"
+          class="form-input" type="password" placeholder="Enter Password">
+      </label>
+
+      <button class="submit-btn" type="submit">Log In</button>
+
+      <p class="register-text">
+        Don't have an account?
+        <a routerLink="/register" class="register-link">Register</a>
+      </p>
+    </form>
+  </div>
+</div>
