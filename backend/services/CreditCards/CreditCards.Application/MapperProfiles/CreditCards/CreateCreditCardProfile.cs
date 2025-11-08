@@ -14,11 +14,12 @@ internal sealed class CreateCreditCardProfile : Profile
                 dest => dest.Id,
                 _ => Guid.NewGuid())
             .ForMember(dest => dest.CardNumber,
-                _ => string.Concat(
-                    Enumerable.Range(0, 16)
-                        .Select(_ => Random.Shared.Next(0, 16))
-                        .ToString()
+                opt => opt.MapFrom(_ =>
+                    string.Concat(
+                        Enumerable.Range(0, 16)
+                            .Select(_ => Random.Shared.Next(0, 10).ToString())
                     )
+                )
             )
             .ForMember(
                 dest => dest.CardType,
@@ -33,11 +34,23 @@ internal sealed class CreateCreditCardProfile : Profile
                 dest => dest.CreatedAt,
                 opt => opt.MapFrom(_ => DateTime.UtcNow))
             .ForMember(
+                dest => dest.Balance,
+                opt => opt.MapFrom(_ => 0))
+            .ForMember(
                 dest => dest.IsBlocked,
                 opt => opt.MapFrom(_ => false))
             .ForMember(
                 dest => dest.CardHolderId,
-                opt => opt.MapFrom(src => src.CardHolderId));
+                opt => opt.MapFrom(src => src.CardHolderId))
+            .ForMember(
+                dest => dest.CardHolderName,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.CvvHash,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.PinCodeHash,
+                opt => opt.Ignore());
 
         CreateMap<CreditCardEntity, CreateCreditCardResponseDto>()
             .ConstructUsing(src => new CreateCreditCardResponseDto(

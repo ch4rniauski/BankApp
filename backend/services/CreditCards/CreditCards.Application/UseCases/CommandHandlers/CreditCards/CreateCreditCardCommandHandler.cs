@@ -21,7 +21,7 @@ public sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCredi
     private readonly IPinCodeProvider _pinCodeProvider;
     private readonly IHashProvider _hashProvider;
     
-    private const string AuthenticationServiceAddress = "http://authentication-api:8080";
+    private const string AuthenticationServiceAddress = "http://authentication-api:8443";
 
     public CreateCreditCardCommandHandler(
         ICreditCardRepository creditCardRepository,
@@ -50,7 +50,7 @@ public sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCredi
         var response = await client.CheckIfClientExistsAsync(
             request: grpcRequest,
             cancellationToken: cancellationToken);
-
+        
         if (!response.DoesExist)
         {
             return Result<CreateCreditCardResponseDto>.Failure(
@@ -69,6 +69,7 @@ public sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCredi
         
         creditCard.CvvHash = cvvHash;
         creditCard.PinCodeHash = pinCodeHash;
+        creditCard.CardHolderName = response.CardHolderName;
         
         var isCreated = await _creditCardRepository.CreateAsync(creditCard, cancellationToken);
 

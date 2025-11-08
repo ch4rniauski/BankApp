@@ -5,7 +5,7 @@ using ch4rniauski.BankApp.Authentication.Domain.Entities;
 
 namespace ch4rniauski.BankApp.Authentication.Application.MapperProfiles.Client;
 
-public sealed class RegisterClientProfile : Profile
+internal sealed class RegisterClientProfile : Profile
 {
     public RegisterClientProfile()
     {

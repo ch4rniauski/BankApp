@@ -15,6 +15,7 @@ message CheckIfClientExistsRequest{
 
 message CheckIfClientExistsResponse{
   bool does_exist = 1;
+  string card_holder_name = 2;
 }
 
 message CheckIfClientsExistRequest{

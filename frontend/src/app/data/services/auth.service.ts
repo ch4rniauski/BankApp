@@ -54,7 +54,11 @@ export class AuthService {
 
     const clientId = localStorage.getItem('client_id');
 
-    const request = {
+    if (!clientId) {
+      return of(false);
+    }
+
+    const request: UpdateAccessTokenRequest = {
       refreshToken: refreshToken,
       clientId: clientId
     }

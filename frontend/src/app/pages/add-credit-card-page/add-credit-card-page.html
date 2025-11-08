@@ -1,0 +1,27 @@
+<div class="add-credit-card-page">
+  <app-sidebar></app-sidebar>
+
+  <div class="add-credit-card-column">
+    <div class="add-credit-card-form">
+
+      <form
+        [formGroup]="form"
+        (ngSubmit)="onsubmit()"
+        class="add-credit-card-form"
+      >
+        <label class="input-label">
+          Choose the Card type:
+
+          <select formControlName="cardType">
+            <option>Visa</option>
+            <option>Mastercard</option>
+            <option>Mir</option>
+          </select>
+        </label>
+
+        <button class="submit-btn" type="submit">Add a Card</button>
+      </form>
+
+    </div>
+  </div>
+</div>

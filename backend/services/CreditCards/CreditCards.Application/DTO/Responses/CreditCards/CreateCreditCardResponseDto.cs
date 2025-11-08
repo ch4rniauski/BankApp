@@ -4,6 +4,6 @@ public sealed record CreateCreditCardResponseDto(
     Guid Id,
     string CardNumber,
     string CardType,
-    byte ExpiryMonth,
-    short ExpiryYear,
+    byte ExpirationMonth,
+    short ExpirationYear,
     string CardHolderName);

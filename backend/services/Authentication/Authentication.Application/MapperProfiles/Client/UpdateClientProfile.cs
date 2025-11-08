@@ -5,7 +5,7 @@ using ch4rniauski.BankApp.Authentication.Domain.Entities;
 
 namespace ch4rniauski.BankApp.Authentication.Application.MapperProfiles.Client;
 
-public sealed class UpdateClientProfile : Profile
+internal sealed class UpdateClientProfile : Profile
 {
     public UpdateClientProfile()
     {
