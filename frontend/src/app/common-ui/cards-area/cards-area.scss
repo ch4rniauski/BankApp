@@ -65,3 +65,45 @@
 .refresh-balance-img:active {
   transform: scale(0.98);
 }
+
+.cards-container__no-cards {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 620px;
+  border-radius: 15px;
+  background: var(--blue-color);
+}
+
+.add-credit-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 225px;
+  width: 400px;
+  background: var(--hold-color);
+  border-radius: 15px;
+}
+
+.add-credit-card-img {
+  width: 50px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.add-credit-card-img:hover {
+  transform: scale(1.02);
+}
+
+.add-credit-card-img:active {
+  transform: scale(0.98);
+}
+
+.add-credit-card-text {
+  margin-top: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 15px;
+}

@@ -43,7 +43,7 @@ export class LoginPage {
 
             this.router.navigate(['/']);
           },
-          error: (error : HttpErrorResponse) => {
+          error: (error: HttpErrorResponse) => {
             console.error(error);
           }
         })
