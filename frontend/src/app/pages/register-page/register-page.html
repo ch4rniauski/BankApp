@@ -1,0 +1,53 @@
+<div class="register-page">
+  <app-sidebar></app-sidebar>
+
+  <div class="register-column">
+
+    <form
+      class="register-form"
+      [formGroup]="form"
+      (ngSubmit)="onsubmit()"
+    >
+
+      <span class="response-error">{{ errorMessage }}</span>
+
+      <label class="input-label">
+        First Name
+        <input
+          formControlName="firstName"
+          class="form-input" type="text" placeholder="Enter First Name">
+      </label>
+
+      <label class="input-label">
+        Last Name
+        <input
+          formControlName="lastName"
+          class="form-input" type="text" placeholder="Enter Last Name">
+      </label>
+
+      <label class="input-label">
+        Phone Number
+        <input
+          formControlName="phoneNumber"
+          class="form-input" type="tel" placeholder="Enter Phone Number">
+      </label>
+
+      <label class="input-label">
+        Email
+        <input
+          formControlName="email"
+          class="form-input" type="email" placeholder="Enter Email">
+      </label>
+
+      <label class="input-label">
+        Password
+        <input
+          formControlName="password"
+          class="form-input" type="password" placeholder="Enter Password">
+      </label>
+
+      <button class="submit-btn" type="submit">Register</button>
+    </form>
+
+  </div>
+</div>
