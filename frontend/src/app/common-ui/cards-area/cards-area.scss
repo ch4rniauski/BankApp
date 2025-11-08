@@ -1,0 +1,67 @@
+.cards-area {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.cards-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 30px 440px 30px 1fr;
+  width: 620px;
+  height: 300px;
+  border-radius: 15px;
+  background: var(--blue-color);
+}
+
+.switch-credit-card-arrow {
+  cursor: pointer;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  transition: .2s;
+}
+
+.switch-credit-card-arrow:hover {
+  transform: scale(1.02);
+}
+
+.switch-credit-card-arrow:active {
+  transform: scale(0.98);
+}
+
+.card-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.credit-card-img {
+  width: 380px;
+}
+
+.refresh-balance-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.refresh-balance-img {
+  height: 50px;
+  cursor: pointer;
+  transition: .2s;
+  border-radius: 5px;
+}
+
+.refresh-balance-img:hover {
+  transform: scale(1.02);
+}
+
+.refresh-balance-img:active {
+  transform: scale(0.98);
+}

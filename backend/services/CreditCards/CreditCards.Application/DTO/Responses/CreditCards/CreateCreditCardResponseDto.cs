@@ -1,4 +1,4 @@
-namespace ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
+namespace ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
 
 public sealed record CreateCreditCardResponseDto(
     Guid Id,

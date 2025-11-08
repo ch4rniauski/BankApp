@@ -4,14 +4,14 @@ using ch4rniauski.BankApp.CreditCards.Application.Common.Results;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.HashProviders;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.SensitiveDataProviders;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
-using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
+using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Domain.Entities;
 using ch4rniauski.BankApp.CreditCards.Grpc;
 using Grpc.Net.Client;
 using MediatR;
 
-namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.CreditCard;
+namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.CreditCards;
 
 public sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCreditCardCommand, Result<CreateCreditCardResponseDto>>
 {

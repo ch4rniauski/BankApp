@@ -1,7 +1,7 @@
 using AutoMapper;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Application.Extensions;
-using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Grpc;
 using Grpc.Core;
 using MediatR;

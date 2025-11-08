@@ -4,12 +4,14 @@ import {AuthService} from '../../data/services/auth.service';
 import {AsyncPipe} from '@angular/common';
 import {catchError, Observable, of, switchMap} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
+import {CardsArea} from '../../common-ui/cards-area/cards-area';
 
 @Component({
   selector: 'app-main-page',
   imports: [
     Sidebar,
-    AsyncPipe
+    AsyncPipe,
+    CardsArea
   ],
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',

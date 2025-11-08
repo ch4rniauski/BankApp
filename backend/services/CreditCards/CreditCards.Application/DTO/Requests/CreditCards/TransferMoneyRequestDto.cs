@@ -1,4 +1,4 @@
-namespace ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCard;
+namespace ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCards;
 
 public record TransferMoneyRequestDto(
     string ReceiverCardNumber,

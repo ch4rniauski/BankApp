@@ -1,6 +1,6 @@
 using ch4rniauski.BankApp.CreditCards.Domain.Enums;
 
-namespace ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
+namespace ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
 
 public sealed record TransferMoneyResponseDto(
     PaymentStatusEnum PaymentStatus,

@@ -3,11 +3,11 @@ using ch4rniauski.BankApp.CreditCards.Application.Checkers;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Results;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
-using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
+using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCards;
 using MediatR;
 
-namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.CreditCard;
+namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.CreditCards;
 
 internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<TransferMoneyToCardCommand, Result<TransferMoneyResponseDto>>
 {

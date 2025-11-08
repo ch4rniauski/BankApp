@@ -1,6 +1,6 @@
 using ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Results;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Domain.Entities;
 
 namespace ch4rniauski.BankApp.CreditCards.Application.Checkers;

@@ -1,3 +1,4 @@
+using AutoMapper;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +10,14 @@ public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TI
 {
     protected readonly CreditCardsContext Context;
     protected readonly DbSet<TEntity> DbSet;
+    protected readonly IMapper Mapper;
 
-    protected BaseRepository(CreditCardsContext context)
+    protected BaseRepository(
+        CreditCardsContext context,
+        IMapper mapper)
     {
         Context = context;
+        Mapper = mapper;
         DbSet = context.Set<TEntity>();
     }
     

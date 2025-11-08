@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.CreditCards.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +8,9 @@ namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Repositories;
 
 public class CreditCardRepository : BaseRepository<CreditCardEntity, Guid>, ICreditCardRepository
 {
-    public CreditCardRepository(CreditCardsContext context) : base(context)
+    public CreditCardRepository(
+        CreditCardsContext context,
+        IMapper mapper) : base(context, mapper)
     {
     }
 
@@ -14,6 +18,13 @@ public class CreditCardRepository : BaseRepository<CreditCardEntity, Guid>, ICre
         => await DbSet.FirstOrDefaultAsync(
             c => c.CardNumber == cardNumber,
             cancellationToken);
+    
+    public async Task<IList<TMap>> GetCardsByClientId<TMap>(Guid clientId, CancellationToken cancellationToken = default)
+        => await DbSet
+            .Where(c => c.CardHolderId == clientId)
+            .AsNoTracking()
+            .ProjectTo<TMap>(Mapper.ConfigurationProvider)
+            .ToListAsync(cancellationToken);
 
     public async Task<bool> TransferMoneyAsync(
         string senderCardNumber,

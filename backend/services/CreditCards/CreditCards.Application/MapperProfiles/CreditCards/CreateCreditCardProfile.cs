@@ -1,9 +1,9 @@
 using AutoMapper;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCard;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCards;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Domain.Entities;
 
-namespace ch4rniauski.BankApp.CreditCards.Application.MapperProfiles.CreditCard;
+namespace ch4rniauski.BankApp.CreditCards.Application.MapperProfiles.CreditCards;
 
 internal sealed class CreateCreditCardProfile : Profile
 {
@@ -12,8 +12,7 @@ internal sealed class CreateCreditCardProfile : Profile
         CreateMap<CreateCreditCardRequestDto, CreditCardEntity>()
             .ForMember(
                 dest => dest.Id,
-                _ => Guid.NewGuid()
-                )
+                _ => Guid.NewGuid())
             .ForMember(dest => dest.CardNumber,
                 _ => string.Concat(
                     Enumerable.Range(0, 16)
@@ -23,28 +22,22 @@ internal sealed class CreateCreditCardProfile : Profile
             )
             .ForMember(
                 dest => dest.CardType,
-                opt => opt.MapFrom(src => src.CardType.ToString())
-                )
+                opt => opt.MapFrom(src => src.CardType.ToString()))
             .ForMember(
                 dest => dest.ExpirationYear,
-                opt => opt.MapFrom(_ => DateTime.UtcNow.Year + 4)
-                )
+                opt => opt.MapFrom(_ => DateTime.UtcNow.Year + 4))
             .ForMember(
                 dest => dest.ExpirationMonth,
-                opt => opt.MapFrom(_ => DateTime.UtcNow.Month)
-                )
+                opt => opt.MapFrom(_ => DateTime.UtcNow.Month))
             .ForMember(
                 dest => dest.CreatedAt,
-                opt => opt.MapFrom(_ => DateTime.UtcNow)
-                )
+                opt => opt.MapFrom(_ => DateTime.UtcNow))
             .ForMember(
                 dest => dest.IsBlocked,
-                opt => opt.MapFrom(_ => false)
-                )
+                opt => opt.MapFrom(_ => false))
             .ForMember(
                 dest => dest.CardHolderId,
-                opt => opt.MapFrom(src => src.CardHolderId)
-                );
+                opt => opt.MapFrom(src => src.CardHolderId));
 
         CreateMap<CreditCardEntity, CreateCreditCardResponseDto>()
             .ConstructUsing(src => new CreateCreditCardResponseDto(
