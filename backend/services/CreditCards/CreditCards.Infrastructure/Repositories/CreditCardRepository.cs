@@ -14,7 +14,7 @@ public class CreditCardRepository : BaseRepository<CreditCardEntity, Guid>, ICre
     {
     }
 
-    public async Task<CreditCardEntity?> GetByCardNumberAsync(string cardNumber, CancellationToken cancellationToken = default)
+    public async Task<CreditCardEntity?> GetCardByNumberAsync(string cardNumber, CancellationToken cancellationToken = default)
         => await DbSet.FirstOrDefaultAsync(
             c => c.CardNumber == cardNumber,
             cancellationToken);

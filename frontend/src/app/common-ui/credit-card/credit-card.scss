@@ -1,0 +1,46 @@
+.credit-card {
+  display: grid;
+  width: 380px;
+  height: 235px;
+  background-color: var(--hold-color);
+  border-radius: 15px;
+}
+
+.credit-card-logo {
+  margin-left: 20px;
+  margin-top: 5px;
+  height: 50px;
+}
+
+.credit-card-balance {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 30px;
+}
+
+.credit-card-balance__mark {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+}
+
+.credit-card-number {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+}
+
+.credit-card-expiration {
+  display: flex;
+  margin-left: 120px;
+  justify-content: center;
+  width: 100%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+}

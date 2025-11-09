@@ -35,7 +35,7 @@ public class CreditCardsController : ControllerBase
                 statusCode: err.StatusCode));
     }
 
-    [HttpGet("{clientId:guid}")]
+    [HttpGet("clients/{clientId:guid}")]
     public async Task<ActionResult<IList<GetCreditCardResponseDto>>> GetCreditCardsByClientId(Guid clientId, CancellationToken cancellationToken)
     {
         var query = new GetCreditCardsByClientIdQuery(clientId);
@@ -43,5 +43,19 @@ public class CreditCardsController : ControllerBase
         var result = await _mediator.Send(query, cancellationToken);
         
         return Ok(result);
+    }
+    
+    [HttpGet("{cardId:guid}")]
+    public async Task<ActionResult<IList<GetCreditCardResponseDto>>> GetCreditCardBytId(Guid cardId, CancellationToken cancellationToken)
+    {
+        var query = new GetCreditCardByIdQuery(cardId);
+        
+        var result = await _mediator.Send(query, cancellationToken);
+
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
     }
 }

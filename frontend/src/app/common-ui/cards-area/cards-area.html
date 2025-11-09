@@ -7,7 +7,7 @@
       </button>
 
       <div class="card-holder">
-        <img src="/assets/imgs/credit-card.png" alt="Credit Card" class="credit-card-img">
+        <app-credit-card [lastUpdateTime]="lastUpdateTime"></app-credit-card>
       </div>
 
       <button class="switch-credit-card-arrow arrow-right">
@@ -15,7 +15,12 @@
       </button>
 
       <div class="refresh-balance-area">
-        <img src="/assets/imgs/refresh.svg" alt="Refresh Balance" class="refresh-balance-img">
+        <img
+          src="/assets/imgs/refresh.svg"
+          alt="Refresh Balance"
+          class="refresh-balance-img"
+          (click)="refreshBalanceClick()"
+        >
       </div>
     </div>
   } @else {
@@ -29,5 +34,4 @@
       </div>
     </div>
   }
-
 </div>

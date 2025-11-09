@@ -16,7 +16,7 @@ export class CreditCardService {
       return of([]);
     }
 
-    return this.httpClient.get<GetCreditCardResponse[]>(`${this.baseUrl}${clientId}`)
+    return this.httpClient.get<GetCreditCardResponse[]>(`${this.baseUrl}clients/${clientId}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.error(error)

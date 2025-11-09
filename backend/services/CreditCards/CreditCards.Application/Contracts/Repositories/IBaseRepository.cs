@@ -5,4 +5,6 @@ public interface IBaseRepository<TEntity, in TId>
     where TId : struct
 {
     Task<bool> CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    
+    Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
 }

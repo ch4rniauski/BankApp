@@ -24,7 +24,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
 
     public async Task<Result<TransferMoneyResponseDto>> Handle(TransferMoneyToCardCommand request, CancellationToken cancellationToken)
     {
-        var receiverCard = await _creditCardRepository.GetByCardNumberAsync(
+        var receiverCard = await _creditCardRepository.GetCardByNumberAsync(
             request.Request.ReceiverCardNumber,
             cancellationToken);
 
@@ -38,7 +38,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
             return cardCheckResult;
         }
         
-        var senderCard = await _creditCardRepository.GetByCardNumberAsync(
+        var senderCard = await _creditCardRepository.GetCardByNumberAsync(
             request.Request.SenderCardNumber,
             cancellationToken);
         
