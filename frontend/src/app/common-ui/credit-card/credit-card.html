@@ -1,0 +1,21 @@
+<div class="credit-card">
+  @if (creditCard){
+    <img [src]="creditCardLogoPath" alt="Credit Card logo" class="credit-card-logo">
+
+    <p class="credit-card-balance">{{ creditCard.balance }}</p>
+
+    <p class="credit-card-balance__mark">Balance as of {{ lastUpdateTime }}</p>
+
+    <p class="credit-card-number">{{ creditCard.cardNumber }}</p>
+
+    <p class="credit-card-expiration">{{ creditCard.expirationMonth }}/{{ creditCard.expirationYear }}</p>
+  } @else {
+    <div class="add-credit-card-container">
+      <a routerLink="/add-credit-card">
+        <img src="/assets/imgs/add-btn.svg" alt="Add Credit Card" class="add-credit-card-img">
+      </a>
+
+      <p class="add-credit-card-text">Add a Credit Card</p>
+    </div>
+  }
+</div>

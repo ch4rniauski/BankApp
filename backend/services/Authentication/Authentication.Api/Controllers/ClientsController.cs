@@ -98,9 +98,7 @@ public class ClientsController : ControllerBase
         [FromBody] UpdateAccessTokenRequestDto request,
         CancellationToken cancellationToken)
     {
-        var clientId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
-        
-        var query = new UpdateAccessTokenQuery(clientId, request.RefreshToken);
+        var query = new UpdateAccessTokenQuery(request.ClientId, request.RefreshToken);
         
         var result = await _mediator.Send(query, cancellationToken);
 

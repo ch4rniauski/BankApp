@@ -1,7 +1,7 @@
 using AutoMapper;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCard;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCards;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Domain.Enums;
 using ch4rniauski.BankApp.CreditCards.Grpc;
 using Google.Protobuf.WellKnownTypes;
@@ -44,7 +44,12 @@ internal sealed class TransferMoneyProfile : Profile
             .ForMember(
                 dest => dest.ReceiverCardLast4,
                 opt => opt.MapFrom(src => src.ReceiverCardLast4))
-            .ForAllMembers(opt => opt.Ignore());
+            .ForMember(
+                dest => dest.ErrorMessage,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.ErrorStatusCode,
+                opt => opt.Ignore());
 
         CreateMap<Error, TransferMoneyToCardResponse>()
             .ForMember(

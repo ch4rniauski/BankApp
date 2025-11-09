@@ -1,7 +1,8 @@
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCard;
-using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Requests.CreditCards;
+using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Application.Extensions;
-using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCard;
+using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCards;
+using ch4rniauski.BankApp.CreditCards.Application.UseCases.Queries.CreditCards;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,5 +33,29 @@ public class CreditCardsController : ControllerBase
             onFailure: err => Problem(
                 detail: err.Message,
                 statusCode: err.StatusCode));
-    } 
+    }
+
+    [HttpGet("clients/{clientId:guid}")]
+    public async Task<ActionResult<IList<GetCreditCardResponseDto>>> GetCreditCardsByClientId(Guid clientId, CancellationToken cancellationToken)
+    {
+        var query = new GetCreditCardsByClientIdQuery(clientId);
+        
+        var result = await _mediator.Send(query, cancellationToken);
+        
+        return Ok(result);
+    }
+    
+    [HttpGet("{cardId:guid}")]
+    public async Task<ActionResult<IList<GetCreditCardResponseDto>>> GetCreditCardBytId(Guid cardId, CancellationToken cancellationToken)
+    {
+        var query = new GetCreditCardByIdQuery(cardId);
+        
+        var result = await _mediator.Send(query, cancellationToken);
+
+        return result.Match(
+            onSuccess: Ok,
+            onFailure: err => Problem(
+                detail: err.Message,
+                statusCode: err.StatusCode));
+    }
 }

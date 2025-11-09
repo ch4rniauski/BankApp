@@ -74,7 +74,7 @@ public sealed class LoginClientCommandHandler : IRequestHandler<LoginClientComma
                     ));
         }
         
-        var response = new LoginClientResponseDto(accessToken, refreshToken);
+        var response = new LoginClientResponseDto(accessToken, refreshToken, client.Id.ToString());
         
         return Result<LoginClientResponseDto>.Success(response); 
     }

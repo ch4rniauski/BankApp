@@ -4,7 +4,7 @@ services:
     container_name: credit-cards-api
     build:
       context: ../
-      dockerfile: Dockerfile
+      dockerfile: ./infrastructure/Dockerfile
     ports:
       - 8081:8080
     depends_on:

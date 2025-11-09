@@ -29,7 +29,18 @@ internal sealed class PaymentEntityProfiles : Profile
             .ForMember(
                 dest => dest.SenderCardLast4,
                 opt => opt.MapFrom(src => src.SenderCardLast4))
-            .ForAllMembers(opt => opt.Ignore());
+            .ForMember(
+                dest => dest.ReceiverId,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.SenderId,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.Description,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.Currency,
+                opt => opt.Ignore());
 
         CreateMap<TransferMoneyRequestDto, PaymentEntity>()
             .ForMember(
@@ -44,6 +55,23 @@ internal sealed class PaymentEntityProfiles : Profile
             .ForMember(
                 dest => dest.Currency,
                 opt => opt.MapFrom(src => src.Currency))
-            .ForAllMembers(opt => opt.Ignore());
+            .ForMember(
+                dest => dest.Id,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.Amount,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.SenderCardLast4,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.ReceiverCardLast4,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.Status,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.ProcessedAt,
+                opt => opt.Ignore());
     }
 }

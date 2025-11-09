@@ -1,29 +1,22 @@
 <div class="sidebar">
-
   <div class="sidebar__left-part">
-    <img src="assets/imgs/logo.svg" alt="Logo" class="sidebar__logo">
+    <img src="/assets/imgs/logo.svg" alt="Logo" class="sidebar__logo">
 
     <p class="app-name">Bank-App</p>
   </div>
 
   <div class="sidebar__main-part">
-
     <nav class="sidebar-nav">
-
       <ul>
-
         <li>
-          <a [routerLink]="isAuth ? '/account' : '/login'">
-            {{ isAuth ? 'Account' : 'LogIn' }}
+          <a [routerLink]="(isAuth$ | async) ? '/account' : '/login'">
+            {{ (isAuth$ | async) ? 'Account' : 'LogIn' }}
           </a>
         </li>
 
         <li> <a routerLink="">Transactions</a> </li>
         <li> <a routerLink="">Cards</a> </li>
       </ul>
-
     </nav>
-
   </div>
-
 </div>

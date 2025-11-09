@@ -1,0 +1,48 @@
+<div class="cards-area">
+  @if (clientCreditCards.length !== 0){
+    <div class="cards-container">
+      <button
+        class="switch-credit-card-arrow"
+        (click)="switchCreditCardArrowLeftClickHandler()"
+        [style.visibility]="isArrowLeftVisible ? 'visible' : 'hidden'"
+      >
+        &#9664;
+      </button>
+
+      <div class="card-holder">
+        <app-credit-card
+          [lastUpdateTime]="lastUpdateTimeArray[cardNumber]"
+          [creditCard]="clientCreditCards[cardNumber]"
+        ></app-credit-card>
+      </div>
+
+      <button
+        class="switch-credit-card-arrow"
+        (click)="switchCreditCardArrowRightClickHandler()"
+        [style.visibility]="isArrowRightVisible ? 'visible' : 'hidden'"
+      >
+        &#9654;
+      </button>
+
+      <div class="refresh-balance-area">
+        <img
+          src="/assets/imgs/refresh.svg"
+          alt="Refresh Balance"
+          class="refresh-balance-img"
+          (click)="refreshBalanceClick()"
+          [style.visibility]="isUpdateBtnVisible ? 'visible' : 'hidden'"
+        >
+      </div>
+    </div>
+  } @else {
+    <div class="cards-container__no-cards">
+      <div class="add-credit-card-container">
+        <a routerLink="/add-credit-card">
+          <img src="/assets/imgs/add-btn.svg" alt="Add Credit Card" class="add-credit-card-img">
+        </a>
+
+        <p class="add-credit-card-text">Add a Credit Card</p>
+      </div>
+    </div>
+  }
+</div>
