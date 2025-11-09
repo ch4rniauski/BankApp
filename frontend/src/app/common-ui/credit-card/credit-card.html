@@ -1,6 +1,6 @@
 <div class="credit-card">
   @if (creditCard){
-    <img src="/assets/imgs/visa-logo.svg" alt="Credit Card logo" class="credit-card-logo">
+    <img [src]="creditCardLogoPath" alt="Credit Card logo" class="credit-card-logo">
 
     <p class="credit-card-balance">{{ creditCard.balance }}</p>
 

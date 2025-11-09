@@ -18,18 +18,24 @@ export class CardsArea {
 
   cardNumber = 0
   clientCreditCards : GetCreditCardResponse[] = []
-  lastUpdateTime!: string
+  lastUpdateTimeArray: string[] = []
+
+  isArrowLeftVisible = false
+  isArrowRightVisible = true
+  isUpdateBtnVisible = true
 
   ngOnInit() {
     this.creditCardService.getCreditCardsByClientId()
       .subscribe(res => {
-        this.getLastUpdateTime()
+        for (let i = 0; i < res.length; i++) {
+          this.getLastUpdateTimeForCreditCard(i);
+        }
 
         this.clientCreditCards = res
       })
   }
 
-  getLastUpdateTime() {
+  getLastUpdateTimeForCreditCard(creditCardIndex: number) {
     const now = new Date()
 
     const day = now.getDate().toString().padStart(2, '0')
@@ -39,7 +45,7 @@ export class CardsArea {
     const hours = now.getHours().toString().padStart(2, '0')
     const minutes = now.getMinutes().toString().padStart(2, '0')
 
-    this.lastUpdateTime = `${day}.${month}.${year} ${hours}:${minutes}`
+    this.lastUpdateTimeArray[creditCardIndex] = `${day}.${month}.${year} ${hours}:${minutes}`
   }
 
   refreshBalanceClick() {
@@ -48,7 +54,7 @@ export class CardsArea {
         next: (response) => {
           this.clientCreditCards[this.cardNumber] = response
 
-          this.getLastUpdateTime()
+          this.getLastUpdateTimeForCreditCard(this.cardNumber)
         },
         error: (err : HttpErrorResponse) => {
           console.error(err)
@@ -59,12 +65,26 @@ export class CardsArea {
   switchCreditCardArrowRightClickHandler() {
     if (this.cardNumber < this.clientCreditCards.length) {
       this.cardNumber++
+
+      this.isArrowLeftVisible = true
+
+      if (this.cardNumber === this.clientCreditCards.length) {
+        this.isArrowRightVisible = false
+        this.isUpdateBtnVisible = false
+      }
     }
   }
 
   switchCreditCardArrowLeftClickHandler() {
     if (this.cardNumber > 0) {
       this.cardNumber--
+
+      this.isArrowRightVisible = true
+      this.isUpdateBtnVisible = true
+
+      if (this.cardNumber === 0) {
+        this.isArrowLeftVisible = false
+      }
     }
   }
 }

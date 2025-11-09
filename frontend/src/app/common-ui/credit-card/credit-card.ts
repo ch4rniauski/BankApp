@@ -12,4 +12,27 @@ import {RouterLink} from '@angular/router';
 export class CreditCard {
   @Input() lastUpdateTime!: string
   @Input() creditCard!: GetCreditCardResponse;
+
+  creditCardLogoPath!: string
+
+  ngOnChanges(): void {
+    this.changeCreditCardLogo()
+  }
+
+  changeCreditCardLogo() {
+    switch(this.creditCard?.cardType){
+      case 'Visa':
+        this.creditCardLogoPath = '/assets/imgs/visa-logo.svg'
+        break
+      case 'Mir':
+        this.creditCardLogoPath = '/assets/imgs/mir-logo.png'
+        break
+      case 'Mastercard':
+        this.creditCardLogoPath = '/assets/imgs/mastercard-logo.svg'
+        break
+      default:
+        this.creditCardLogoPath = '/assets/imgs/visa-logo.svg'
+        break
+    }
+  }
 }

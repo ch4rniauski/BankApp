@@ -14,6 +14,7 @@
   height: 300px;
   border-radius: 15px;
   background: var(--blue-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .switch-credit-card-arrow {
@@ -23,6 +24,7 @@
   border-radius: 50%;
   font-size: 18px;
   transition: .2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .switch-credit-card-arrow:hover {

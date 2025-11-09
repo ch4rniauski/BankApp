@@ -4,13 +4,14 @@
       <button
         class="switch-credit-card-arrow"
         (click)="switchCreditCardArrowLeftClickHandler()"
+        [style.visibility]="isArrowLeftVisible ? 'visible' : 'hidden'"
       >
         &#9664;
       </button>
 
       <div class="card-holder">
         <app-credit-card
-          [lastUpdateTime]="lastUpdateTime"
+          [lastUpdateTime]="lastUpdateTimeArray[cardNumber]"
           [creditCard]="clientCreditCards[cardNumber]"
         ></app-credit-card>
       </div>
@@ -18,6 +19,7 @@
       <button
         class="switch-credit-card-arrow"
         (click)="switchCreditCardArrowRightClickHandler()"
+        [style.visibility]="isArrowRightVisible ? 'visible' : 'hidden'"
       >
         &#9654;
       </button>
@@ -28,6 +30,7 @@
           alt="Refresh Balance"
           class="refresh-balance-img"
           (click)="refreshBalanceClick()"
+          [style.visibility]="isUpdateBtnVisible ? 'visible' : 'hidden'"
         >
       </div>
     </div>
