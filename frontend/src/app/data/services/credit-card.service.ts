@@ -61,4 +61,13 @@ export class CreditCardService {
         )
       )
   }
+
+  getCreditCardById(creditCardId: string) : Observable<GetCreditCardResponse> {
+    return this.httpClient.get<GetCreditCardResponse>(`${this.baseUrl}${creditCardId}`)
+      .pipe(
+        catchError(
+          (error: HttpErrorResponse) => throwError(() => error)
+        )
+      )
+  }
 }

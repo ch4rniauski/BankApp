@@ -1,5 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
-import {CreditCardService} from '../../data/services/credit-card.service';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-credit-card',
@@ -8,7 +7,5 @@ import {CreditCardService} from '../../data/services/credit-card.service';
   styleUrl: './credit-card.scss',
 })
 export class CreditCard {
-  private creditCardService = inject(CreditCardService)
-
   @Input() lastUpdateTime!: string;
 }
