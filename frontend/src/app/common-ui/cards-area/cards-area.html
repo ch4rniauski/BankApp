@@ -1,16 +1,24 @@
 <div class="cards-area">
-
   @if (clientCreditCards.length !== 0){
     <div class="cards-container">
-      <button class="switch-credit-card-arrow">
+      <button
+        class="switch-credit-card-arrow"
+        (click)="switchCreditCardArrowLeftClickHandler()"
+      >
         &#9664;
       </button>
 
       <div class="card-holder">
-        <app-credit-card [lastUpdateTime]="lastUpdateTime"></app-credit-card>
+        <app-credit-card
+          [lastUpdateTime]="lastUpdateTime"
+          [creditCard]="clientCreditCards[cardNumber]"
+        ></app-credit-card>
       </div>
 
-      <button class="switch-credit-card-arrow arrow-right">
+      <button
+        class="switch-credit-card-arrow"
+        (click)="switchCreditCardArrowRightClickHandler()"
+      >
         &#9654;
       </button>
 

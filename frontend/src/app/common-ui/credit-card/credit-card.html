@@ -1,11 +1,21 @@
 <div class="credit-card">
-  <img src="/assets/imgs/visa-logo.svg" alt="Credit Card logo" class="credit-card-logo">
+  @if (creditCard){
+    <img src="/assets/imgs/visa-logo.svg" alt="Credit Card logo" class="credit-card-logo">
 
-  <p class="credit-card-balance">100.95</p>
+    <p class="credit-card-balance">{{ creditCard.balance }}</p>
 
-  <p class="credit-card-balance__mark">Balance as of 09.02.2026 {{ lastUpdateTime }}</p>
+    <p class="credit-card-balance__mark">Balance as of {{ lastUpdateTime }}</p>
 
-  <p class="credit-card-number">1234 5678 9012 3456</p>
+    <p class="credit-card-number">{{ creditCard.cardNumber }}</p>
 
-  <p class="credit-card-expiration">12/26</p>
+    <p class="credit-card-expiration">{{ creditCard.expirationMonth }}/{{ creditCard.expirationYear }}</p>
+  } @else {
+    <div class="add-credit-card-container">
+      <a routerLink="/add-credit-card">
+        <img src="/assets/imgs/add-btn.svg" alt="Add Credit Card" class="add-credit-card-img">
+      </a>
+
+      <p class="add-credit-card-text">Add a Credit Card</p>
+    </div>
+  }
 </div>
