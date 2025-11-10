@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {catchError, Observable, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,11 @@ export class MoneyTransferService {
   private httpClient = inject(HttpClient)
   private baseUrl = 'http://localhost:8082/api/moneytransfer/'
 
-  transferMoney(): Observable<TransferMoneyResponse> {
-    return this.httpClient.post<TransferMoneyResponse>(`${this.baseUrl}transfer`, )
+  transferMoney(request: TransferMoneyRequest): Observable<TransferMoneyResponse> {
+
+    return this.httpClient.post<TransferMoneyResponse>(`${this.baseUrl}transfer`, request)
+      .pipe(
+        catchError((error: HttpErrorResponse) => throwError(() => error))
+      )
   }
 }

@@ -37,6 +37,12 @@
   font-weight: 400;
 }
 
+.input-with-select {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .submit-btn {
   background: var(--light-grey-color);
   cursor: pointer;

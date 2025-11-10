@@ -1,6 +1,7 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CreditCardService} from '../../data/services/credit-card.service';
+import {MoneyTransferService} from '../../data/services/money-transfer.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-transfer-money-to-card-form',
@@ -12,24 +13,40 @@ import {CreditCardService} from '../../data/services/credit-card.service';
 })
 export class TransferMoneyToCardForm {
   private fb = inject(FormBuilder)
-  private creditCardService = inject(CreditCardService)
+  private moneyTransferService = inject(MoneyTransferService)
+
+  @Input() currentCard!: GetCreditCardResponse
 
   form = this.fb.nonNullable.group({
-    cardNumber: this.fb.nonNullable.control('', [
+    receiverCardNumber: this.fb.nonNullable.control('', [
       Validators.required,
-      Validators.minLength(16),
-      Validators.maxLength(19),
       Validators.pattern(/^[0-9]{16,19}$/)
     ]),
-    amount: this.fb.nonNullable.control('', [
+    amount: this.fb.nonNullable.control(0, [
       Validators.required,
+      Validators.min(0),
       Validators.pattern(/^\d+(\.\d{1,2})?$/)
-    ])
+    ]),
+    description: this.fb.control<string | null>(null),
+    currency: this.fb.nonNullable.control('USD', [Validators.required])
   })
 
   onSubmit() {
-    if (this.form.valid) {
+    if (this.form.valid && this.currentCard) {
+      const request: TransferMoneyRequest = {
+        senderCardNumber: this.currentCard.cardNumber,
+        receiverCardNumber: this.form.controls.receiverCardNumber.value,
+        amount: this.form.controls.amount.value,
+        currency: this.form.controls.currency.value,
+        description: this.form.controls.description.value
+      }
 
+      this.moneyTransferService.transferMoney(request)
+        .subscribe({
+          error: (error: HttpErrorResponse) => {
+            console.error(error)
+          }
+        })
     } else {
       this.form.markAllAsTouched()
     }

@@ -14,4 +14,6 @@ import {TransferMoneyToCardForm} from '../../common-ui/transfer-money-to-card-fo
   styleUrl: './money-transfer-to-card-page.scss',
 })
 export class MoneyTransferToCardPage {
+  clientCreditCards: GetCreditCardResponse[] = []
+  cardNumber = 0
 }

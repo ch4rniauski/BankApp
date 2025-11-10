@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {CreditCardService} from '../../data/services/credit-card.service';
 import {CreditCard} from '../credit-card/credit-card';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -16,10 +16,12 @@ import {RouterLink} from '@angular/router';
 export class CardsArea {
   private creditCardService = inject(CreditCardService)
 
-
-  cardNumber = 0
   lastUpdateTimeArray: string[] = []
-  clientCreditCards: GetCreditCardResponse[] = [];
+  @Input() clientCreditCards: GetCreditCardResponse[] = []
+  @Input() cardNumber: number = 0
+
+  @Output() onCardNumberChange = new EventEmitter<number>()
+  @Output() onClientCreditCardsChange = new EventEmitter<GetCreditCardResponse[]>()
 
   isArrowLeftVisible = false
   isArrowRightVisible = true
@@ -32,7 +34,7 @@ export class CardsArea {
           this.getLastUpdateTimeForCreditCard(i);
         }
 
-        this.clientCreditCards = res
+        this.changeClientCreditCards(res)
       })
   }
 
@@ -65,7 +67,7 @@ export class CardsArea {
 
   switchCreditCardArrowRightClickHandler() {
     if (this.cardNumber < this.clientCreditCards.length) {
-      this.cardNumber++
+      this.changeCardNumberByN(1)
 
       this.isArrowLeftVisible = true
 
@@ -78,7 +80,7 @@ export class CardsArea {
 
   switchCreditCardArrowLeftClickHandler() {
     if (this.cardNumber > 0) {
-      this.cardNumber--
+      this.changeCardNumberByN(-1)
 
       this.isArrowRightVisible = true
       this.isUpdateBtnVisible = true
@@ -87,5 +89,17 @@ export class CardsArea {
         this.isArrowLeftVisible = false
       }
     }
+  }
+
+  changeCardNumberByN(n: number) {
+    this.cardNumber += n
+
+    this.onCardNumberChange.emit(this.cardNumber)
+  }
+
+  changeClientCreditCards(creditCard: GetCreditCardResponse[]){
+    this.clientCreditCards = creditCard
+
+    this.onClientCreditCardsChange.emit(this.clientCreditCards)
   }
 }

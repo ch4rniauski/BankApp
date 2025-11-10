@@ -10,7 +10,7 @@ services:
     depends_on:
       - money-transfer-postgres
   money-transfer-postgres:
-    mage: postgres:15.14-alpine3.21
+    image: postgres:15.14-alpine3.21
     container_name: money-transfer-postgres
     ports:
       - 5434:5432
