@@ -31,16 +31,4 @@ public sealed class ClientsGrpcService : ClientsService.ClientsServiceBase
                 DoesExist = false
             });
     }
-
-    public override async Task<CheckIfClientsExistResponse> CheckIfClientsExist(CheckIfClientsExistRequest request, ServerCallContext context)
-    {
-        var query = new CheckIfClientsExistQuery(request.ClientIds.ToArray());
-        
-        var result = await _mediator.Send(query, context.CancellationToken);
-
-        return new CheckIfClientsExistResponse
-        {
-            DoExist = { result.Value }
-        };
-    }
 }

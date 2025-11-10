@@ -9,7 +9,7 @@ export class CreditCardService {
   private httpClient = inject(HttpClient)
   private baseUrl = 'http://localhost:8081/api/creditcards/'
 
-  getCreditCardsByClientId() : Observable<GetCreditCardResponse[]>{
+  getCreditCardsByClientId(): Observable<GetCreditCardResponse[]>{
     const clientId = localStorage.getItem('client_id')
 
     if (!clientId) {
@@ -26,7 +26,7 @@ export class CreditCardService {
       );
   }
 
-  createCreditCard(cardType: string) : Observable<CreateCreditCardResponse | null> {
+  createCreditCard(cardType: string): Observable<CreateCreditCardResponse | null> {
     const clientId = localStorage.getItem('client_id')
 
     if (!clientId) {
@@ -62,7 +62,7 @@ export class CreditCardService {
       )
   }
 
-  getCreditCardById(creditCardId: string) : Observable<GetCreditCardResponse> {
+  getCreditCardById(creditCardId: string): Observable<GetCreditCardResponse> {
     return this.httpClient.get<GetCreditCardResponse>(`${this.baseUrl}${creditCardId}`)
       .pipe(
         catchError(

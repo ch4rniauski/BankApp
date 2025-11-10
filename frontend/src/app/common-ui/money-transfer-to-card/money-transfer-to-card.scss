@@ -1,0 +1,18 @@
+.money-transfer-to-card {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  margin-top: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+.money-transfer-to-card-img {
+  width: 45px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.money-transfer-to-card-img:hover {
+  transform: scale(1.02);
+}

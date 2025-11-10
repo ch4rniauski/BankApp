@@ -9,7 +9,7 @@ export class AuthService {
   private httpClient = inject(HttpClient);
   private baseUrl = 'http://localhost:8080/api/clients/';
 
-  isAuth() : Observable<boolean> {
+  isAuth(): Observable<boolean> {
     const token = localStorage.getItem('access_token');
 
     if (!token) {
@@ -27,7 +27,7 @@ export class AuthService {
     )
   }
 
-  registerClient(client: RegisterClientRequest) : Observable<RegisterClientResponse> {
+  registerClient(client: RegisterClientRequest): Observable<RegisterClientResponse> {
     return this.httpClient.post<RegisterClientResponse>(`${this.baseUrl}register`, client)
       .pipe(
         catchError(
@@ -36,7 +36,7 @@ export class AuthService {
       )
   }
 
-  loginClient(request : LoginClientRequest) : Observable<LoginClientResponse> {
+  loginClient(request : LoginClientRequest): Observable<LoginClientResponse> {
     return this.httpClient.post<LoginClientResponse>(`${this.baseUrl}login`, request)
       .pipe(
         catchError(
@@ -45,7 +45,7 @@ export class AuthService {
       )
   }
 
-  updateAccessToken() : Observable<boolean> {
+  updateAccessToken(): Observable<boolean> {
     const refreshToken = localStorage.getItem('refresh_token');
 
     if (!refreshToken) {

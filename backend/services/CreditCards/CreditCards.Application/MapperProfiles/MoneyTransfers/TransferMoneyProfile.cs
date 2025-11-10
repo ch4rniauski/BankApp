@@ -13,19 +13,32 @@ internal sealed class TransferMoneyProfile : Profile
     public TransferMoneyProfile()
     {
         CreateMap<TransferMoneyRequestDto, TransferMoneyResponseDto>()
-            .ConvertUsing(src => new TransferMoneyResponseDto(
-                PaymentStatusEnum.Success,
-                DateTime.UtcNow, 
-                src.SenderCardNumber.Substring(src.SenderCardNumber.Length - 4),
-                src.ReceiverCardNumber.Substring(src.ReceiverCardNumber.Length - 4),
-                src.Amount));
+            .ForMember(
+                dest => dest.PaymentStatus,
+                opt => opt.MapFrom(_ => PaymentStatusEnum.Success))
+            .ForMember(
+                dest => dest.ProcessedAt,
+                opt => opt.MapFrom(_ => DateTime.UtcNow))
+            .ForMember(
+                dest => dest.SenderCardLast4,
+                opt => opt.MapFrom(src => src.SenderCardNumber.Substring(src.SenderCardNumber.Length - 4)))
+            .ForMember(
+                dest => dest.ReceiverCardLast4,
+                opt => opt.MapFrom(src => src.ReceiverCardNumber.Substring(src.ReceiverCardNumber.Length - 4)))
+            .ForMember(
+                dest => dest.Amount,
+                opt => opt.MapFrom(src => src.Amount))
+            .ForMember(
+                dest => dest.ReceiverId,
+                opt => opt.Ignore())
+            .ForMember(
+                dest => dest.SenderId,
+                opt => opt.Ignore());
         
         CreateMap<TransferMoneyToCardRequest, TransferMoneyRequestDto>()
             .ConstructUsing(src => new TransferMoneyRequestDto(
                 src.ReceiverCardNumber,
                 src.SenderCardNumber,
-                Guid.Parse(src.ReceiverId),
-                Guid.Parse(src.SenderId),
                 decimal.Parse(src.Amount)));
 
         CreateMap<TransferMoneyResponseDto, TransferMoneyToCardResponse>()
@@ -44,6 +57,12 @@ internal sealed class TransferMoneyProfile : Profile
             .ForMember(
                 dest => dest.ReceiverCardLast4,
                 opt => opt.MapFrom(src => src.ReceiverCardLast4))
+            .ForMember(
+                dest => dest.ReceiverId,
+                opt => opt.MapFrom(src => src.ReceiverId.ToString()))
+            .ForMember(
+                dest => dest.SenderId,
+                opt => opt.MapFrom(src => src.SenderId.ToString()))
             .ForMember(
                 dest => dest.ErrorMessage,
                 opt => opt.Ignore())

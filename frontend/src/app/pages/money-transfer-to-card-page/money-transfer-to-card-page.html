@@ -1,0 +1,16 @@
+<div class="transfer-money-to-card-page">
+  <app-sidebar></app-sidebar>
+
+  <div class="transfer-money-to-card-page__main-content">
+    <app-cards-area
+      [clientCreditCards]="clientCreditCards"
+      (onClientCreditCardsChange)="clientCreditCards = $event"
+      [cardNumber]="cardNumber"
+      (onCardNumberChange)="cardNumber = $event"
+    ></app-cards-area>
+
+    <app-transfer-money-to-card-form
+      [currentCard]="clientCreditCards[cardNumber]"
+    ></app-transfer-money-to-card-form>
+  </div>
+</div>

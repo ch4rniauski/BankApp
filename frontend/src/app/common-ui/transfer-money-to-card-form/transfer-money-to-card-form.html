@@ -1,0 +1,42 @@
+<div class="transfer-money-to-card-column">
+  <form
+    class="transfer-money-to-card-form"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+    <label class="input-label">
+      Receiver card number
+      <input
+        class="form-input"
+        type="text"
+        inputmode="numeric"
+        maxlength="19"
+        minlength="16"
+        pattern="[0-9]{16,19}"
+        placeholder="Enter receiver card number"
+        formControlName="receiverCardNumber"
+      >
+    </label>
+
+    <label class="input-label">
+      Amount
+      <div class="input-with-select">
+        <input
+          class="form-input"
+          type="text"
+          inputmode="numeric"
+          placeholder="Enter Amount"
+          formControlName="amount"
+        >
+        <select formControlName="currency">
+          <option>USD</option>
+          <option>RUB</option>
+          <option>BYN</option>
+          <option>EUR</option>
+        </select>
+      </div>
+    </label>
+
+    <button class="submit-btn" type="submit">Transfer</button>
+  </form>
+</div>

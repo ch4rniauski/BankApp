@@ -23,11 +23,13 @@ public sealed class CreditCardsGrpcService : CreditCardsGrpc.CreditCardsGrpcBase
 
     public override async Task<TransferMoneyToCardResponse> TransferMoneyToCard(TransferMoneyToCardRequest request, ServerCallContext context)
     {
+        Console.WriteLine("request accepted");
         var requestDto = _mapper.Map<TransferMoneyRequestDto>(request);
         
         var command = new TransferMoneyToCardCommand(requestDto);
         
         var result = await _mediator.Send(command, context.CancellationToken);
+        Console.WriteLine("request finished");
 
         return result.Match(
             onSuccess: src => _mapper.Map<TransferMoneyToCardResponse>(src),
