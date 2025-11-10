@@ -1,0 +1,65 @@
+.transfer-money-to-card-column {
+  display: grid;
+  margin-top: 20px;
+  justify-items: center;
+  align-items: center;
+}
+
+.transfer-money-to-card-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue-color);
+  height: 250px;
+  width: 300px;
+  gap: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.input-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 250px;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.form-input {
+  width: 100%;
+  height: 25px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+}
+
+.submit-btn {
+  background: var(--light-grey-color);
+  cursor: pointer;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  transition: 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.submit-btn:hover {
+  background: var(--hold-color);
+  transform: scale(1.02);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+.form-input.ng-invalid.ng-touched {
+  border: 1px solid var(--red-color);
+  border-radius: 5px;
+}

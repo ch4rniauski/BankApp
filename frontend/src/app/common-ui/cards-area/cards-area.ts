@@ -16,9 +16,10 @@ import {RouterLink} from '@angular/router';
 export class CardsArea {
   private creditCardService = inject(CreditCardService)
 
+
   cardNumber = 0
-  clientCreditCards : GetCreditCardResponse[] = []
   lastUpdateTimeArray: string[] = []
+  clientCreditCards: GetCreditCardResponse[] = [];
 
   isArrowLeftVisible = false
   isArrowRightVisible = true
