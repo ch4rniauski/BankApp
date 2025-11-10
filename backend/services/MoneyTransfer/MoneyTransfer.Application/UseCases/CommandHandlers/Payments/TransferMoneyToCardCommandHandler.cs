@@ -7,7 +7,6 @@ using ch4rniauski.BankApp.MoneyTransfer.Application.DTO.Requests.Payments;
 using ch4rniauski.BankApp.MoneyTransfer.Application.DTO.Responses.Payments;
 using ch4rniauski.BankApp.MoneyTransfer.Application.UseCases.Commands.Payments;
 using ch4rniauski.BankApp.MoneyTransfer.Domain.Entities;
-using ch4rniauski.BankApp.MoneyTransfer.Grpc;
 using FluentValidation;
 using Grpc.Net.Client;
 using MediatR;
@@ -20,8 +19,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
     private readonly IValidator<TransferMoneyRequestDto> _validator;
     private readonly IMapper _mapper;
     
-    private const string AuthenticationServiceAddress = "";
-    private const string CreditCardServiceAddress = "";
+    private const string CreditCardServiceAddress = "http://credit-cards-api:8443";
 
     public TransferMoneyToCardCommandHandler(
         IPaymentRepository paymentRepository,
@@ -44,50 +42,23 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
             return Result<TransferMoneyResponseDto>
                 .Failure(Error.FailedValidation(message));
         }
+
+        using var channel = GrpcChannel.ForAddress(CreditCardServiceAddress);
         
-        using (var channel = GrpcChannel.ForAddress(AuthenticationServiceAddress))
+        var client = new CreditCardsGrpc.CreditCardsGrpcClient(channel);
+
+        var grpcRequest = _mapper.Map<TransferMoneyToCardRequest>(request.Request);
+
+        var creditCardGrpcResponse = await client.TransferMoneyToCardAsync(
+            request: grpcRequest,
+            cancellationToken: cancellationToken);
+
+        if (creditCardGrpcResponse.HasErrorStatusCode)
         {
-            var client = new ClientsService.ClientsServiceClient(channel);
-            var grpcRequest = new CheckIfClientsExistRequest
-            {
-                ClientIds =
-                {
-                    request.Request.SenderId.ToString(),
-                    request.Request.ReceiverId.ToString()
-                }
-            };
-            
-            var grpcResponse = await client.CheckIfClientsExistAsync(
-                request: grpcRequest,
-                cancellationToken: cancellationToken);
-
-            if (grpcResponse.DoExist.Any(b => b == false))
-            {
-                return Result<TransferMoneyResponseDto>
-                    .Failure(Error.NotFound(
-                        "At least one client was not found by the provided IDs"
-                        ));
-            }
-        }
-
-        TransferMoneyToCardResponse? creditCardGrpcResponse;
-        using (var channel = GrpcChannel.ForAddress(CreditCardServiceAddress))
-        {
-            var client = new CreditCardsGrpc.CreditCardsGrpcClient(channel);
-
-            var grpcRequest = _mapper.Map<TransferMoneyToCardRequest>(request.Request);
-
-            creditCardGrpcResponse = await client.TransferMoneyToCardAsync(
-                request: grpcRequest,
-                cancellationToken: cancellationToken);
-
-            if (creditCardGrpcResponse.HasErrorStatusCode)
-            {
-                return Result<TransferMoneyResponseDto>
-                    .Failure(Error.FailedGrpcOperation(
-                        creditCardGrpcResponse.ErrorStatusCode,
-                        creditCardGrpcResponse.ErrorMessage));
-            }
+            return Result<TransferMoneyResponseDto>
+                .Failure(Error.FailedGrpcOperation(
+                    creditCardGrpcResponse.ErrorStatusCode,
+                    creditCardGrpcResponse.ErrorMessage));
         }
         
         var payment = _mapper.Map<PaymentEntity>(creditCardGrpcResponse);

@@ -16,12 +16,6 @@ internal sealed class TransferMoneyProfile : Profile
                 dest => dest.Amount,
                 opt => opt.MapFrom(src => src.Amount.ToString(CultureInfo.InvariantCulture)))
             .ForMember(
-                dest => dest.ReceiverId,
-                opt => opt.MapFrom(src => src.ReceiverId.ToString()))
-            .ForMember(
-                dest => dest.SenderId,
-                opt => opt.MapFrom(src => src.SenderId.ToString()))
-            .ForMember(
                 dest => dest.ReceiverCardNumber,
                 opt => opt.MapFrom(src => src.ReceiverCardNumber))
             .ForMember(

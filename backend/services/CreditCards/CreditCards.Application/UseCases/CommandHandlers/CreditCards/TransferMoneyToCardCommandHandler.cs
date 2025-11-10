@@ -30,8 +30,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
 
         var cardCheckResult = CreditCardChecker.CheckCreditCard(
             receiverCard,
-            request.Request.ReceiverCardNumber,
-            request.Request.ReceiverId);
+            request.Request.ReceiverCardNumber);
 
         if (cardCheckResult is not null)
         {
@@ -44,8 +43,7 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
         
         cardCheckResult = CreditCardChecker.CheckCreditCard(
             senderCard,
-            request.Request.SenderCardNumber,
-            request.Request.SenderId);
+            request.Request.SenderCardNumber);
         
         if (cardCheckResult is not null)
         {
@@ -75,6 +73,9 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
         }
         
         var response = _mapper.Map<TransferMoneyResponseDto>(request.Request);
+
+        response.ReceiverId = receiverCard!.CardHolderId;
+        response.SenderId = senderCard.CardHolderId;
 
         return Result<TransferMoneyResponseDto>.Success(response);
     }

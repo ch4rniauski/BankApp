@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ch4rniauski.BankApp.MoneyTransfer.Api.Controllers;
 
 [ApiController]
-[Route("api/money")]
+[Route("api/[controller]")]
 public class MoneyTransferController : ControllerBase
 {
     private readonly IMediator _mediator;

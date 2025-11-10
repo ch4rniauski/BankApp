@@ -9,7 +9,16 @@ builder.Host.UseDefaultServiceProvider(opt =>
     opt.ValidateScopes = true;
 });
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddCors(opt =>
+    opt.AddDefaultPolicy(policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .AllowAnyMethod();
+    }));
+
 builder.Services.AddControllers();
 
 builder.Services.AddMoneyTransferConfiguration(builder.Configuration);
@@ -19,11 +28,7 @@ builder.Services.AddAutoMapperConfiguration();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseCors();
 
 app.MapControllers();
 

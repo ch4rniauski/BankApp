@@ -13,12 +13,6 @@ public class TransferMoneyRequestDtoValidator : AbstractValidator<TransferMoneyR
         RuleFor(t => t.Currency)
             .NotEmpty()
             .Length(3);
-
-        RuleFor(t => t.ReceiverId)
-            .NotEqual(Guid.Empty);
-        
-        RuleFor(t => t.SenderId)
-            .NotEqual(Guid.Empty);
         
         RuleFor(t => t.ReceiverCardNumber)
             .NotEmpty()

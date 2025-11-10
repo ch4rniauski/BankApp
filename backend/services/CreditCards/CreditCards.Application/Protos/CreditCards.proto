@@ -13,9 +13,7 @@ service CreditCardsGrpc{
 message TransferMoneyToCardRequest{
   string sender_card_number = 1;
   string receiver_card_number = 2;
-  string sender_id = 3;
-  string receiver_id = 4;
-  string amount = 5;
+  string amount = 3;
 }
 
 message TransferMoneyToCardResponse{
@@ -23,9 +21,11 @@ message TransferMoneyToCardResponse{
   google.protobuf.Timestamp processed_at = 2;
   string sender_card_last4 = 3;
   string receiver_card_last4 = 4;
-  string amount = 5;
-  optional int32 error_status_code = 6;
-  optional string error_message = 7;
+  string sender_id = 5;
+  string receiver_id = 6;
+  string amount = 7;
+  optional int32 error_status_code = 8;
+  optional string error_message = 9;
 }
 
 enum PaymentStatusGrpcEnum{
