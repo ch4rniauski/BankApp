@@ -21,7 +21,7 @@ public class ClientsController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("register")]
+    [HttpPost]
     public async Task<ActionResult<RegisterClientResponseDto>> RegisterClient(
         [FromBody] RegisterClientRequestDto request,
         CancellationToken cancellationToken)
@@ -38,7 +38,6 @@ public class ClientsController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
-    [Authorize]
     public async Task<ActionResult<DeleteClientResponseDto>> DeleteClient(Guid id, CancellationToken cancellationToken)
     {
         var command = new DeleteClientCommand(id);
@@ -53,7 +52,6 @@ public class ClientsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    [Authorize]
     public async Task<ActionResult<UpdateClientResponseDto>> UpdateClient(
         Guid id,
         [FromBody] UpdateClientRequestDto request,
@@ -87,7 +85,6 @@ public class ClientsController : ControllerBase
     }
 
     [HttpGet("is-auth")]
-    [Authorize]
     public ActionResult IsAuth()
     {
         return Ok();

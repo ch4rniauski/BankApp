@@ -1,11 +1,8 @@
-using System.Text;
 using ch4rniauski.BankApp.Authentication.Application.Contracts.Jwt;
 using ch4rniauski.BankApp.Authentication.Application.Jwt;
 using FluentValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ch4rniauski.BankApp.Authentication.Application.Extensions;
 
