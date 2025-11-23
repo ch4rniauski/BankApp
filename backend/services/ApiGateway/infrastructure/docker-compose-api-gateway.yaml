@@ -1,0 +1,9 @@
+services:
+  api-gateway:
+    image: api-gateway
+    container_name: api-gateway
+    build:
+      context: ../
+      dockerfile: ./infrastructure/Dockerfile
+    ports:
+      - 8083:8080
