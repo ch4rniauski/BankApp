@@ -1,4 +1,5 @@
 using AutoMapper;
+using ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Results;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
@@ -66,5 +67,31 @@ public class TransferMoneyToCardUnitTests
         Assert.IsType<TransferMoneyResponseDto>(response.Value);
         Assert.Equal(isSuccess, response.IsSuccess);
         Assert.Null(response.Error);
+    }
+    
+    [Fact]
+    private async Task TransferMoneyToCard_ReturnsFailedResult_WithNotFoundError()
+    {
+        // Arrange
+        const bool isSuccess = false;
+        
+        var request = TransferMoneyDataProvider.GenerateTransferMoneyRequestDto();
+        var command = new TransferMoneyToCardCommand(request);
+        CreditCardEntity? creditCard = null;
+        
+        _creditCardRepositoryMock.Setup(c => c.GetCardByNumberAsync(
+                request.ReceiverCardNumber,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(creditCard);
+        
+        // Act
+        var response = await _commandHandler.Handle(command, CancellationToken.None);
+        
+        // Assert
+        Assert.IsType<Result<TransferMoneyResponseDto>>(response);
+        Assert.Null(response.Value);
+        Assert.NotNull(response.Error);
+        Assert.IsType<NotFoundError>(response.Error);
+        Assert.Equal(isSuccess, response.IsSuccess);
     }
 }
