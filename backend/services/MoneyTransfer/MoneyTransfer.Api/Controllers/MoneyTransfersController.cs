@@ -9,16 +9,16 @@ namespace ch4rniauski.BankApp.MoneyTransfer.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class MoneyTransferController : ControllerBase
+public class MoneyTransfersController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public MoneyTransferController(IMediator mediator)
+    public MoneyTransfersController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
-    [HttpPost("transfer")]
+    [HttpPost]
     public async Task<ActionResult<TransferMoneyResponseDto>> TransferMoney(
         [FromBody] TransferMoneyRequestDto request,
         CancellationToken cancellationToken)
