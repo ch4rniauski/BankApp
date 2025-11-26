@@ -126,4 +126,79 @@ public class TransferMoneyToCardUnitTests
         Assert.IsType<NotFoundError>(response.Error);
         Assert.Equal(isSuccess, response.IsSuccess);
     }
+    
+    [Fact]
+    private async Task TransferMoneyToCard_ReturnsFailedResult_WithFundsLackError()
+    {
+        // Arrange
+        const bool isSuccess = false;
+        
+        var request = TransferMoneyDataProvider.GenerateTransferMoneyRequestDto();
+        var command = new TransferMoneyToCardCommand(request);
+        var creditCard = new CreditCardEntity
+        {
+            Balance = request.Amount - 1
+        };
+        
+        _creditCardRepositoryMock.Setup(c => c.GetCardByNumberAsync(
+                request.ReceiverCardNumber,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(creditCard);
+        
+        _creditCardRepositoryMock.Setup(c => c.GetCardByNumberAsync(
+                request.SenderCardNumber,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(creditCard);
+        
+        // Act
+        var response = await _commandHandler.Handle(command, CancellationToken.None);
+        
+        // Assert
+        Assert.IsType<Result<TransferMoneyResponseDto>>(response);
+        Assert.Null(response.Value);
+        Assert.NotNull(response.Error);
+        Assert.IsType<FundsLackError>(response.Error);
+        Assert.Equal(isSuccess, response.IsSuccess);
+    }
+    
+    [Fact]
+    private async Task TransferMoneyToCard_ReturnsFailedResult_WithInternalError()
+    {
+        // Arrange
+        const bool isSuccess = false;
+        
+        var request = TransferMoneyDataProvider.GenerateTransferMoneyRequestDto();
+        var command = new TransferMoneyToCardCommand(request);
+        var creditCard = new CreditCardEntity
+        {
+            Balance = request.Amount
+        };
+        
+        _creditCardRepositoryMock.Setup(c => c.GetCardByNumberAsync(
+                request.ReceiverCardNumber,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(creditCard);
+        
+        _creditCardRepositoryMock.Setup(c => c.GetCardByNumberAsync(
+                request.SenderCardNumber,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(creditCard);
+        
+        _creditCardRepositoryMock.Setup(c => c.TransferMoneyAsync(
+                request.SenderCardNumber,
+                request.ReceiverCardNumber,
+                request.Amount,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(false);
+        
+        // Act
+        var response = await _commandHandler.Handle(command, CancellationToken.None);
+        
+        // Assert
+        Assert.IsType<Result<TransferMoneyResponseDto>>(response);
+        Assert.Null(response.Value);
+        Assert.NotNull(response.Error);
+        Assert.IsType<InternalServerError>(response.Error);
+        Assert.Equal(isSuccess, response.IsSuccess);
+    }
 }
