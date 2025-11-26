@@ -4,7 +4,7 @@ using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
 
 namespace ch4rniauski.BankApp.Authentication.Tests.Helpers.DataProviders;
 
-public static class ClientDataProvider
+internal static class ClientDataProvider
 {
     public static DeleteClientResponseDto GenerateDeleteClientResponseDto()
     {

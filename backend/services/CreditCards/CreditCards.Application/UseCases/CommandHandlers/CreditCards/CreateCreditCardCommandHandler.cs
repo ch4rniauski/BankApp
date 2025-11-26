@@ -13,7 +13,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.CreditCards;
 
-public sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCreditCardCommand, Result<CreateCreditCardResponseDto>>
+internal sealed class CreateCreditCardCommandHandler : IRequestHandler<CreateCreditCardCommand, Result<CreateCreditCardResponseDto>>
 {
     private readonly ICreditCardRepository _creditCardRepository;
     private readonly IMapper _mapper;

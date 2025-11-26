@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditCards.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditCards.Infrastructure", "CreditCards.Infrastructure\CreditCards.Infrastructure.csproj", "{9E049FB5-DE9F-4187-88E2-D6B13A898A76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditCards.Tests", "CreditCards.Tests\CreditCards.Tests.csproj", "{42049A4C-375E-4722-BB94-ED10E1BEB1E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{9E049FB5-DE9F-4187-88E2-D6B13A898A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E049FB5-DE9F-4187-88E2-D6B13A898A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E049FB5-DE9F-4187-88E2-D6B13A898A76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42049A4C-375E-4722-BB94-ED10E1BEB1E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42049A4C-375E-4722-BB94-ED10E1BEB1E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42049A4C-375E-4722-BB94-ED10E1BEB1E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42049A4C-375E-4722-BB94-ED10E1BEB1E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
