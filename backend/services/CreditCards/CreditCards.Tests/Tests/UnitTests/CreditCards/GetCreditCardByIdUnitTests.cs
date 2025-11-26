@@ -1,4 +1,5 @@
 using AutoMapper;
+using ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Results;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
@@ -49,6 +50,31 @@ public sealed class GetCreditCardByIdUnitTests
         Assert.NotNull(response.Value);
         Assert.IsType<GetCreditCardResponseDto>(response.Value);
         Assert.Null(response.Error);
+        Assert.Equal(isSuccess, response.IsSuccess);
+        Assert.Equal(result, response.Value);
+    }
+    
+    [Fact]
+    private async Task GetCreditCardById_ReturnsFailedResult_WithNotFoundError()
+    {
+        // Arrange
+        const bool isSuccess = false;
+        var request = new GetCreditCardByIdQuery(Guid.NewGuid());
+        CreditCardEntity? creditCard = null;
+        
+        _creditCardRepositoryMock.Setup(c => c.GetByIdAsync(
+                request.CardId, 
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(creditCard);
+        
+        // Act
+        var response = await _queryHandler.Handle(request, CancellationToken.None);
+        
+        // Assert
+        Assert.IsType<Result<GetCreditCardResponseDto>>(response);
+        Assert.Null(response.Value);
+        Assert.NotNull(response.Error);
+        Assert.IsType<NotFoundError>(response.Error);
         Assert.Equal(isSuccess, response.IsSuccess);
     }
 }

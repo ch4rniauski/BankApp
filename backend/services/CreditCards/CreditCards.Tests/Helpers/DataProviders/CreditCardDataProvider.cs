@@ -17,4 +17,19 @@ internal static class CreditCardDataProvider
                 3000,
                 faker.Person.FullName));
     }
+    
+    public static IList<GetCreditCardResponseDto> GenerateListOfGetCreditCardResponseDto(int count)
+    {
+        var faker = new Faker<GetCreditCardResponseDto>()
+            .CustomInstantiator(faker => new GetCreditCardResponseDto(
+                Guid.NewGuid(),
+                faker.Finance.CreditCardNumber(),
+                "Visa",
+                faker.Finance.Amount(),
+                6,
+                3000,
+                faker.Person.FullName));
+        
+        return faker.Generate(count);
+    }
 }
