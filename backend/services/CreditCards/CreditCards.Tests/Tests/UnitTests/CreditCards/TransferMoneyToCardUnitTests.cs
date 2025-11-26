@@ -70,7 +70,7 @@ public class TransferMoneyToCardUnitTests
     }
     
     [Fact]
-    private async Task TransferMoneyToCard_ReturnsFailedResult_WithNotFoundError()
+    private async Task TransferMoneyToCard_ReturnsFailedResult_WithNotFoundError_WhenReceiverCardWasNotFound()
     {
         // Arrange
         const bool isSuccess = false;
@@ -83,6 +83,38 @@ public class TransferMoneyToCardUnitTests
                 request.ReceiverCardNumber,
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(creditCard);
+        
+        // Act
+        var response = await _commandHandler.Handle(command, CancellationToken.None);
+        
+        // Assert
+        Assert.IsType<Result<TransferMoneyResponseDto>>(response);
+        Assert.Null(response.Value);
+        Assert.NotNull(response.Error);
+        Assert.IsType<NotFoundError>(response.Error);
+        Assert.Equal(isSuccess, response.IsSuccess);
+    }
+    
+    [Fact]
+    private async Task TransferMoneyToCard_ReturnsFailedResult_WithNotFoundError_WhenSenderCardWasNotFound()
+    {
+        // Arrange
+        const bool isSuccess = false;
+        
+        var request = TransferMoneyDataProvider.GenerateTransferMoneyRequestDto();
+        var command = new TransferMoneyToCardCommand(request);
+        var receiverCreditCard = new CreditCardEntity();
+        CreditCardEntity? senderCreditCard = null;
+        
+        _creditCardRepositoryMock.Setup(c => c.GetCardByNumberAsync(
+                request.ReceiverCardNumber,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(receiverCreditCard);
+        
+        _creditCardRepositoryMock.Setup(c => c.GetCardByNumberAsync(
+                request.SenderCardNumber,
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(senderCreditCard);
         
         // Act
         var response = await _commandHandler.Handle(command, CancellationToken.None);
