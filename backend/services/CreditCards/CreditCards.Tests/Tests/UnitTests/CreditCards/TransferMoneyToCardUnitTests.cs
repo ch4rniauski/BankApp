@@ -12,7 +12,7 @@ using Xunit;
 
 namespace ch4rniauski.BankApp.CreditCards.Tests.Tests.UnitTests.CreditCards;
 
-public class TransferMoneyToCardUnitTests
+public sealed class TransferMoneyToCardUnitTests
 {
     private readonly TransferMoneyToCardCommandHandler _commandHandler;
     private readonly Mock<ICreditCardRepository> _creditCardRepositoryMock = new();
