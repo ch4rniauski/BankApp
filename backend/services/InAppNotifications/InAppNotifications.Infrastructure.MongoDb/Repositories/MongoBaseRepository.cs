@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using ch4rniauski.BankApp.InAppNotifications.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.InAppNotifications.Application.MongoDb;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Repositories;
