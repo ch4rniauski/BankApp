@@ -10,7 +10,7 @@ using ch4rniauski.BankApp.Authentication.Tests.Helpers.DataProviders;
 using Moq;
 using Xunit;
 
-namespace ch4rniauski.BankApp.Authentication.Tests.Tests.UnitTests.Client;
+namespace ch4rniauski.BankApp.Authentication.Tests.Tests.UnitTests.Clients;
 
 public sealed class DeleteClientUnitTests
 {

@@ -11,7 +11,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
 
-public sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, Result<UpdateClientResponseDto>>
+internal sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand, Result<UpdateClientResponseDto>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly IMapper _mapper;

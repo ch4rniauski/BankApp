@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
 
-public sealed class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand, Result<DeleteClientResponseDto>>
+internal sealed class DeleteClientCommandHandler : IRequestHandler<DeleteClientCommand, Result<DeleteClientResponseDto>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly IMapper _mapper;
