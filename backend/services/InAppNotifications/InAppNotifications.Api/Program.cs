@@ -11,8 +11,6 @@ builder.Host.UseDefaultServiceProvider(opt =>
     opt.ValidateScopes = true;
 });
 
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<NotificationQuery>();
@@ -20,16 +18,11 @@ builder.Services
 BsonClassMapRegistry.RegisterBsonClassMaps();
 
 builder.Services.AddMongoDataContextConfiguration(builder.Configuration);
+builder.Services.AddRabbitMqConfiguration(builder.Configuration);
 builder.Services.AddMediatrConfiguration();
 builder.Services.AddAutoMapperConfiguration();
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.MapGraphQL();
 

@@ -1,0 +1,34 @@
+services:
+  in-app-notifications-api:
+    image: in-app-notifications-api
+    container_name: in-app-notifications-api
+    build:
+      context: ../
+      dockerfile: ./infrastructure/Dockerfile
+    ports:
+      - 8084:8080
+    depends_on:
+      - mongodb-in-app-notifications
+  mongodb-in-app-notifications:
+    image: mongodb/mongodb-community-server:7.0.26-rc0-ubuntu2204
+    container_name: mongodb-in-app-notifications
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=5432
+    volumes:
+      - mongo-in-app-notification-data:/opt/homebrew/var/mongodb
+  mongo-express-in-app-notifications:
+    image: mongo-express:1.0.2-20-alpine3.19
+    container_name: mongo-express-in-app-notifications
+    ports:
+      - 8085:8081
+    depends_on:
+      - mongodb-in-app-notifications
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:5432@mongodb-in-app-notifications:27017
+      ME_CONFIG_BASICAUTH_USERNAME: mongo
+      ME_CONFIG_BASICAUTH_PASSWORD: 5432
+volumes:
+  mongo-in-app-notification-data:

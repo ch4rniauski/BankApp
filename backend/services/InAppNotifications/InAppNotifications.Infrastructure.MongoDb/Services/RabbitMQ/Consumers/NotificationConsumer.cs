@@ -8,7 +8,7 @@ using RabbitMQ.Client.Events;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.RabbitMQ.Consumers;
 
-public sealed class NotificationConsumer : BackgroundService
+internal sealed class NotificationConsumer : BackgroundService
 {
     private readonly RabbitMqSettings _settings;
     private IConnection? _connection;
@@ -62,6 +62,11 @@ public sealed class NotificationConsumer : BackgroundService
             autoAck: false,
             consumer: consumer,
             cancellationToken: stoppingToken);
+        
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            await Task.Delay(1000, stoppingToken);
+        }
     }
 
     public override async Task StopAsync(CancellationToken cancellationToken)

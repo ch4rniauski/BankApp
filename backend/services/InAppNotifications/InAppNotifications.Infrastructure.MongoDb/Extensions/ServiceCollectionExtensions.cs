@@ -1,6 +1,8 @@
 using ch4rniauski.BankApp.InAppNotifications.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.InAppNotifications.Application.MongoDb;
 using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Repositories;
+using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.RabbitMQ;
+using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.RabbitMQ.Consumers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,5 +15,12 @@ public static class ServiceCollectionExtensions
         services.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
 
         services.AddScoped<INotificationRepository, NotificationRepository>();
+    }
+
+    public static void AddRabbitMqConfiguration(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMqSettings"));
+
+        services.AddHostedService<NotificationConsumer>();
     }
 }
