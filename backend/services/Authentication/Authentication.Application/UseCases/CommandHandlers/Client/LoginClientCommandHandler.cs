@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ch4rniauski.BankApp.Authentication.Application.UseCases.CommandHandlers.Client;
 
-public sealed class LoginClientCommandHandler : IRequestHandler<LoginClientCommand, Result<LoginClientResponseDto>>
+internal sealed class LoginClientCommandHandler : IRequestHandler<LoginClientCommand, Result<LoginClientResponseDto>>
 {
     private readonly IClientRepository _clientRepository;
     private readonly ITokenProvider _tokenProvider;

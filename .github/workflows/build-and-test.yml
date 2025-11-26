@@ -22,6 +22,7 @@ jobs:
           - './backend/services/CreditCards/CreditCards.sln'
           - './backend/services/InAppNotifications/InAppNotifications.sln'
           - './backend/services/MoneyTransfer/MoneyTransfer.sln'
+          - './backend/services/ApiGateway/ApiGateway.sln'
 
     steps:
       - name: Checkout
