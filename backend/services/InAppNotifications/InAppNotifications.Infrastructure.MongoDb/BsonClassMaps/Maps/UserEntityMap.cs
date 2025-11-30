@@ -6,11 +6,11 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.BsonClassMaps.Maps;
 
-public static class NotificationEntityMap
+public static class UserEntityMap
 {
     public static void Register()
     {
-        BsonClassMap.RegisterClassMap<NotificationEntity>(cm =>
+        BsonClassMap.RegisterClassMap<UserEntity>(cm =>
         {
             cm.AutoMap();
             
@@ -19,5 +19,5 @@ public static class NotificationEntityMap
                 .SetIdGenerator(StringObjectIdGenerator.Instance)
                 .SetSerializer(new StringSerializer(BsonType.ObjectId));
         });
-    }    
+    }
 }

@@ -2,7 +2,9 @@ namespace ch4rniauski.BankApp.InAppNotifications.Domain.Messages;
 
 public class NotificationMessage
 {
-    public string Title { get; set; } = null!;
+    public Guid UserId { get; set; }
+    
+    public string Title { get; set; } = string.Empty;
 
-    public string Content { get; set; } = null!;
+    public string Content { get; set; } = string.Empty;
 }

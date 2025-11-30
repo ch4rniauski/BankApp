@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
     {
         services.Configure<MongoDbSettings>(configuration.GetSection("MongoDbSettings"));
 
-        services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<IUsersRepository, UsersRepository>();
     }
 
     public static void AddRabbitMqConfiguration(this IServiceCollection services, IConfiguration configuration)

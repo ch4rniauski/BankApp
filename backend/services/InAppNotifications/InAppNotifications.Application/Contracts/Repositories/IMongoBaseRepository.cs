@@ -8,16 +8,25 @@ public interface IMongoBaseRepository<TEntity> where TEntity : class
     
     Task<TProjection?> GetByIdAsync<TProjection>(
         string id,
-        TProjection projectionType,
         Expression<Func<TEntity, TProjection>> projectionExpression,
         CancellationToken cancellationToken = default);
     
     Task<IList<TEntity>?> GetAllAsync(CancellationToken cancellationToken = default);
     
     Task<IList<TProjection>?> GetAllAsync<TProjection>(
-        TProjection projectionType,
         Expression<Func<TEntity, TProjection>> projectionExpression,
         CancellationToken cancellationToken = default);
     
     Task<bool> CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
+    
+    Task<bool> UpdateAsync(
+        string id,
+        TEntity entity,
+        CancellationToken cancellationToken = default);
+    
+    Task<TProjection?> UpdateAsync<TProjection>(
+        string id,
+        TEntity entity,
+        Expression<Func<TEntity, TProjection>> projectionExpression,
+        CancellationToken cancellationToken = default);
 }

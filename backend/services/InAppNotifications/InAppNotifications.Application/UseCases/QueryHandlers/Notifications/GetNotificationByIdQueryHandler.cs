@@ -10,20 +10,20 @@ namespace ch4rniauski.BankApp.InAppNotifications.Application.UseCases.QueryHandl
 
 internal class GetNotificationByIdQueryHandler : IRequestHandler<GetNotificationByIdQuery, Result<GetNotificationByIdResponseDto>>
 {
-    private readonly INotificationRepository _notificationRepository;
+    private readonly IUsersRepository _usersRepository;
     private readonly IMapper _mapper;
 
     public GetNotificationByIdQueryHandler(
-        INotificationRepository notificationRepository,
+        IUsersRepository usersRepository,
         IMapper mapper)
     {
-        _notificationRepository = notificationRepository;
+        _usersRepository = usersRepository;
         _mapper = mapper;
     }
 
     public async Task<Result<GetNotificationByIdResponseDto>> Handle(GetNotificationByIdQuery request, CancellationToken cancellationToken)
     {
-        var notification = await _notificationRepository.GetByIdAsync(request.Id, cancellationToken);
+        var notification = await _usersRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (notification is null)
         {

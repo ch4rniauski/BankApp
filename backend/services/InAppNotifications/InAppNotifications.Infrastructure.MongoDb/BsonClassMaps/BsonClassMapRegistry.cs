@@ -6,6 +6,6 @@ public static class BsonClassMapRegistry
 {
     public static void RegisterBsonClassMaps()
     {
-        NotificationEntityMap.Register();
+        UserEntityMap.Register();
     }
 }

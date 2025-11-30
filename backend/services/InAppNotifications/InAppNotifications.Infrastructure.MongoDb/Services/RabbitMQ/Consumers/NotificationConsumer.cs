@@ -1,6 +1,8 @@
 using System.Text;
 using System.Text.Json;
+using ch4rniauski.BankApp.InAppNotifications.Application.UseCases.Commands.Notifications;
 using ch4rniauski.BankApp.InAppNotifications.Domain.Messages;
+using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -11,13 +13,17 @@ namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services
 internal sealed class NotificationConsumer : BackgroundService
 {
     private readonly RabbitMqSettings _settings;
+    private readonly IMediator _mediator;
     private IConnection? _connection;
     private IChannel? _channel;
     
     private const string QueueName = "notifications";
 
-    public NotificationConsumer(IOptions<RabbitMqSettings> options)
+    public NotificationConsumer(
+        IOptions<RabbitMqSettings> options,
+        IMediator mediator)
     {
+        _mediator = mediator;
         _settings = options.Value;
     }
 
@@ -50,6 +56,10 @@ internal sealed class NotificationConsumer : BackgroundService
             var message = Encoding.UTF8.GetString(body);
             
             var notificationMessage = JsonSerializer.Deserialize<NotificationMessage>(message);
+            
+            var command = new ProcessNotificationCommand(notificationMessage!);
+            
+            await _mediator.Send(command, stoppingToken);
 
             await ((AsyncEventingBasicConsumer)sender).Channel.BasicAckAsync(
                 deliveryTag: eventArgs.DeliveryTag,

@@ -16,9 +16,4 @@
       <PackageReference Include="MediatR" Version="13.1.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="UseCases\CommandHandlers\" />
-      <Folder Include="UseCases\Commands\" />
-    </ItemGroup>
-
 </Project>

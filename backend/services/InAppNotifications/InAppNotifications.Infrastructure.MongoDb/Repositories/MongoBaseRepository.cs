@@ -32,7 +32,6 @@ public abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntit
     
     public async Task<TProjection?> GetByIdAsync<TProjection>(
         string id,
-        TProjection projectionType,
         Expression<Func<TEntity, TProjection>> projectionExpression,
         CancellationToken cancellationToken = default)
     {
@@ -57,7 +56,8 @@ public abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntit
         return await cursor.ToListAsync(cancellationToken);
     }
 
-    public async Task<IList<TProjection>?> GetAllAsync<TProjection>(TProjection projectionType, Expression<Func<TEntity, TProjection>> projectionExpression,
+    public async Task<IList<TProjection>?> GetAllAsync<TProjection>(
+        Expression<Func<TEntity, TProjection>> projectionExpression,
         CancellationToken cancellationToken = default)
     {
         var filter = FilterDefinition<TEntity>.Empty;
@@ -85,5 +85,30 @@ public abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntit
         {
             return false;
         }
+    }
+
+    public async Task<bool> UpdateAsync(string id, TEntity entity, CancellationToken cancellationToken = default)
+    {
+        var filter = Builders<TEntity>.Filter.Eq("_id", id);
+        
+        var result = await Collection.ReplaceOneAsync(filter, entity, cancellationToken:cancellationToken);
+        
+        return result.IsAcknowledged && result.ModifiedCount > 0;
+    }
+
+    public async Task<TProjection?> UpdateAsync<TProjection>(
+        string id,
+        TEntity entity,
+        Expression<Func<TEntity, TProjection>> projectionExpression,
+        CancellationToken cancellationToken = default)
+    {
+        var filter = Builders<TEntity>.Filter.Eq("_id", id);
+        var options = new FindOneAndReplaceOptions<TEntity, TProjection>
+        {
+            ReturnDocument = ReturnDocument.After,
+            Projection = Builders<TEntity>.Projection.Expression(projectionExpression)
+        };
+        
+        return await Collection.FindOneAndReplaceAsync(filter, entity, options, cancellationToken);
     }
 }

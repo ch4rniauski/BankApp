@@ -5,9 +5,9 @@ using Microsoft.Extensions.Options;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Repositories;
 
-public class NotificationRepository : MongoBaseRepository<NotificationEntity>, INotificationRepository
+public class UsersRepository : MongoBaseRepository<UserEntity>, IUsersRepository
 {
-    public NotificationRepository(IOptions<MongoDbSettings> opt) : base(opt.Value)
+    public UsersRepository(IOptions<MongoDbSettings> opt) : base(opt.Value)
     {
     }
 }

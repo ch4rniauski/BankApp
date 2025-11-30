@@ -1,7 +1,7 @@
 using AutoMapper;
 using ch4rniauski.BankApp.InAppNotifications.Api.GraphQL.Types;
 using ch4rniauski.BankApp.InAppNotifications.Application.DTO.Responses.Notifications;
-using ch4rniauski.BankApp.InAppNotifications.Domain.Entities;
+using ch4rniauski.BankApp.InAppNotifications.Domain.Models;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Api.MapperProfiles.Notifications;
 
@@ -9,7 +9,7 @@ internal sealed class GetNotificationProfile : Profile
 {
     public GetNotificationProfile()
     {
-        CreateMap<NotificationEntity, GetNotificationByIdResponseDto>()
+        CreateMap<NotificationModel, GetNotificationByIdResponseDto>()
             .ConstructUsing(src => new GetNotificationByIdResponseDto(
                 src.Id,
                 src.Title,
