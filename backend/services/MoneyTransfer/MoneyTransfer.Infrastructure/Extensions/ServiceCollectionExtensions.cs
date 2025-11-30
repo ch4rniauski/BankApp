@@ -1,6 +1,5 @@
 using ch4rniauski.BankApp.MoneyTransfer.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Repositories;
-using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Services.RabbitMQ;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,10 +16,5 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddScoped<IPaymentRepository, PaymentRepository>();
-    }
-
-    public static void AddRabbitMqConfiguration(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.Configure<RabbitMqSettings>(configuration.GetSection("RabbitMqSettings"));
     }
 }

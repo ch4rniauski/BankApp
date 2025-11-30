@@ -1,22 +1,21 @@
 using System.Text;
 using System.Text.Json;
-using ch4rniauski.BankApp.MoneyTransfer.Application.Contracts.RabbitMQ;
-using Microsoft.Extensions.Options;
+using ch4rniauski.BankApp.CreditCards.Application.Contracts.RabbitMQ;
 using RabbitMQ.Client;
 
-namespace ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Services.RabbitMQ.Producers;
+namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Services.RabbitMQ.Producers;
 
-public abstract class RabbitMqBaseProducer<T> : IRabbitMqProducer<T> where T : class
+public abstract class RabbitMqBaseBaseProducer<T> : IRabbitMqBaseProducer<T> where T : class
 {
     protected readonly RabbitMqSettings Settings;
     protected readonly string QueueName;
 
-    protected RabbitMqBaseProducer(
-        IOptions<RabbitMqSettings> options,
+    protected RabbitMqBaseBaseProducer(
+        RabbitMqSettings options,
         string queueName)
     {
         QueueName = queueName;
-        Settings = options.Value;
+        Settings = options;
     }
 
     public async Task PublishAsync(T message,  CancellationToken cancellationToken = default)

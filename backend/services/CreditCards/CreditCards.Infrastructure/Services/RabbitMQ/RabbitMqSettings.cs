@@ -1,4 +1,4 @@
-namespace ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Services.RabbitMQ;
+namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Services.RabbitMQ;
 
 public sealed class RabbitMqSettings
 {

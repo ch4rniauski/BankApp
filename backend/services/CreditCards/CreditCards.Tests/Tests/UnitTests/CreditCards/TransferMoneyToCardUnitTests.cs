@@ -1,11 +1,13 @@
 using AutoMapper;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Errors;
 using ch4rniauski.BankApp.CreditCards.Application.Common.Results;
+using ch4rniauski.BankApp.CreditCards.Application.Contracts.RabbitMQ;
 using ch4rniauski.BankApp.CreditCards.Application.Contracts.Repositories;
 using ch4rniauski.BankApp.CreditCards.Application.DTO.Responses.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Application.UseCases.CommandHandlers.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Application.UseCases.Commands.CreditCards;
 using ch4rniauski.BankApp.CreditCards.Domain.Entities;
+using ch4rniauski.BankApp.CreditCards.Domain.Messages;
 using ch4rniauski.BankApp.CreditCards.Tests.Helpers.DataProviders;
 using Moq;
 using Xunit;
@@ -17,12 +19,14 @@ public sealed class TransferMoneyToCardUnitTests
     private readonly TransferMoneyToCardCommandHandler _commandHandler;
     private readonly Mock<ICreditCardRepository> _creditCardRepositoryMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
+    private readonly Mock<INotificationProducer> _notificationProducerMock = new();
 
     public TransferMoneyToCardUnitTests()
     {
         _commandHandler = new TransferMoneyToCardCommandHandler(
             _creditCardRepositoryMock.Object,
-            _mapperMock.Object);
+            _mapperMock.Object,
+            _notificationProducerMock.Object);
     }
 
     [Fact]
@@ -54,6 +58,12 @@ public sealed class TransferMoneyToCardUnitTests
                 request.Amount,
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
+
+        _notificationProducerMock.Setup(n => n.PublishAsync(
+                It.IsAny<NotificationMessage>(),
+                It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
+            
         
         _mapperMock.Setup(m => m.Map<TransferMoneyResponseDto>(request))
             .Returns(new TransferMoneyResponseDto());

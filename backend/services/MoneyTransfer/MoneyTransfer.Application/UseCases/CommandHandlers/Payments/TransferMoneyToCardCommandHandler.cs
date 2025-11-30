@@ -37,10 +37,10 @@ internal sealed class TransferMoneyToCardCommandHandler : IRequestHandler<Transf
         
         if (!validationResult.IsValid)
         {
-            var message = string.Join("", validationResult.Errors);
+            var messages = string.Join("", validationResult.Errors);
             
             return Result<TransferMoneyResponseDto>
-                .Failure(Error.FailedValidation(message));
+                .Failure(Error.FailedValidation(messages));
         }
 
         using var channel = GrpcChannel.ForAddress(CreditCardServiceAddress);

@@ -7,8 +7,4 @@
         <RootNamespace>ch4rniauski.BankApp.MoneyTransfer.Domain</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Models\" />
-    </ItemGroup>
-
 </Project>
