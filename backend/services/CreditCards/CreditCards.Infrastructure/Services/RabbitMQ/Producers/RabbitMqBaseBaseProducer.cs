@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Services.RabbitMQ.Producers;
 
-public abstract class RabbitMqBaseBaseProducer<T> : IRabbitMqBaseProducer<T> where T : class
+internal abstract class RabbitMqBaseBaseProducer<T> : IRabbitMqBaseProducer<T> where T : class
 {
     protected readonly RabbitMqSettings Settings;
     protected readonly string QueueName;

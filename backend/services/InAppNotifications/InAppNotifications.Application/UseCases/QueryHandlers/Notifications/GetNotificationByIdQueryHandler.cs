@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Application.UseCases.QueryHandlers.Notifications;
 
-internal class GetNotificationByIdQueryHandler : IRequestHandler<GetNotificationByIdQuery, Result<GetNotificationByIdResponseDto>>
+internal sealed class GetNotificationByIdQueryHandler : IRequestHandler<GetNotificationByIdQuery, Result<GetNotificationByIdResponseDto>>
 {
     private readonly IUsersRepository _usersRepository;
     private readonly IMapper _mapper;
