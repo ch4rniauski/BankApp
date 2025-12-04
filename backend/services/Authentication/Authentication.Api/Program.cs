@@ -27,3 +27,5 @@ app.MapGrpcService<ClientsGrpcService>();
 await app.ApplyMigrations();
 
 await app.RunAsync();
+
+public partial class Program { }
