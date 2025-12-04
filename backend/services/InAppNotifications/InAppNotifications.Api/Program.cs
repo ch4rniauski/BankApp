@@ -1,3 +1,4 @@
+using ch4rniauski.BankApp.InAppNotifications.Api.Extensions;
 using ch4rniauski.BankApp.InAppNotifications.Api.GraphQL.Queries;
 using ch4rniauski.BankApp.InAppNotifications.Application.Extensions;
 using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.BsonClassMaps;

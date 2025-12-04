@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.BsonClassMaps.Maps;
 
-public static class UserEntityMap
+internal static class UserEntityMap
 {
     public static void Register()
     {
@@ -17,7 +17,7 @@ public static class UserEntityMap
             cm
                 .MapIdProperty(n => n.Id)
                 .SetIdGenerator(StringObjectIdGenerator.Instance)
-                .SetSerializer(new StringSerializer(BsonType.ObjectId));
+                .SetSerializer(new StringSerializer(BsonType.String));
         });
     }
 }

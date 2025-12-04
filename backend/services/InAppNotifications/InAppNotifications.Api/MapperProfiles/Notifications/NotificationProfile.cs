@@ -11,7 +11,7 @@ internal sealed class NotificationProfile : Profile
         CreateMap<NotificationMessage, NotificationModel>()
             .ForMember(
                 dest => dest.Id,
-                opt => opt.Ignore())
+                opt => opt.MapFrom(_ => Guid.NewGuid()))
             .ForMember(
                 dest => dest.Content,
                 opt => opt.MapFrom(src => src.Content))

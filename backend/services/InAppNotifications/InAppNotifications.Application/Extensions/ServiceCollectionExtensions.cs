@@ -11,9 +11,4 @@ public static class ServiceCollectionExtensions
             conf.RegisterServicesFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
         });
     }
-
-    public static void AddAutoMapperConfiguration(this IServiceCollection services)
-    {
-        services.AddAutoMapper(_ => {}, typeof(ServiceCollectionExtensions).Assembly);
-    }
 }

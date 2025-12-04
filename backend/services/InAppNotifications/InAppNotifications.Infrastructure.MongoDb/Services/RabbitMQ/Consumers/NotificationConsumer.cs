@@ -3,6 +3,7 @@ using System.Text.Json;
 using ch4rniauski.BankApp.InAppNotifications.Application.UseCases.Commands.Notifications;
 using ch4rniauski.BankApp.InAppNotifications.Domain.Messages;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -13,7 +14,7 @@ namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services
 internal sealed class NotificationConsumer : BackgroundService
 {
     private readonly RabbitMqSettings _settings;
-    private readonly IMediator _mediator;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     private IConnection? _connection;
     private IChannel? _channel;
     
@@ -21,9 +22,9 @@ internal sealed class NotificationConsumer : BackgroundService
 
     public NotificationConsumer(
         IOptions<RabbitMqSettings> options,
-        IMediator mediator)
+        IServiceScopeFactory serviceScopeFactory)
     {
-        _mediator = mediator;
+        _serviceScopeFactory = serviceScopeFactory;
         _settings = options.Value;
     }
 
@@ -34,7 +35,7 @@ internal sealed class NotificationConsumer : BackgroundService
             HostName = _settings.Host,
             Port = _settings.Port,
             Password = _settings.Password,
-            UserName = _settings.UserName,
+            UserName = _settings.UserName
         };
         
         _connection = await factory.CreateConnectionAsync(stoppingToken);
@@ -52,6 +53,9 @@ internal sealed class NotificationConsumer : BackgroundService
 
         consumer.ReceivedAsync += async (sender, eventArgs) =>
         {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+            
             var body = eventArgs.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
             
@@ -59,7 +63,7 @@ internal sealed class NotificationConsumer : BackgroundService
             
             var command = new ProcessNotificationCommand(notificationMessage!);
             
-            await _mediator.Send(command, stoppingToken);
+            await mediator.Send(command, stoppingToken);
 
             await ((AsyncEventingBasicConsumer)sender).Channel.BasicAckAsync(
                 deliveryTag: eventArgs.DeliveryTag,

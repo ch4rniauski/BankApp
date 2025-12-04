@@ -11,6 +11,9 @@ internal sealed class CreateUserProfile : Profile
         CreateMap<NotificationMessage, UserEntity>()
             .ForMember(
                 dest => dest.Id,
-                opt => opt.MapFrom(src => src.UserId.ToString()));
+                opt => opt.MapFrom(src => src.UserId.ToString()))
+            .ForMember(
+                dest => dest.Notifications,
+                opt => opt.Ignore());
     }
 }

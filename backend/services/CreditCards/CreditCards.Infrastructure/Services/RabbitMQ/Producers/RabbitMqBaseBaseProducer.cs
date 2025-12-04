@@ -25,7 +25,7 @@ internal abstract class RabbitMqBaseBaseProducer<T> : IRabbitMqBaseProducer<T> w
             HostName = Settings.Host,
             Port = Settings.Port,
             UserName = Settings.UserName,
-            Password = Settings.Password,
+            Password = Settings.Password
         };
 
         await using var connection = await factory.CreateConnectionAsync(cancellationToken);
