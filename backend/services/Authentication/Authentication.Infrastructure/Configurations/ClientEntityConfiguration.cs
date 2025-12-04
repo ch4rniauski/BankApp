@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ch4rniauski.BankApp.Authentication.Infrastructure.Configurations;
 
-public class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity>
+internal sealed class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity>
 {
     public void Configure(EntityTypeBuilder<ClientEntity> builder)
     {

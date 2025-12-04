@@ -1,6 +1,6 @@
 namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.RabbitMQ;
 
-public sealed class RabbitMqSettings
+internal sealed class RabbitMqSettings
 {
     public string Host { get; set; } = string.Empty;
     public int Port { get; set; }

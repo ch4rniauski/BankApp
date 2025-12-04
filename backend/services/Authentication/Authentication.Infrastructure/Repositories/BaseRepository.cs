@@ -4,47 +4,47 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ch4rniauski.BankApp.Authentication.Infrastructure.Repositories;
 
-public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
+internal abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
     where TEntity : class
     where TId : struct
 {
-    protected readonly AuthenticationContext _context;
-    protected readonly DbSet<TEntity> _dbSet;
+    protected readonly AuthenticationContext Context;
+    protected readonly DbSet<TEntity> DbSet;
 
     protected BaseRepository(AuthenticationContext context)
     {
-        _context = context;
-        _dbSet = _context.Set<TEntity>();
+        Context = context;
+        DbSet = Context.Set<TEntity>();
     }
     
     public async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)
-        => await _dbSet.FindAsync(
+        => await DbSet.FindAsync(
             keyValues: [id],
             cancellationToken: cancellationToken);
 
     public async Task<bool> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddAsync(entity, cancellationToken);
+        await DbSet.AddAsync(entity, cancellationToken);
 
-        return await _context.SaveChangesAsync(cancellationToken) > 0;
+        return await Context.SaveChangesAsync(cancellationToken) > 0;
     }
 
     public async Task<bool> DeleteWithCriteriaAsync(Expression<Func<TEntity, bool>> criteria, CancellationToken cancellationToken = default)
-        => await _dbSet
+        => await DbSet
             .Where(criteria)
             .ExecuteDeleteAsync(cancellationToken) > 0;
 
     public async Task<bool> DeleteWithAttachmentAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        _dbSet.Remove(entity);
+        DbSet.Remove(entity);
         
-        return await _context.SaveChangesAsync(cancellationToken) > 0;
+        return await Context.SaveChangesAsync(cancellationToken) > 0;
     }
 
     public async Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        _dbSet.Update(entity);
+        DbSet.Update(entity);
         
-        return await _context.SaveChangesAsync(cancellationToken) > 0;
+        return await Context.SaveChangesAsync(cancellationToken) > 0;
     }
 }

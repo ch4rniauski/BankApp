@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Repositories;
 
-public abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
+internal abstract class BaseRepository<TEntity, TId> : IBaseRepository<TEntity, TId>
     where TEntity : class
     where TId : struct
 {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Configurations;
 
-public class CreditCardConfiguration : IEntityTypeConfiguration<CreditCardEntity>
+internal sealed class CreditCardConfiguration : IEntityTypeConfiguration<CreditCardEntity>
 {
     public void Configure(EntityTypeBuilder<CreditCardEntity> builder)
     {

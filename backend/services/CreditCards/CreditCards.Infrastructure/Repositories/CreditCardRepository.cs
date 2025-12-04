@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ch4rniauski.BankApp.CreditCards.Infrastructure.Repositories;
 
-public class CreditCardRepository : BaseRepository<CreditCardEntity, Guid>, ICreditCardRepository
+internal class CreditCardRepository : BaseRepository<CreditCardEntity, Guid>, ICreditCardRepository
 {
     public CreditCardRepository(
         CreditCardsContext context,

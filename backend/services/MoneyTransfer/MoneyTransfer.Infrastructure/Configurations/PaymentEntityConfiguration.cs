@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Configurations;
 
-public sealed class PaymentEntityConfiguration : IEntityTypeConfiguration<PaymentEntity>
+internal sealed class PaymentEntityConfiguration : IEntityTypeConfiguration<PaymentEntity>
 {
     public void Configure(EntityTypeBuilder<PaymentEntity> builder)
     {

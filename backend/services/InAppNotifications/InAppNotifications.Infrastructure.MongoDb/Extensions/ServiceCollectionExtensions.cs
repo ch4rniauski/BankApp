@@ -1,6 +1,6 @@
 using ch4rniauski.BankApp.InAppNotifications.Application.Contracts.Repositories;
-using ch4rniauski.BankApp.InAppNotifications.Application.MongoDb;
 using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Repositories;
+using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.MongoDb;
 using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.RabbitMQ;
 using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.RabbitMQ.Consumers;
 using Microsoft.Extensions.Configuration;
