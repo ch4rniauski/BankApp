@@ -1,6 +1,7 @@
 using Bogus;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Responses;
+using ch4rniauski.BankApp.Authentication.Domain.Entities;
 
 namespace ch4rniauski.BankApp.Authentication.Tests.Helpers.DataProviders;
 
@@ -64,5 +65,19 @@ internal static class ClientDataProvider
                 faker.Person.LastName,
                 faker.Internet.Email(),
                 faker.Person.Phone));
+    }
+    
+    public static ClientEntity GenerateClientEntity()
+    {
+        return new Faker<ClientEntity>()
+            .RuleFor(c => c.Id, _ => Guid.NewGuid())
+            .RuleFor(c => c.IsEmailVerified, _ => false)
+            .RuleFor(c => c.FirstName, faker => faker.Person.FirstName)
+            .RuleFor(c => c.LastName, faker => faker.Person.LastName)
+            .RuleFor(c => c.Email, faker => faker.Person.Email)
+            .RuleFor(c => c.PhoneNumber, faker => faker.Person.Phone)
+            .RuleFor(c => c.RefreshToken, _ => string.Empty)
+            .RuleFor(c => c.RefreshToken, _ => null!)
+            .Generate();
     }
 }

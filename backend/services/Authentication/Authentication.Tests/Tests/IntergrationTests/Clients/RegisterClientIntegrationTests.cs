@@ -61,4 +61,30 @@ public sealed class RegisterClientIntegrationTests : BaseIntegrationTests
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         Assert.Null(client);
     }
+    
+    [Fact]
+    public async Task RegisterClient_ReturnsConflict_WhenClientWithProvidedEmailAlreadyExists()
+    {
+        // Arrange
+        var request = ClientDataProvider.GenerateRegisterClientRequestDto();
+        var clientEntity = ClientDataProvider.GenerateClientEntity();
+        clientEntity.Email = request.Email;
+
+        var uri = AuthenticationUriProvider.GetRegisterClientUri();
+
+        // Act
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.Database.EnsureCreatedAsync();
+
+        await DbContext.Clients.AddAsync(clientEntity);
+        await DbContext.SaveChangesAsync();
+        
+        var response = await HttpClient.PostAsJsonAsync(uri, request);
+
+        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Email == request.Email);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+        Assert.NotNull(client);
+    }
 }
