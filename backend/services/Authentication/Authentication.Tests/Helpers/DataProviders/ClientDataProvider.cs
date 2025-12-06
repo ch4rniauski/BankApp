@@ -76,7 +76,7 @@ internal static class ClientDataProvider
             .RuleFor(c => c.LastName, faker => faker.Person.LastName)
             .RuleFor(c => c.Email, faker => faker.Person.Email)
             .RuleFor(c => c.PhoneNumber, faker => faker.Person.Phone)
-            .RuleFor(c => c.RefreshToken, _ => string.Empty)
+            .RuleFor(c => c.PasswordHash, _ => "Password Hash")
             .RuleFor(c => c.RefreshToken, _ => null!)
             .Generate();
     }
