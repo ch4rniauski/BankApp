@@ -37,4 +37,24 @@ public sealed class DeleteClientIntegrationTests : BaseIntegrationTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Null(client);
     }
+    
+    [Fact]
+    public async Task DeleteClient_ReturnsNotFound_WhenClientDoesntExist()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        var uri = AuthenticationUriProvider.GetDeleteClientUri(id);
+
+        // Act
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.Database.EnsureCreatedAsync();
+        
+        var response = await HttpClient.DeleteAsync(uri);
+
+        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Null(client);
+    }
 }
