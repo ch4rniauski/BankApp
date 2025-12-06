@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Domain.Entities;
 using ch4rniauski.BankApp.Authentication.Infrastructure;
 using ch4rniauski.BankApp.Authentication.Tests.Common;
@@ -47,5 +48,25 @@ public sealed class LoginClientIntegrationTests : BaseIntegrationTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(client);
         Assert.NotNull(client.RefreshToken);
+    }
+    
+    [Fact]
+    public async Task LoginClient_ReturnsBadRequest_WhenValidationFails()
+    {
+        // Arrange
+        var request = new LoginClientRequestDto(
+            string.Empty,
+            string.Empty);
+        
+        var uri = AuthenticationUriProvider.GetLoginClientUri();
+
+        // Act
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.Database.EnsureCreatedAsync();
+        
+        var response = await HttpClient.PostAsJsonAsync(uri, request);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 }
