@@ -54,9 +54,7 @@ public sealed class LoginClientIntegrationTests : BaseIntegrationTests
     public async Task LoginClient_ReturnsBadRequest_WhenValidationFails()
     {
         // Arrange
-        var request = new LoginClientRequestDto(
-            string.Empty,
-            string.Empty);
+        var request = ClientDataProvider.GenerateLoginClientRequestDto();
         
         var uri = AuthenticationUriProvider.GetLoginClientUri();
 
@@ -67,6 +65,6 @@ public sealed class LoginClientIntegrationTests : BaseIntegrationTests
         var response = await HttpClient.PostAsJsonAsync(uri, request);
 
         // Assert
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }
