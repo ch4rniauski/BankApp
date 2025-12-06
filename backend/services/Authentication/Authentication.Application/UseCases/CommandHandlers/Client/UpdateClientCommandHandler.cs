@@ -49,9 +49,9 @@ internal sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientC
                 ));
         }
         
-        var updatedClient = _mapper.Map<ClientEntity>(request.Request);
+        _mapper.Map(request.Request, doesExist);
         
-        var isUpdated = await _clientRepository.UpdateAsync(updatedClient, cancellationToken);
+        var isUpdated = await _clientRepository.UpdateAsync(doesExist, cancellationToken);
 
         if (!isUpdated)
         {
@@ -61,7 +61,7 @@ internal sealed class UpdateClientCommandHandler : IRequestHandler<UpdateClientC
                 ));
         }
         
-        var response = _mapper.Map<UpdateClientResponseDto>(updatedClient);
+        var response = _mapper.Map<UpdateClientResponseDto>(doesExist);
         
         return Result<UpdateClientResponseDto>.Success(response);
     }

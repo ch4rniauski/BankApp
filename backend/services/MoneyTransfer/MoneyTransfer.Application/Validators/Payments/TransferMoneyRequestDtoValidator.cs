@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ch4rniauski.BankApp.MoneyTransfer.Application.Validators.Payments;
 
-public class TransferMoneyRequestDtoValidator : AbstractValidator<TransferMoneyRequestDto>
+public sealed class TransferMoneyRequestDtoValidator : AbstractValidator<TransferMoneyRequestDto>
 {
     public TransferMoneyRequestDtoValidator()
     {

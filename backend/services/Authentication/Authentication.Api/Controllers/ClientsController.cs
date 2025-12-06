@@ -4,9 +4,7 @@ using ch4rniauski.BankApp.Authentication.Application.Extensions;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.Commands.Client;
 using ch4rniauski.BankApp.Authentication.Application.UseCases.Queries.Client;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace ch4rniauski.BankApp.Authentication.Api.Controllers;
 

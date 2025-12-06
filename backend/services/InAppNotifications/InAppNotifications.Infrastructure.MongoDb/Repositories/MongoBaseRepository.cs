@@ -1,11 +1,11 @@
 using System.Linq.Expressions;
 using ch4rniauski.BankApp.InAppNotifications.Application.Contracts.Repositories;
-using ch4rniauski.BankApp.InAppNotifications.Application.MongoDb;
+using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.MongoDb;
 using MongoDB.Driver;
 
 namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Repositories;
 
-public abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntity> where TEntity : class
+internal abstract class MongoBaseRepository<TEntity> : IMongoBaseRepository<TEntity> where TEntity : class
 {
     protected readonly IMongoCollection<TEntity> Collection;
     

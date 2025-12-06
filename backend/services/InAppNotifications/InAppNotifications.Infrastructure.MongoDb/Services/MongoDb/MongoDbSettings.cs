@@ -1,6 +1,6 @@
-namespace ch4rniauski.BankApp.InAppNotifications.Application.MongoDb;
+namespace ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Services.MongoDb;
 
-public class MongoDbSettings
+internal sealed class MongoDbSettings
 {
     public string ConnectionString { get; set; } = string.Empty;
     
