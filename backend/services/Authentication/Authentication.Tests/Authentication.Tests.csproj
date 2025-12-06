@@ -20,8 +20,4 @@
       <ProjectReference Include="..\Authentication.Api\Authentication.Api.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Tests\IntergrationTests\Clients\" />
-    </ItemGroup>
-
 </Project>

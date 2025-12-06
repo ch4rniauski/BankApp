@@ -5,7 +5,7 @@ namespace ch4rniauski.BankApp.Authentication.Infrastructure;
 
 public class AuthenticationContext : DbContext
 {
-    DbSet<ClientEntity> Clients { get; set; }
+    public DbSet<ClientEntity> Clients { get; set; }
 
     public AuthenticationContext()
     {

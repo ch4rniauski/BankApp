@@ -4,12 +4,6 @@ using ch4rniauski.BankApp.Authentication.Infrastructure.Services.gRPC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseDefaultServiceProvider(opt =>
-{
-    opt.ValidateOnBuild = true;
-    opt.ValidateScopes = true;
-});
-
 builder.Services.AddControllers();
 builder.Services.AddGrpc();
 

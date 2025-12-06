@@ -10,13 +10,13 @@ using Xunit;
 
 namespace ch4rniauski.BankApp.Authentication.Tests.Common;
 
-internal sealed class AuthenticationWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public sealed class AuthenticationWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
         .WithImage("postgres:15.14-alpine3.21")
         .WithDatabase("Authentication")
         .WithUsername("postgres")
-        .WithPassword("5432")
+        .WithPassword("postgres")
         .Build();
     
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -33,12 +33,11 @@ internal sealed class AuthenticationWebAppFactory : WebApplicationFactory<Progra
     }
 
     public async Task InitializeAsync()
-    {
-        await _dbContainer.StartAsync();
-    }
+        => await _dbContainer.StartAsync();
 
     async Task IAsyncLifetime.DisposeAsync()
     {
         await _dbContainer.StopAsync();
+        await _dbContainer.DisposeAsync();
     }
 }

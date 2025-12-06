@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ch4rniauski.BankApp.Authentication.Application.Validators.Client;
 
-internal sealed class LoginClientRequestDtoValidator : AbstractValidator<LoginClientRequestDto>
+public sealed class LoginClientRequestDtoValidator : AbstractValidator<LoginClientRequestDto>
 {
     public LoginClientRequestDtoValidator()
     {
