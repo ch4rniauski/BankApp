@@ -47,8 +47,10 @@ public sealed class UpdateAccessTokenIntegrationTests : BaseIntegrationTests
     public async Task UpdateAccessToken_ReturnsNotFound_WhenIdWasNotProvided()
     {
         // Arrange
+        const string refreshToken = "refreshToken";
+        
         var request = new UpdateAccessTokenRequestDto(
-            "refreshToken",
+            refreshToken,
             null);
 
         var uri = AuthenticationUriProvider.GetUpdateAccessTokenUri();
@@ -67,9 +69,12 @@ public sealed class UpdateAccessTokenIntegrationTests : BaseIntegrationTests
     public async Task UpdateAccessToken_ReturnsBadRequest_WhenIdTypeIsInvalid()
     {
         // Arrange
+        const string refreshToken = "refreshToken";
+        const string incorrectGuid = "Incorrect GUID";
+        
         var request = new UpdateAccessTokenRequestDto(
-            "refreshToken",
-            "Incorrect GUID");
+            refreshToken,
+            incorrectGuid);
 
         var uri = AuthenticationUriProvider.GetUpdateAccessTokenUri();
 
@@ -81,5 +86,33 @@ public sealed class UpdateAccessTokenIntegrationTests : BaseIntegrationTests
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+    
+    [Fact]
+    public async Task UpdateAccessToken_ReturnsNotFound_WhenClientDoesNotExist()
+    {
+        // Arrange
+        const string refreshToken = "refreshToken";
+        var id = Guid.NewGuid();
+        
+        var request = new UpdateAccessTokenRequestDto(
+            refreshToken,
+            id.ToString());
+
+        var uri = AuthenticationUriProvider.GetUpdateAccessTokenUri();
+
+        // Act
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.Database.EnsureCreatedAsync();
+        
+        var response = await HttpClient.PostAsJsonAsync(uri, request);
+        
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Null(client);
     }
 }
