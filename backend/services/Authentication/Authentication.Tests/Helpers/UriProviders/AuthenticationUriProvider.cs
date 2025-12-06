@@ -15,4 +15,7 @@ internal static class AuthenticationUriProvider
     
     public static string GetLoginClientUri()
         => $"{BaseUri}/login";
+    
+    public static string GetUpdateAccessTokenUri()
+        => $"{BaseUri}/access-token";
 }

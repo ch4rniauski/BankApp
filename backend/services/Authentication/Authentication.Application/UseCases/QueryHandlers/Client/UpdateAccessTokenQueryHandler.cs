@@ -27,7 +27,7 @@ internal sealed class UpdateAccessTokenQueryHandler : IRequestHandler<UpdateAcce
         {
             return Result<UpdateAccessTokenResponseDto>
                 .Failure(Error.NotFound(
-                    "ID was not found in the provided token"
+                    "ID was not found in the provided request"
                     ));
         }
 
