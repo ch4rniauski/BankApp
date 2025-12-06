@@ -67,4 +67,37 @@ public sealed class LoginClientIntegrationTests : BaseIntegrationTests
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
+    
+    [Fact]
+    public async Task LoginClient_ReturnsUnauthorized_WhenPasswordIsInvalid()
+    {
+        // Arrange
+        var clientEntity = ClientDataProvider.GenerateClientEntity();
+        var request = ClientDataProvider.GenerateLoginClientRequestDto();
+        
+        var correctPassword = $"{request.Password} correct";
+        
+        clientEntity.PasswordHash = new PasswordHasher<ClientEntity>().HashPassword(clientEntity, correctPassword);
+        clientEntity.Email = request.Email;
+        
+        var uri = AuthenticationUriProvider.GetLoginClientUri();
+
+        // Act
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.Database.EnsureCreatedAsync();
+        
+        await DbContext.Clients.AddAsync(clientEntity);
+        await DbContext.SaveChangesAsync();
+        
+        var response = await HttpClient.PostAsJsonAsync(uri, request);
+        
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == request.Email);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+        Assert.NotNull(client);
+        Assert.Null(client.RefreshToken);
+    }
 }
