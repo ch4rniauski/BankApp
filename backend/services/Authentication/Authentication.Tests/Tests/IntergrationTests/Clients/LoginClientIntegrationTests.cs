@@ -1,14 +1,11 @@
 using System.Net;
 using System.Net.Http.Json;
-using ch4rniauski.BankApp.Authentication.Application.DTO.Client.Requests;
 using ch4rniauski.BankApp.Authentication.Domain.Entities;
-using ch4rniauski.BankApp.Authentication.Infrastructure;
 using ch4rniauski.BankApp.Authentication.Tests.Common;
 using ch4rniauski.BankApp.Authentication.Tests.Helpers.DataProviders;
 using ch4rniauski.BankApp.Authentication.Tests.Helpers.UriProviders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace ch4rniauski.BankApp.Authentication.Tests.Tests.IntergrationTests.Clients;

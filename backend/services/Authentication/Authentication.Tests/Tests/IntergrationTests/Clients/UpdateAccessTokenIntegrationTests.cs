@@ -38,9 +38,14 @@ public sealed class UpdateAccessTokenIntegrationTests : BaseIntegrationTests
         await DbContext.SaveChangesAsync();
         
         var response = await HttpClient.PostAsJsonAsync(uri, request);
+        
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == clientEntity.Id);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.NotNull(client);
     }
     
     [Fact]
@@ -114,5 +119,38 @@ public sealed class UpdateAccessTokenIntegrationTests : BaseIntegrationTests
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         Assert.Null(client);
+    }
+    
+    [Fact]
+    public async Task UpdateAccessToken_ReturnsUnauthorized_WhenRefreshTokenIsNotValid()
+    {
+        // Arrange
+        const string refreshToken = "refreshToken";
+        
+        var clientEntity = ClientDataProvider.GenerateClientEntity();
+        clientEntity.RefreshToken = string.Empty;
+        
+        var request = new UpdateAccessTokenRequestDto(
+            refreshToken,
+            clientEntity.Id.ToString());
+
+        var uri = AuthenticationUriProvider.GetUpdateAccessTokenUri();
+
+        // Act
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.Database.EnsureCreatedAsync();
+        
+        await DbContext.Clients.AddAsync(clientEntity);
+        await DbContext.SaveChangesAsync();
+        
+        var response = await HttpClient.PostAsJsonAsync(uri, request);
+        
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == clientEntity.Id);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+        Assert.NotNull(client);
     }
 }
