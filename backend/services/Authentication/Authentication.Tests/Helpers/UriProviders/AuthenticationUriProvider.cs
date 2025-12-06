@@ -12,4 +12,7 @@ internal static class AuthenticationUriProvider
     
     public static string GetUpdateClientUri(Guid clientId)
         => $"{BaseUri}/{clientId}";
+    
+    public static string GetLoginClientUri()
+        => $"{BaseUri}/login";
 }

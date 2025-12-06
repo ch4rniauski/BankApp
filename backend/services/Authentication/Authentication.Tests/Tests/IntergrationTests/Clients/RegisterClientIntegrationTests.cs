@@ -29,7 +29,9 @@ public sealed class RegisterClientIntegrationTests : BaseIntegrationTests
         
         var response = await HttpClient.PostAsJsonAsync(uri, request);
 
-        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Email == request.Email);
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == request.Email);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -55,7 +57,9 @@ public sealed class RegisterClientIntegrationTests : BaseIntegrationTests
         
         var response = await HttpClient.PostAsJsonAsync(uri, request);
 
-        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Email == request.Email);
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == request.Email);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -81,7 +85,9 @@ public sealed class RegisterClientIntegrationTests : BaseIntegrationTests
         
         var response = await HttpClient.PostAsJsonAsync(uri, request);
 
-        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Email == request.Email);
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == request.Email);
 
         // Assert
         Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);

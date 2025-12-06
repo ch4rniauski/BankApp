@@ -33,12 +33,18 @@ public sealed class UpdateClientIntegrationTests : BaseIntegrationTests
         
         var response = await HttpClient.PutAsJsonAsync(uri, request);
 
-        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Email == request.Email);
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == request.Email);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(client);
         Assert.Equal(clientEntity.Id, client.Id);
+        Assert.Equal(client.FirstName, request.FirstName);
+        Assert.Equal(client.LastName, request.LastName);
+        Assert.Equal(client.PhoneNumber, request.PhoneNumber);
+        Assert.Equal(client.Email, request.Email);
     }
     
     [Fact]
@@ -77,7 +83,9 @@ public sealed class UpdateClientIntegrationTests : BaseIntegrationTests
         
         var response = await HttpClient.PutAsJsonAsync(uri, request);
 
-        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Email == request.Email);
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == request.Email);
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);

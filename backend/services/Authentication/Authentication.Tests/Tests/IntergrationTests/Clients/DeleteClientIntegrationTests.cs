@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http.Json;
 using ch4rniauski.BankApp.Authentication.Tests.Common;
 using ch4rniauski.BankApp.Authentication.Tests.Helpers.DataProviders;
 using ch4rniauski.BankApp.Authentication.Tests.Helpers.UriProviders;
@@ -31,7 +30,9 @@ public sealed class DeleteClientIntegrationTests : BaseIntegrationTests
         
         var response = await HttpClient.DeleteAsync(uri);
 
-        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Id == clientEntity.Id);
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == clientEntity.Id);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -51,7 +52,9 @@ public sealed class DeleteClientIntegrationTests : BaseIntegrationTests
         
         var response = await HttpClient.DeleteAsync(uri);
 
-        var client = await DbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
+        var client = await DbContext.Clients
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == id);
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
