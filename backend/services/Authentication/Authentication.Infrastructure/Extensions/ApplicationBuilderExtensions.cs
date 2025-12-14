@@ -6,7 +6,7 @@ namespace ch4rniauski.BankApp.Authentication.Infrastructure.Extensions;
 
 public static class ApplicationBuilderExtensions
 {
-    public static async Task ApplyMigrations(this IApplicationBuilder app)
+    public static async Task ApplyMigrationsAsync(this IApplicationBuilder app)
     {
         await using var scope = app.ApplicationServices.CreateAsyncScope();
         

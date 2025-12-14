@@ -18,7 +18,7 @@ var app = builder.Build();
 app.MapControllers();
 app.MapGrpcService<ClientsGrpcService>();
 
-await app.ApplyMigrations();
+await app.ApplyMigrationsAsync();
 
 await app.RunAsync();
 

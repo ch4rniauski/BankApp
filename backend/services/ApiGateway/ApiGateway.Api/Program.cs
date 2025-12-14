@@ -2,7 +2,8 @@ using ch4rniauski.BankApp.ApiGateway.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddReverseProxy()
+builder.Services
+    .AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
 builder.Services.AddCors(opt =>

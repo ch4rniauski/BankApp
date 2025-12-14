@@ -3,12 +3,6 @@ using ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseDefaultServiceProvider(opt =>
-{
-    opt.ValidateOnBuild = true;
-    opt.ValidateScopes = true;
-});
-
 builder.Services.AddCors(opt =>
     opt.AddDefaultPolicy(policy =>
     {
@@ -32,6 +26,6 @@ app.UseCors();
 
 app.MapControllers();
 
-await app.ApplyMigrations();
+await app.ApplyMigrationsAsync();
 
 await app.RunAsync();

@@ -6,7 +6,7 @@ namespace ch4rniauski.BankApp.MoneyTransfer.Infrastructure.Extensions;
 
 public static class ApplicationBuilderExtensions
 {
-    public static async Task ApplyMigrations(this IApplicationBuilder app)
+    public static async Task ApplyMigrationsAsync(this IApplicationBuilder app)
     {
         await using var scope = app.ApplicationServices.CreateAsyncScope();
 

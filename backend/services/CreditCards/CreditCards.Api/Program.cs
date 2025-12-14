@@ -37,6 +37,8 @@ app.UseCors();
 app.MapControllers();
 app.MapGrpcService<CreditCardsGrpcService>();
 
-await app.ApplyMigrations();
+await app.ApplyMigrationsAsync();
 
 await app.RunAsync();
+
+public partial class Program { }

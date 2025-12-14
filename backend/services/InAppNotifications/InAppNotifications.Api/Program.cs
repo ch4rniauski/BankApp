@@ -6,12 +6,6 @@ using ch4rniauski.BankApp.InAppNotifications.Infrastructure.MongoDb.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseDefaultServiceProvider(opt =>
-{
-    opt.ValidateOnBuild = true;
-    opt.ValidateScopes = true;
-});
-
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<NotificationQuery>();

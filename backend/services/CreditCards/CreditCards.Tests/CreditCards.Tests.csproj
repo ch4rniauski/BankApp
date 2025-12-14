@@ -13,9 +13,15 @@
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="35.6.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.11" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
       <PackageReference Include="Moq" Version="4.20.72" />
+      <PackageReference Include="Testcontainers.PostgreSql" Version="4.9.0" />
       <PackageReference Include="xunit" Version="2.9.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Tests\IntegrationTests\" />
     </ItemGroup>
 
 </Project>
